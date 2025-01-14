@@ -1,0 +1,84 @@
+{% load static %}
+{% load filters %}
+<header id="page-topbar" class="ltr:lg:left-vertical-menu group-data-[layout=vertical]:rtl:lg:right-vertical-menu group-data-[sidebar-size=md]:ltr:left-vertical-menu-md  group-data-[sidebar-size=md]:rtl:right-vertical-menu-md group-data-[sidebar-size=sm]:lg:ltr:left-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:right-vertical-menu-sm group-data-[layout=horizontal]:left-0 group-data-[layout=horizontal]:rtl:p-0 fixed ltr:right-0 rtl:left-0 z-50 ltr:left-0 rtl:right-0">
+
+    <div class="layout-width ">
+        <div class="group-data-[topbar=dark]:bg-topbar-dark flex items-center mx-auto bg-vertical-menu-group-data-[topbar=dark]  group-data-[layout=horizontal]:border-none group-data-[topbar=light]:bg-white group-data-[topbar=light]:text-gray-700 topbar-main">
+            <div class="pr-3 flex  group-data-[layout:vertical]:relative items-center w-full group-data-[layout=horizontal]:mx-auto group-data-[layout=horizontal]:max-w-screen-2xl justify-between ">
+                <!-- LOGO -->
+                <div class="items-center justify-center hidden px-5 text-center group-data-[layout=horizontal]:flex group-data-[layout=horizontal]:p-0 group-data-[layout=horizontal]:lg:px-5">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}">
+                        <span class="hidden">
+                            <img src="{% static 'super_admin/assets/images/elitenova_logo.jpg' %}" alt="" class="h-6 mx-auto">
+                        </span>
+                        <span>
+                            <img src="{% static 'super_admin/assets/images/elitenova_logo.jpg' %}" alt="" class="h-[20px] mx-auto logo-light">
+                            <img src="{% static 'super_admin/assets/images/elitenova_logo.jpg' %}" alt="" class="h-[20px] mx-auto logo-dark">
+                        </span>
+                    </a>
+                    
+                </div>
+              <div class="res-header-logo w-header h-header p-6 lg:hidden  group-data-[layout=vertical]:bg-zink-700 group-data-[layout=vertical]:mr-4">
+                    <img src="{% static 'super_admin/assets/images/elitenova_logo.jpg' %}" class="res-light " alt="">
+                    <img src="{% static 'super_admin/assets/images/elitenova_logo.jpg' %}" class="res-dark" alt="">
+                </div>
+                <div class=" group-data-[layout=horizontal]:lg:hidden">
+                    <button type="button" class="ml-4 sm:ml-0 lg:px-5 header-item waves-effect menubar font-normal h-header" id="vertical-menu-btn">
+                        <i class="fa fa-bars text-16 text-zink-600 group-data-[topbar=dark]:text-zink-200 "></i>
+                    </button>
+                </div>
+
+                
+                <div class="flex ms-auto items-center">
+                    <div class="md:relative dropdown px-3 lg:hidden">
+                        <button class="p-0 text-gray-700 group-data-[topbar=dark]:text-zink-200 border-0 h-header btn dropdown-toggle flex items-center space-x-2" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+                            <i class="mdi mdi-magnify text-[22px] text-gray-700 group-data-[topbar=dark]:text-zink-200"></i>
+                        </button>
+                        <ul class="w-full absolute right-0 left-auto top-auto z-50 hidden md:w-80 p-4 text-left list-none bg-white border border-transparent rounded shadow-4xl dropdown-menu bg-clip-padding group-data-[topbar=dark]:bg-zink-700  group-data-[layout=horizontal]:bg-white topbar-dropdown" aria-labelledby="dropdownMenuButton1">
+                            <div class="flex rounded-md overflow-hidden">
+                                <input class="w-full border-transparent bg-gray-50 group-data-[topbar=dark]:bg-zink-50 group-data-[topbar=dark]:outline-none group-data-[topbar=dark]:border-transparent group-data-[topbar=dark]:text-zink-200 group-data-[topbar=dark]:placeholder:text-zink-200  py-1.2 p-2 placeholder:text-white border-gray-400 placeholder:text-sm focus:border focus:border-blue-500 focus:ring-0 focus:outline-none text-white" type="search" placeholder="Search" id="example-search-input">
+                                <div class="w-9 h-9 bg-blue-500 flex justify-center items-center">
+                                    <i class="bx bx-search-alt text-16 text-white "></i>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                   
+                    <div class="md:relative dropdown px-3">
+                        <button class="p-0  border-0 btn dropdown-toggle h-header text-gray-700 group-data-[topbar=dark]:text-gray-200 flex items-center" type="button" data-bs-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+                            <!-- <img src="{% static 'super_admin/assets/images/users/avatar-1.jpg' %}" class="w-9 h-9 p-[3px] rounded-full ltr:mr-2 rtl:ml-2" alt=""> -->
+                            <p class="hidden xl:block text-13 text-gray-700 group-data-[topbar=dark]:text-zink-200 ">{{ request.user.employee_name }} <i class="mdi mdi-chevron-down"></i> </p>
+                        </button>
+                        <ul class="w-full absolute right-0 left-auto top-auto z-50 hidden md:w-40 py-2 text-left list-none bg-white border border-transparent rounded shadow-4xl dropdown-menu bg-clip-padding group-data-[topbar=dark]:bg-zink-700 group-data-[topbar=dark]:border-zink-50 group-data-[topbar=dark]:text-zink-200" aria-labelledby="dropdownMenuButton1">
+                           <!--  <li><a class="items-center w-full px-4 py-1.5 flex text-sm font-normal bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50  group-data-[topbar=dark]:text-zink-200 group-data-[topbar=dark]:hover:bg-zink-50 group-data-[topbar=dark]:hover:text-white" href="{% url 'super_admin:viewSuperAdminProfile' %}">
+                                    <span><i class="bx bx-user  text-16 ltr:mr-2 rtl:ml-2"></i></span>Profile
+                                </a>
+                            </li> -->
+                           <!--  <li><a class="items-center w-full px-4 py-1.5 flex text-sm font-normal bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50  group-data-[topbar=dark]:text-zink-200 group-data-[topbar=dark]:hover:bg-zink-50 group-data-[topbar=dark]:hover:text-white" href="#">
+                                    <span><i class="bx bx-wallet text-16 ltr:mr-2 rtl:ml-2"></i></span>My Wallet
+                                </a>
+                            </li> -->
+                            <li><a class="items-center w-full px-4 py-1.5 flex text-sm font-normal bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50 relative  group-data-[topbar=dark]:text-zink-200 group-data-[topbar=dark]:hover:bg-zink-50 group-data-[topbar=dark]:hover:text-white" href="{% url 'super_admin:changePassword' %}">
+                                    <span><i class="bx bx-wrench  text-16 ltr:mr-2 rtl:ml-2"></i></span>
+
+                                      {{ request.session|get:"settings" }}
+                                </a>
+                            </li>
+                           <!--  <li><a class="items-center w-full px-4 py-2 flex text-sm font-normal bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50  group-data-[topbar=dark]:text-zink-200 group-data-[topbar=dark]:hover:bg-zink-50 group-data-[topbar=dark]:hover:text-white" href="#">
+                                    <span><i class="bx bx-lock-open text-16 ltr:mr-2 rtl:ml-2"></i></span>Lock screen
+                                </a>
+                            </li> -->
+                            <div class="border-t border-gray-300 group-data-[topbar=dark]:border-zink-50">
+                                <a class="text-red-500 items-center w-full px-4 py-2 flex text-sm font-normal  bg-transparent dropdown-item whitespace-nowrap hover:bg-gray-50  group-data-[topbar=dark]:text-red-500 group-data-[topbar=dark]:hover:bg-zink-50 group-data-[topbar=dark]:hover:text-white" href="{% url 'super_admin:SuperAdminLogout' %}" >
+                                    <span><i class="bx bx-power-off text-red-500 text-16 ltr:mr-2 rtl:ml-2"></i></span>
+                                    
+                                     {{ request.session|get:"logout" }}
+                                </a>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
