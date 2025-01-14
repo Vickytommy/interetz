@@ -1,0 +1,145 @@
+{% include 'super_admin/partials/main.html' %}
+{% load filters %}
+{% include 'super_admin/partials/title-meta.html' with title=request.session|get:"track orders that send to clients"  %}
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}">
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'super_admin/assets/css/tables-editable.css' %}" rel="stylesheet" type="text/css" />
+    {% include 'super_admin/partials/head-css.html' %}
+</head>
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+
+               
+                {% include 'super_admin/partials/page-title.html' with title=data|get:"Reservation"  pagetitle=request.session|get:"track orders that send to clients" %}
+                {% include 'super_admin/partials/custom_modal.html' %}
+
+                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Drawers</a> -->
+                <input type="hidden" value='{% url "super_admin:track_order_delivers_to_clients" %}' id="link_to_view_">
+                <input type="hidden" value='{% url "super_admin:viewOrderDetails" %}' id="link_to_view_order_">
+
+
+             
+
+
+              <div id="add_form_drawer">
+                  {% if request.user.role_id == 3 %}  
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                        <strong>{{ data|get:"User Profile" }}</strong>
+
+                                        <!-- <div class="grid grid-cols-12 gap-x-5 md:gap-6"> -->
+                                                    
+                                                  
+                                                  
+                                               <table id="" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500 ">
+                                                        <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                            <tr>
+                                                                
+                                                                  <th class="p-3 font-semibold">{{ data|get:"company name" }}</th>
+                                                                    <th class="p-3 font-semibold">{{ data|get:"employ name" }}</th>
+                                                                    <th class="p-3 font-semibold">{{ data|get:"employ last name" }}</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <tr class="bg-white dark:bg-zink-700">
+                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200">{{ company_name }}</td>
+                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200">{{ employ_name }}</td>
+                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200">{{ employ_last_name }}</td>
+                                                            </tr>
+                                                                
+                                                        </tbody>
+                                                </table>
+                                            <!-- </div>  -->
+                                </div>
+                         </div>
+                        {% endif %}
+                </div>
+                <div>
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                             <strong>{{ data|get:"List of Orders" }}</strong>
+                            <table id="reservation_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                                <thead>
+                                    <tr>
+                                          <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"order_date" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"last updated" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"order_id" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"status" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"type_of_reservation" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"product_type" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"related_reservation" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"company name" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"employ name" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"client_order_id" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"client_order_name" }} </th>
+                                        <th class="border border-gray-300 dark:border-zink-50 bg-transparent"> {{ data|get:"actions" }} </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+
+<script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.tailwindcss.min.js' %}"></script>
+<!--buttons dataTables-->
+<script src="{% static 'super_admin/assets/js/datatables/datatables.buttons.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/jszip.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/pdfmake.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/vfs_fonts.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.html5.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.print.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/table-edits/build/table-edits.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/date-eu.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/actions_order_that_sent_to_factory.js' %}"></script>
+<script type="text/javascript">
+    var mapping = {
+        search: '{{ data|get:"Search" }}',
+        sFirst: '{{ data|get:"first" }}', 
+        sLast: '{{ data|get:"last" }}', 
+        sNext: '{{ data|get:"next" }}', 
+        sPrevious: '{{ data|get:"previous" }}', 
+        door:'{{ data|get:"door" }}', 
+        formica:'{{ data|get:"formica" }}',
+        plates:'{{ data|get:"plates" }}',
+        export_excel: '{{ data|get:"Export Excel" }}',
+
+    };
+    window.page = mapping;
+</script>
+</body>
+</html>

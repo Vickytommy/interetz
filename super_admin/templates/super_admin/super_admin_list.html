@@ -1,0 +1,350 @@
+{% load filters %}
+{% include 'super_admin/partials/main.html' %}
+{% include 'super_admin/partials/title-meta.html' with title=request.session|get:"Super Admins" %}
+
+<head>
+
+    {% load static %}
+    {% load filters %}
+    <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}">
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    
+    {% include 'super_admin/partials/head-css.html' %}
+
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+
+               
+                {% include 'super_admin/partials/page-title.html' with title=request.session|get:"Super Admins" pagetitle=data|get:"viewSuperAdmin" %}
+                 {% include 'super_admin/partials/custom_modal.html' %}
+
+                 <a href="{% url 'super_admin:addSuperAdmin' %}?entry_type=single" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">
+                    
+                    {{ data|get:"add super admin" }}
+                 </a>
+
+                 <a href="{% url 'super_admin:addSuperAdmin' %}?entry_type=bulk" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">{{ data|get:"Add Super Admins with Bulk Upload" }}</a>
+
+                <div>
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                            <h6 class="font-semibold text-15 mb-3 dark:text-white">{{request.session|get:"Super Admins"}}</h6>
+                            {% csrf_token %}
+                            <table id="basic_tables" class="display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"ID"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Employee Name"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Employee Email"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data_table|get:"company name"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Phone"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Registeration Date"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Last Visit Date"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data|get:"Active Status"}}
+
+                                        </th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+
+                                            {{data_products|get:"actions"}}
+
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for super_admin in super_admins %}
+
+
+                                        <tr id = "{{ super_admin.id }}">
+                                            
+                                             <td class="text-center border border-gray-300 dark:border-zink-50">  <a  class="lrt:rounded-l-md dark:bg-transparent rtl:rounded-l-none rtl:rounded-r-md ltr:rounded-r-none text-blue-500 bg-white transition-all duration-300 ease-linear  border-blue-500 hover:bg-blue-500 hover:border-blue-500  hover:text-white active:bg-blue-500 active:border-blue-500 active:text-white ltr:border-r-0 rtl:border-r focus:bg-blue-500 focus:border-blue-500 focus:text-white focus:ring dark:ring-blue-500/30 dark:focus:bg-blue-500 focus:ring-blue-200 btn focus:z-20 min-w-[40px]" href="{% url 'super_admin:viewSuperAdminOrders' %}?user_id={{ super_admin.id }}">{{ super_admin.id }}</a> </td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.employee_name }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.employee_email }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.company_name }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.phone_number }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.registered_date|format_registered_date }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.last_login|format_registered_date }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.is_active }}</td>
+                                            <td class="text-center border border-gray-300 dark:border-zink-50">
+                                                <a href="{%  url 'super_admin:editSuperAdmin' super_admin.id %}" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn"  data-id="{{ super_admin.id }}" tilte="Edit Info"><i class="bx bx-pencil "></i></a>
+
+                                                <button class="text-white transition-all duration-300 ease-linear bg-sky-500 border-sky-500 hover:bg-sky-600 hover:border-sky-600 hover:text-white active:bg-sky-600 active:border-sky-600 active:text-white focus:bg-sky-600 focus:border-sky-600 focus:text-white focus:ring focus:ring-sky-500/30 btn view_complete_details" type="button" data-modal-target="custom_modal" data-id="{{ super_admin.id }}" ><i class="fa fa-eye"></i></button>
+
+
+
+                                                <button class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn remove_user"  data-id="{{ super_admin.id }}" ><i class="fa fa-trash"></i></button>
+
+
+                                            </td>
+
+
+
+                                        </tr>
+                                    {% endfor %}
+                                    
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+       
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+
+<script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.tailwindcss.min.js' %}"></script>
+<!--buttons dataTables-->
+<script src="{% static 'super_admin/assets/js/datatables/datatables.buttons.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/jszip.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/pdfmake.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/vfs_fonts.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.html5.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.print.min.js' %}"></script>
+<!-- <script src="{% static 'super_admin/assets/js/datatables/datatables.init.js' %}"></script> -->
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script>
+ var mapping = {
+        search: '{{ data_table|get:"Search" }}',
+        sFirst: '{{ data_table|get:"first" }}', 
+        sLast: '{{ data_table|get:"last" }}', 
+        sNext: '{{ data_table|get:"next" }}', 
+        sPrevious: '{{ data_table|get:"previous" }}',
+        export_excel: '{{ data_table|get:"Export Excel" }}',
+        csv_error_msg: '{{ data|get:"Only CSV file is allowed" }}',
+
+        //sweet alerts
+        sure_msg:'{{ data_products|get:"Are you sure" }}',
+        revert_msg:'{{ data_products|get:"You wont be able to revert this" }}',
+       
+        delete_msg: '{{ data_products|get:"Yes, delete it" }}',
+        no_cancel: '{{ data_products|get:"No, cancel" }}',
+        deleted: '{{ data_products|get:"Deleted" }}',
+        cancelled: '{{ data_products|get:"Cancelled" }}',
+        action_msg:  '{{ data_products|get:"The action has not performed" }}',
+
+        id:'{{ data|get:"ID" }}',
+        username: '{{ data|get:"Username" }}',
+        employee_name: '{{ data|get:"Employee Name" }}',
+        employee_email:' {{ data|get:"Employee Email" }}',
+        employee_lastname :'{{ data_table|get:"employ last name" }}',
+        company_id:' {{ data|get:"Company ID" }}',
+        company_name:'{{ data_table|get:"company name" }}',
+        phone:'{{ data|get:"Phone" }}',
+        regis_date:'{{ data|get:"Registeration Date" }}',
+        visit_date:'{{ data|get:"Last Visit Date" }}',
+        active_:'{{ data|get:"Active Status" }}',
+};
+$(document).ready(function(){
+    var datatable = $('#basic_tables').DataTable({
+        language: {
+                    search: 'Search'
+                },
+       buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: mapping.export_excel,
+                        // className: 'text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn'
+                    }
+                ],
+         dom: 'Bfrtip',
+         
+
+                 language: {
+            "sEmptyTable":     " ",
+            "sInfo":           "",
+            "sInfoEmpty":      "",
+            "sInfoFiltered":   "",
+            "sInfoPostFix":    "",
+            "sInfoThousands":  ",",
+            "sLengthMenu":     "",
+            "sLoadingRecords": "",
+            "sProcessing":     "",
+            "sSearch":  mapping.search,
+            "sZeroRecords":    "",
+            oPaginate: {
+                    "sFirst":    mapping.sFirst,
+                            "sLast":    mapping.sLast,
+                            "sNext":     mapping.sNext,
+                            "sPrevious": mapping.sPrevious,
+            }
+            
+        },
+
+
+   });
+    function removeKeys(obj, keysToRemove) {
+        keysToRemove.forEach(function (key) {
+            delete obj[key];
+        });
+        return obj;
+    }
+    // Function to create and append a table using map
+    function createTable(jsonObject) {
+        var obj = removeKeys(jsonObject, ["password","is_staff","first_name","last_name","last_login","role_id","active","is_superuser"]);
+        var sortedKeys = ['employee_id', ...Object.keys(jsonObject).filter(key => key !== 'employee_id')];
+        var sortedKeys2 = [mapping.id,mapping.username,mapping.employee_email,mapping.active_,mapping. regis_date,mapping.company_name,mapping.company_id,mapping.employee_name,mapping.employee_lastname,mapping.employee_email,mapping.phone];
+        var table = "<table class='w-full border border-separate border-gray-300 dark:border-zink-50'>";
+        table+=`<tbody>`;
+        for (let i=0; i< sortedKeys.length; i++){
+            let key = sortedKeys[i];
+            let value = jsonObject[key];
+
+            table+=`<tr class='bg-white border-b border-gray-300 dark:bg-transparent dark:border-zink-50'><td class='p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-x-gray-50 dark:border-zink-50'>${sortedKeys2[i]}</td><td class='p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-x-gray-50 dark:border-zink-50'>${value}</td></tr>`;
+        }
+        table+=`</tbody></table>`;
+        return table;
+    }
+
+    $(".view_complete_details").click(function(e){
+        let user_id = $(this).data('id');
+        $.ajax({
+                method:'POST',
+                url:"{% url 'super_admin:getSuperAdmininfo' %}",
+                dataType:'JSON',
+                data:{
+                    user_id:user_id,
+                },
+                headers: {
+                    'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val(),
+                },
+                success:function(data){
+                    $("#custom_modal_body").empty();
+                    $("#custom_modal_body").empty().html(createTable(data[0]));
+                },
+
+                error: function (data){
+                    console.log(data);
+                }
+        });
+    });
+
+
+     $('.remove_user').click(function () {
+            let user_id = $(this).data('id');
+
+            Swal.fire({
+                 title: mapping.sure_msg,
+                text:  mapping.revert_msg,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: mapping.delete_msg,
+                cancelButtonText: mapping.no_cancel, 
+                confirmButtonClass: 'btn btn-success mt-2',
+                cancelButtonClass: 'btn btn-danger ms-2 mt-2',
+                buttonsStyling: true
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        method:'POST',
+                        url:"{% url 'super_admin:deleteSuperAdmin' %}",
+                        dataType:'JSON',
+                        data:{
+                            user_id:user_id,
+                        },
+                        headers: {
+                            'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val(),
+                        },
+                        success:function(data){
+                            if (data.success  == 1){
+                                $("#"+user_id).remove();
+                                Swal.fire({
+                                  title:mapping.deleted,
+                                  text: data.msg,
+                                  icon: 'success',
+                                  confirmButtonColor: "#34c38f",
+                                  showConfirmButton: false,
+                                });
+                            }else{
+                                Swal.fire({
+                                   title:mapping.error,
+                                  text: data.msg,
+                                  icon: 'error',
+                                  confirmButtonColor: "#34c38f",
+                                  showConfirmButton: false,
+                                });
+                            }
+                            
+                        },
+
+                        error: function (data){
+                            console.log(data);
+                        }
+                    });
+                  } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                  ) {
+                    Swal.fire({
+                      title: mapping.cancelled,
+                      text: mapping.action_msg,
+                      icon: 'error',
+                      showConfirmButton: false,
+                    })
+                  }
+            });
+    });
+
+
+});
+</script>
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+</body>
+</html>

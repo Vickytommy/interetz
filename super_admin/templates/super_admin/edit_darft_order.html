@@ -1,0 +1,1194 @@
+{% include 'super_admin/partials/main.html' %}
+{% load filters %}
+{% include 'super_admin/partials/title-meta.html' with title=request.session|get:"Edit Draft Order" %}
+
+<head>
+
+    {% load static %}
+    <!-- <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}"> -->
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- <link href="{% static 'super_admin/assets/css/tables-editable.css' %}" rel="stylesheet" type="text/css" /> -->
+    <link href="{% static 'super_admin/assets/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'super_admin/assets/css/ui-lightbox.css' %}" rel="stylesheet">     
+    {% include 'super_admin/partials/head-css.html' %}
+    <style>
+        .active-button {
+            background-color: #4CAF50; /* Green color, adjust as needed */
+            color: white;
+        }
+        .hide-modal{
+            display: none !important;
+        }
+
+        .show-modal{
+            display:block !important;
+        }
+        .hide_{
+            display: none !important;
+        }
+        select[readonly].select2-hidden-accessible + .select2-container {
+                pointer-events: none;
+                touch-action: none;
+                opacity:0.6;
+                cursor:no-drop;
+        }
+        .blur_field{
+             pointer-events: none;
+                touch-action: none;
+                opacity:0.6;
+                cursor:no-drop;
+        }
+
+    </style>
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+                {% include 'super_admin/partials/page-title.html' with title=request.session|get:"Reservation" pagetitle=request.session|get:"Edit Draft Order" %}
+                {% include 'super_admin/partials/custom_modal.html' %}
+
+                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Drawers</a> -->
+                <!-- <input type="hidden" value='{% url "super_admin:all_knobs" %}' id="link_to_view_"> -->
+                <input type="hidden" value="{% url 'super_admin:CreateDoorOrder' %}" id="link_to_add_">
+                <input type="hidden" value="{% url 'super_admin:viewSuperAdminOrders' %}" id="link_to_add_view">
+                <input type="hidden" value="{% url 'super_admin:orderPageAjaxCalls' %}" id="link_to_grab_order_page_data_">
+                <input type="hidden" name="collection_data" id="collection_data" data-list="{{ order_item_response_list  }}"  value="{{ order_item_response_list  }}">
+                
+                <input type="hidden" name="collection_data_count" id="collection_data_count" value="{{ order_item_response_list_length }}">
+
+                
+                <input type="hidden" name="card_data" id="card_data" value="{{ cards }}">
+                <input type="hidden" name="card_data_count" id="card_data_count" value="{{ cards_count }}">
+
+
+            
+              <div id="add_form_drawer">
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                       <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                                <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="order_id" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200 ">{{ ReservationData|get:"order_id" }}</label>
+
+                                                            <strong>{{order_id}}</strong>
+
+                                                            <!-- <input type="hidden" name="order_id" value="{{order_id}}"> -->
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="Doors" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Product Type" }}</label>
+
+                                                            <strong>{{product_type}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="username" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200"> {{ OrderData|get:"Employ Name" }}</label>
+
+                                                            <strong>{{request.user.username}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                     <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="order_date" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Order Date" }}</label>
+
+                                                            <strong>{{order_date|date:"d/m/y"}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Order Status" }}</label>
+
+                                                            <strong>{{order_status}}</strong>
+
+                                                        </div>
+                                                    </div>
+                                        </div>
+
+
+                                        <!-- starting order create form here -->
+
+                                        <form id="create_order_form" class="" method="POST" enctype="multipart/form-data">
+                                                <div id="create_order_form_action_msg" class="mt-4 mb-4"></div>
+                                             {% csrf_token %}
+                                                <input type="hidden" name="action" id="action" value="insert">
+                                             <input type="hidden" id="step" value="">
+                                             <input type="hidden" name="decision" id="decision" value="{{order_track_response.order_decision_tracker}}">
+                                             <input type="hidden" name="active_pop_up_id" id="active_pop_up_id" value="">
+                                             <input type="hidden" name="step_click_counter" id="step_click_counter" value="1">
+                                             <!-- <input type="hidden" name="order_id" id="order_id" value="{{order_id}}"> -->
+                                             <input type="hidden" id="order_id" name="order_id" value="{{order_id}}">
+                                             <input type="hidden" id="product_type" name="product_type" value="{{product_type}}">
+                                             {{ knobs_tracker|json_script:"knobs_tracker" }}
+                                             {{ keep_flow_tracker|json_script:"keep_flow_tracker" }}
+                                             
+
+
+
+
+
+                                             <!-- for step 1 -->
+                                            <div class="grid grid-cols-12 gap-x-6 md:gap-6" id="create_order_form_step_1">
+
+                                                    <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Client Order Name" }}</label>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="client_order_name" name="client_order_name" disabled value="{{order_track_response.client_order_name}}">
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Client Order ID" }}</label>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="client_order_id" name="client_order_id" type="text" disabled value="{{order_track_response.client_order_id}}">
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="hidden" name="request_status_step1" id="request_status_step1" value='{{ OrderData|get:"draft" }}'>
+                                                    <input type="hidden" name="request_status_step1_user_id" id="request_status_step1_user_id" value="{{ request.user.id }}">
+
+                                                    <!-- <div class="md:col-span-6">
+                                                        <div>
+                                                            <button type="button" class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2 text-center" id="create_order_form_next_btn_step_1">Next</button>
+                                                        </div>
+                                                    </div> -->
+
+
+                                            </div>
+                                               
+
+                                                <!--end for step 2 -->
+                                                {% if product_type == OrderData|get:"door" %}
+                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_2">
+                                                        <div class="md:col-span-6">
+                                                                    <div class="custom-radio form-check form-check-inline">
+                                                                        <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"you need 2 type of colors" }}</label>
+                                                                        <input class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="no" {% if order_track_response.order_decision_tracker_bool == False  %} checked {% endif %}>
+
+                                                                        <label class="text-gray-600 dark:text-zink-200" for="customRadioInline1">{{ OrderData|get:"no" }}</label>
+
+                                                                         <br/>
+
+
+                                                                        <input class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="yes" {% if order_track_response.order_decision_tracker_bool == True  %} checked {% endif %}>
+                                                                        <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">{{ OrderData|get:"yes" }}</label>
+                                                                    </div>
+                                                        </div>
+                                                </div>
+                                                {% endif %}
+
+                                    <!-- in case of no/yes step3 -->
+                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_3">
+
+                                                    {% if order_item_response_list_length >= 1 %}
+                                                     <input type="hidden" value="{{ collection_1.order_item_id }}" name="order_item_ids[]">
+                                                                
+                                                                
+                                                                    <div class="md:col-span-6">
+                                                                        <div>   
+                                                                            <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-2008" id="collection_label_1">{{ OrderData|get:"Collection Barcode"}}</label>
+                                                                            <select data-id="3" class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" name="collection_barcode[]" required="" id="collection_barcode_{{collection_1.counter}}">
+                                                                                {% if product_type == OrderData|get:"formica" %}
+                                                                                    {% for item in collection_data %}
+                                                                                        {% if item.formica_bool2 and item.in_stock_bool == 1 %} 
+                                                                                            <option value="{{ item.collection_barcode }}" 
+
+                                                                                                    data-flow="{{ item.flow }}"  
+                                                                                                    data-back= "{{ item.back }}"
+                                                                                                    data-kant= "{{ item.kant }}"
+                                                                                                    data-minorder= "{{ item.min_order }}"
+                                                                                                    data-collection= "{{ item.collection_name }}"
+                                                                                                    data-description= "{{ item.description }}"
+                                                  {% if collection_1.order_item_collection_barcode == item.collection_barcode %} selected {% endif %}>{{ item.collection_barcode }}</option>
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                
+                                                                                {% else %}
+
+                                                                                    {% for item in collection_data %}
+                                                                                        {% if item.in_stock_bool == 1 %}
+                                                                                            <option value="{{ item.collection_barcode }}" data-id="{{ item.collection_id }}" 
+                                                                                                    data-flow="{{ item.flow }}"  
+                                                                                                    data-back= "{{ item.back }}"
+                                                                                                    data-kant= "{{ item.kant }}"
+                                                                                                    data-minorder= "{{ item.min_order }}"
+                                                                                                    data-collection= "{{ item.collection_name }}"
+                                                                                                    data-description= "{{ item.description }}"
+
+                                                                                              {% if collection_1.order_item_collection_barcode == item.collection_barcode %} selected {% endif %}>{{ item.collection_barcode }}</option>
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+
+                                                                                {% endif %}
+
+
+
+                                                                                
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-6">
+                                                                           
+
+                                                                            <table id="collection_table_{{collection_1.counter}}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500">
+                                                                
+                                                                                <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                                                        <tr class="border border-gray-300 dark:border-zink-50">
+                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                {{ OrderData|get:"collection barcode 1"}}
+                                                                                            </th>
+                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                               {{ OrderData|get:"collection"}}
+                                                                                            </th>
+                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                {{ OrderData|get:"back" }}
+                                                                                            </th>
+                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                {{ OrderData|get:"kant" }}
+                                                                                            </th>
+                                                                                           
+                                                                                        </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr class="bg-white border border-gray-300 dark:border-zink-50 dark:bg-zink-700" id="collection_table_row_{{collection_1.counter}}">
+                                                                                         {% for item in collection_data %}
+                                                                                            {% if collection_1.order_item_collection_barcode == item.collection_barcode  %}
+                                                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                    {{item.collection_barcode}}
+                                                                                                </td>
+                                                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                    {{item.description}}
+                                                                                                </td>
+                                                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                    {{item.back}}
+                                                                                                </td>
+                                                                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                    {{item.kant}}
+                                                                                                </td>
+                                                                                               
+                                                                                            {% endif %}
+                                                                                        {% endfor %}
+                                                                                    </tr>
+                                                                                    
+                                                                                </tbody>
+                                                   
+                                                                            </table>
+
+
+
+
+                                                                    </div>
+                                                                
+
+
+
+
+
+                                                                {% if product_type == OrderData|get:"door" %}
+                                                                <div class="md:col-span-2 {% if collection_1.order_item_keepflow == '' %} hide_ {% endif %}" >
+                                                                        
+                                                                            <div>
+                                                                                <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"keep flow"}}</label>
+                                                                                <div class="flex space-x-4">
+                                                                                    <input type="radio" id="keepflow_yes_{{ collection_1.counter }}" data-id="{{ collection_1.counter }}"  class="hidden">
+                                                                                    <label for="keepflow_yes_{{ collection_1.counter }}" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_1.order_item_keepflow_bool %} active-button {% endif %}"  data-label="yes" data-id="{{ collection_1.counter }}" >{{ OrderData|get:"yes"}}</label>
+
+                                                                                    <input type="radio" id="keepflow_no_{{ collection_1.counter }}" data-id="{{ collection_1.counter }}"  value="0" class="hidden">
+                                                                                    <label for="keepflow_no" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_1.order_item_keepflow_bool == False %} active-button {% endif %}" data-label="no" data-id="{{ collection_1.counter }}">{{ OrderData|get:"no"}}</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                </div>
+
+                                                                {% endif %}
+
+                                                                {% if product_type == OrderData|get:"door" %}
+                                                                    <div id="keep_flow_tracker_step_{{ collection_1.counter }}">
+                                                                            <!-- <input type="hidden" name="keepflow_{{ collection_1.counter }}" class="keepflow_counter" id="keepflow_{{ collection_1.counter }}" value="{{collection_1.order_item_keepflow}}"> -->
+                                                                            {% if collection_1.order_item_keepflow == '' %}
+                                                                                <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_1.counter }}" value="0">
+                                                                            {% else %}
+                                                                                <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_1.counter }}" value="{{collection_1.order_item_keepflow}}">
+                                                                            {% endif %}
+
+                                                                    </div>
+
+                                                                    <input type="hidden" id="draft_texture_{{ collection_1.counter }}" data-value="{{ collection_1.order_item_texture }}" data-text="{{ collection_1.order_item_texture }}">
+
+                                                                    <div class="md:col-span-2 {% if collection_1.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                            <div>
+                                                                                <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"texture"}}</label>
+                                                                                <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
+                                                                                   
+                                                                                 
+
+
+                                                                                     <option value='{{ OrderData|get:"keep_flow_height" }}' {% if collection_1.order_item_texture == OrderData|get:'keep_flow_height' %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_height"}}</option>
+
+                                                                                                
+                                                                                                 <option value='{{ OrderData|get:"keep_flow_width" }}' {% if collection_1.order_item_texture == OrderData|get:'keep_flow_width' %} %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_width" }}</option>
+                                                                                    
+                                                                                </select>
+                                                                            </div>
+                                                                    </div>
+                                                                {% endif %}
+
+                                                                {% if product_type == OrderData|get:"door" %}
+                                                                        <div class="md:col-span-2 {% if collection_1.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                            
+                                                                            {% if collection_1.order_item_uploaded_img %}
+                                                                                <div> 
+                                                                                        <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                                        <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" name="upload_file[]" id="{{ collection_1.counter }}" placeholder="Upload File" data-list="{{ collection_1.order_item_id }}">                                                             
+                                                                                </div>
+                                                                                                        
+                                                                            {% else %}
+                                                                                    <div>
+                                                                                        <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file" }}</label>
+                                                                                        <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" placeholder="Upload File" name="upload_file[]" id="{{ collection_1.counter }}">
+                                                                                       
+                                                                                    </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_{{ collection_1.counter }}" value="0">
+                                                                        
+                                                                        {% if collection_1.order_item_uploaded_img %}
+                                                                            <div class="md:col-span-2">
+                                                                                <img src="{{ collection_1.order_item_uploaded_img.url  }}" id="collection_img_{{ collection_1.counter }}" class="w-[72px] h-[72px] rounded" alt="">
+                                                                            </div>
+                                                                        {% endif %}
+                                                                           
+                                                                {% endif %}
+
+
+                                                                
+
+
+
+                                                                {% if product_type == OrderData|get:'door' %}
+
+
+
+                                                                    <div class="md:col-span-12" id="keepflow_question_{{ collection_1.counter }}">
+                                                        
+                                                                        <div class="custom-radio form-check form-check-inline">
+                                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"do you want to add knob" }} </label>
+                                                                            
+                                                                            
+
+                                                                             <input  data-id="{{ collection_1.counter }}" class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="no"  name="keep_flow_question_{{ collection_1.counter }}" {% if not collection_1.order_item_knobfamily_bool %} checked  {% endif %}>
+                                                                            <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">{{ OrderData|get:"no" }}</label>
+                                                                           
+                                                                            <br/>
+                                                                            
+
+                                                                             <input  data-id="{{ collection_1.counter }}"  class="w-3 h-3 mt-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="yes" name="keep_flow_question_{{ collection_1.counter }}" {% if collection_1.order_item_knobfamily_bool %} checked {% endif %}>
+                                                                            <label class="text-gray-600 dark:text-zink-200"  for="customRadioInline1">{{ OrderData|get:"yes" }}</label>
+                                                                            
+
+
+
+                                                                        </div>
+                                                        
+                                                                    </div>
+
+                                                                        <input type="hidden" name="collection_{{ collection_1.counter }}_order_item_knobfamily_bool" id="collection_{{ collection_1.counter }}_order_item_knobfamily_bool" value="{%if collection_1.order_item_knobfamily_bool %}1{% else %}0{% endif %}" class="collection_edit_tracker">
+
+                                                                        <div class="md:col-span-6 knob_div_{{ collection_1.counter }}"  {% if not collection_1.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                            <div>
+                                                                                <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                                <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="{{ collection_1.counter }}" name="knob_family[]" required="">
+                                                                                           {% for item in knob_data %}
+                                                                                                <option value="{{ item.knob_family }}"  data-id= "{{item.color}}" {% if collection_1.order_item_knobfamily == item.knob_family %} selected {% endif %}>{{ item.knob_family}}</option>
+                                                                                            {% endfor %}
+                                                                                    
+                                                                                        
+                                                                                    
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="md:col-span-6 knob_div_{{ collection_1.counter }}" {% if not collection_1.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                                <div>
+                                                                                    <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Color"}}</label>
+                                                                                    <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-id="{{ collection_1.counter }}"
+                                                                                        data-record="{{ collection_1.counter }}"
+                                                                                     name="knob_color[]" required="">
+                                                                                        {% for item in knob_color_data %}
+                                                                                            
+                                                                                                <option value="{{ item.colorknob_description}}" data-id= "{{item.colorknob_color}}" {% if collection_1.order_item_knobcolor == item.colorknob_description %} selected {% endif %}>{{ item.colorknob_description}}</option>
+                                                                                           
+                                                                                        {% endfor %}
+                                                                                        
+                                                                                    </select>
+                                                                                </div>
+                                                                        </div>
+                                                                  
+
+                                                                {% endif %}
+
+
+
+                                            {% endif %}
+                                    </div>
+
+
+
+
+
+                                                    <!-- in case of yes this button will appears -->
+
+                                                    <!-- order_item_response_list_length -->
+                                                    
+                                                        <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4 create_order_form_yes_decision_div" id="create_order_form_add_collection_div" style="display:none;">
+                                                            <div class="md:col-span-12 text-right">
+                                                                <div>
+                                                                        <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_collection_btn" data-id="{{ c_ }}"><i class="fa fa-plus"></i> {{ OrderData|get:"add another colletion"  }}</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+
+
+
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_no_decision_div" style="display:none;">
+                                                        <div class="md:col-span-12 text-center">
+                                                            <div>
+                                                                <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="choose_knob_family_btn"> Choose Knob Family </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-6" id="create_order_form_step_4">
+                                                        
+                                                                        {% if order_item_response_list_length >= 2 %}
+                                                                        <input type="hidden" value="{{ collection_2.order_item_id }}" name="order_item_ids[]">
+                                                                                <div class="md:col-span-6">
+                                                                                    <div>
+                                                                                        <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" id="collection_label_2"> {{ OrderData|get:"Collection Barcode"}}</label>
+                                                                                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" name="collection_barcode[]"  id="collection_barcode_{{collection_2.counter}}" data-id="4" required="" >
+                                                                                            
+                                                                                            {% for item in collection_data %}
+                                                                                                {% if item.in_stock_bool == 1  %}
+                                                                                                   
+                                                                                                        <option value="{{ item.collection_barcode }}"  data-id="{{ item.collection_id }}" 
+                                                                                                              data-flow="{{ item.flow }}"  
+                                                                                                                data-back= "{{ item.back }}"
+                                                                                                                data-kant= "{{ item.kant }}"
+                                                                                                                data-minorder= "{{ item.min_order }}"
+                                                                                                                data-collection= "{{ item.collection_name }}"
+                                                                                                                data-description= "{{ item.description }}"
+
+                                                                                                           {% if collection_2.order_item_collection_barcode == item.collection_barcode %} selected {% endif %}  >{{ item.collection_barcode }}</option>
+                                                                                                   
+
+                                                                                                {% endif %}
+                                                                                            {% endfor %}
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-6">
+                                                                                        
+
+
+                                                                                        <table id="collection_table_{{collection_2.counter}}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500">
+                                                                
+                                                                                            <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                                                                    <tr class="border border-gray-300 dark:border-zink-50">
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                                 {{ OrderData|get:"Collection Barcode"}}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                               {{ OrderData|get:"collection"}}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{ OrderData|get:"back" }}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{ OrderData|get:"kant" }}
+                                                                                                            </th>
+                                                                                                    </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr class="bg-white border border-gray-300 dark:border-zink-50 dark:bg-zink-700" id="collection_table_row_{{collection_2.counter}}">
+                                                                                                     {% for item in collection_data %}
+                                                                                                        {% if collection_2.order_item_collection_barcode == item.collection_barcode  %}
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.collection_barcode}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.description}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.back}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.kant}}
+                                                                                                            </td>
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </tr>
+                                                                                                
+                                                                                            </tbody>
+                                                   
+                                                                                        </table>
+
+
+                                                                                </div>
+
+                                                                                <div class="md:col-span-2 {% if collection_2.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                        
+                                                                                            <div>
+                                                                                                <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"keep flow" }}</label>
+                                                                                                <div class="flex space-x-4">
+                                                                                                    <input type="radio" id="keepflow_yes_{{ collection_2.counter }}" data-id="{{ collection_2.counter }}"  class="hidden">
+                                                                                                    <label for="keepflow_yes_{{ collection_2.counter }}" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_2.order_item_keepflow_bool == True %} active-button {% endif %}"  data-label="yes" data-id="{{ collection_2.counter }}" >{{ OrderData|get:"yes" }}</label>
+
+                                                                                                    <input type="radio" id="keepflow_no_{{ collection_2.counter }}" data-id="{{ collection_2.counter }}"  value="0" class="hidden">
+                                                                                                    <label for="keepflow_no" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_2.order_item_keepflow_bool == False %} active-button {% endif %}" data-label="no" data-id="{{ collection_2.counter }}">{{ OrderData|get:"no" }}</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        
+                                                                                </div>
+
+
+                                                                                <div id="keep_flow_tracker_step_{{ collection_2.counter }}">
+                                                                                         {% if collection_2.order_item_keepflow == '' %}
+                                                                                            <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_2.counter }}" value="0">
+                                                                                        {% else %}
+                                                                                            <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_2.counter }}" value="{{collection_2.order_item_keepflow}}">
+                                                                                        {% endif %}
+
+
+                                                                                </div>
+
+                                                                                <input type="hidden" id="draft_texture_{{ collection_2.counter }}" data-value="{{ collection_2.order_item_texture }}" data-text="{{ collection_2.order_item_texture }}">
+
+                                                                                <div class="md:col-span-2 {% if collection_2.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                        <div>
+                                                                                            <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"texture"}}</label>
+                                                                                             <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
+                                                                                               
+                                                                                                <option value='{{ OrderData|get:"keep_flow_height"}}' {% if collection_2.order_item_texture == OrderData|get:'keep_flow_height' %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_height"}}</option>
+
+                                                                                                
+                                                                                                 <option value='{{ OrderData|get:"keep_flow_width"}}' {% if collection_2.order_item_texture == OrderData|get:'keep_flow_width' %} %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_width" }}</option>
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                </div>
+
+                                                                                
+                                                                                <div class="md:col-span-2 {% if collection_2.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                    {% if collection_2.order_item_uploaded_img %}
+                                                                                            <div>
+                                                                                                <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" name="upload_file[]" id="{{ collection_2.counter }}" placeholder='{{ OrderData|get:"upload file"}}' data-list="{{ collection_2.order_item_id }}">
+                                                                                            </div>
+                                                                                    {% else %}
+                                                                                    <div>
+                                                                                                <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" name="upload_file[]" id="{{ collection_2.counter }}" placeholder='{{ OrderData|get:"upload file"}}'>
+                                                                                                
+                                                                                                
+                                                                                            </div>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                 <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_{{ collection_2.counter }}" value="0">
+                                                                                {% if collection_2.order_item_uploaded_img %}
+                                                                                <div class="md:col-span-2">
+                                                                                    <img src="{{ collection_2.order_item_uploaded_img.url  }}" id="collection_img_{{ collection_2.counter }}" class="w-[72px] h-[72px] rounded" alt="">
+                                                                                </div>
+                                                                               
+                                                                                {% endif %}
+                                                                                
+                                                                                <div class="md:col-span-12" id="keepflow_question_{{ collection_2.counter }}">
+                                                        
+                                                                                        <div class="custom-radio form-check form-check-inline">
+                                                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"do you want to add knob" }} </label>
+                                                                                            
+                                                                                            
+
+                                                                                             <input  data-id="{{ collection_2.counter }}" class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="no"  name="keep_flow_question_{{ collection_2.counter }}" {% if not collection_2.order_item_knobfamily_bool %} checked  {% endif %}>
+                                                                                            <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">{{ OrderData|get:"no" }}</label>
+                                                                                           
+                                                                                            <br/>
+                                                                                            
+
+                                                                                             <input  data-id="{{ collection_2.counter }}"  class="w-3 h-3 mt-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="yes" name="keep_flow_question_{{ collection_2.counter }}" {% if collection_2.order_item_knobfamily_bool %} checked {% endif %}>
+                                                                                            <label class="text-gray-600 dark:text-zink-200"  for="customRadioInline1">{{ OrderData|get:"yes" }}</label>
+                                                                                            
+
+
+
+                                                                                        </div>
+                                                        
+                                                                                </div>
+
+                                                                                <input type="hidden" name="collection_{{ collection_2.counter }}_order_item_knobfamily_bool" id="collection_{{ collection_2.counter }}_order_item_knobfamily_bool" value="{%if collection_2.order_item_knobfamily_bool %}1{% else %}0{% endif %}" class="collection_edit_tracker">
+
+                                                                                <div class="md:col-span-6 knob_div_{{ collection_2.counter }}"  {% if not collection_2.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                                    <div>
+                                                                                        <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="{{ collection_2.counter }}" name="knob_family[]" required="">
+                                                                                                   {% for item in knob_data %}
+                                                                                                        <option value="{{ item.knob_family }}"  data-id= "{{item.color}}" {% if collection_2.order_item_knobfamily == item.knob_family %} selected {% endif %}>{{ item.knob_family}}</option>
+                                                                                                    {% endfor %}
+                                                                                            
+                                                                                                
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-6 knob_div_{{ collection_2.counter }}" {% if not collection_2.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                                        <div>
+                                                                                            <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Color"}}</label>
+                                                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-id="{{ collection_2.counter }}" data-record="{{ collection_2.counter }}" name="knob_color[]" required="">
+                                                                                                {% for item in knob_color_data %}
+                                                                                                    
+                                                                                                        <option value="{{ item.colorknob_description}}" data-id= "{{item.colorknob_color}}" {% if collection_2.order_item_knobcolor == item.colorknob_description %} selected {% endif %}>{{ item.colorknob_description}}</option>
+                                                                                                   
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                </div>
+
+
+
+                                                                              <!--   <div class="md:col-span-6">
+                                                                                    <div>
+                                                                                        <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="{{ collection_2.counter }}" name="knob_family[]" required="">
+                                                                                                    {% for item in knob_data %}
+                                                                                                        <option value="{{ item.knob_family }}"  data-id= "{{item.color}}" {% if collection_2.order_item_knobfamily == item.knob_family %} selected {% endif %}>{{ item.knob_family}}</option>
+                                                                                                    {% endfor %}
+                                                                                            
+                                                                                                
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-6">
+                                                                                        <div>
+                                                                                            <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Color"}}</label>
+                                                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-id="{{ collection_2.counter }}" name="knob_color[]" required="">
+                                                                                                 {% for item in knob_color_data %}
+                                                                                                        <option value="{{ item.colorknob_description}}" data-id= "{{item.colorknob_color}}" {% if collection_2.order_item_knobcolor == item.colorknob_description %} selected {% endif %}>{{ item.colorknob_description}}</option>
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                </div>
+ -->
+
+                                                                                
+
+
+
+
+                                                            {% endif %}
+
+                                                    </div>
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-6" id="create_order_form_step_5">
+                                                        
+                                                        {% if order_item_response_list_length >= 3 %}
+
+                                                        <input type="hidden" value="{{ collection_3.order_item_id }}" name="order_item_ids[]">
+
+                                                                                <div class="md:col-span-6">
+                                                                                    <div>
+                                                                                        <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" id="collection_label_3">{{ OrderData|get:"Collection Barcode"}}</label>
+                                                                                        <select data-id="5" class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="collection_barcode_{{collection_3.counter}}" name="collection_barcode[]" required="" >
+                                                                                            
+                                                                                            {% for item in collection_data %}
+                                                                                                {% if item.in_stock_bool == 1 %}
+                                                                                                    <option value="{{ item.collection_barcode }}" data-id="{{ item.collection_id }}"  
+
+                                                                                                    data-flow="{{ item.flow }}"  
+                                                                                                                data-back= "{{ item.back }}"
+                                                                                                                data-kant= "{{ item.kant }}"
+                                                                                                                data-minorder= "{{ item.min_order }}"
+                                                                                                                data-collection= "{{ item.collection_name }}"
+                                                                                                                data-description= "{{ item.description }}"
+
+                                                                                                       {% if collection_3.order_item_collection_barcode == item.collection_barcode %} selected {% endif %}>{{ item.collection_barcode }}</option>
+                                                                                                {% endif %}
+                                                                                            {% endfor %}
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-6">
+                                                                                       
+
+
+
+                                                                                        <table id="collection_table_{{collection_3.counter}}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500">
+                                                                
+                                                                                            <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                                                                    <tr class="border border-gray-300 dark:border-zink-50">
+                                                                                                        <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                              {{ OrderData|get:"Collection Barcode"}}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                               {{ OrderData|get:"collection"}}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{ OrderData|get:"back" }}
+                                                                                                            </th>
+                                                                                                            <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{ OrderData|get:"kant" }}
+                                                                                                            </th>
+                                                                                                    </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                                <tr class="bg-white border border-gray-300 dark:border-zink-50 dark:bg-zink-700" id="collection_table_row_{{collection_3.counter}}">
+                                                                                                     {% for item in collection_data %}
+                                                                                                        {% if collection_3.order_item_collection_barcode == item.collection_barcode  %}
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.collection_barcode}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.description}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.back}}
+                                                                                                            </td>
+                                                                                                            <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                                                                                                                {{item.kant}}
+                                                                                                            </td>
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </tr>
+                                                                                                
+                                                                                            </tbody>
+                                                   
+                                                                                        </table>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-2 {% if collection_3.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                        
+                                                                                            <div>
+                                                                                                <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"keep flow" }}</label>
+                                                                                                <div class="flex space-x-4">
+                                                                                                    <input type="radio" id="keepflow_yes_{{ collection_3.counter }}" data-id="{{ collection_3.counter }}"  class="hidden">
+                                                                                                    <label for="keepflow_yes_{{ collection_3.counter }}" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_3.order_item_keepflow_bool %} active-button {% endif %}"  data-label="yes" data-id="{{ collection_3.counter }}" >{{ OrderData|get:"yes" }}</label>
+
+                                                                                                    <input type="radio" id="keepflow_no_{{ collection_3.counter }}" data-id="{{ collection_3.counter }}"  value="0" class="hidden">
+                                                                                                    <label for="keepflow_no" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn {% if collection_3.order_item_keepflow_bool == False %} active-button {% endif %}" data-label="no" data-id="{{ collection_3.counter }}">{{ OrderData|get:"no" }}</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        
+                                                                                </div>
+
+
+                                                                                <div id="keep_flow_tracker_step_{{ collection_3.counter }}">
+                                                                                        <!-- <input type="hidden" name="keepflow_{{ collection_3.counter }}" class="keepflow_counter" id="keepflow_{{ collection_3.counter }}" value="{{collection_3.order_item_keepflow}}"> -->
+
+                                                                                           <!-- <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_3.counter }}" value="{{collection_3.order_item_keepflow}}"> -->
+
+
+                                                                                            {% if collection_3.order_item_keepflow == '' %}
+                                                                                                <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_3.counter }}" value="0">
+                                                                                            {% else %}
+                                                                                                <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_{{ collection_3.counter }}" value="{{collection_3.order_item_keepflow}}">
+                                                                                            {% endif %}
+
+
+
+                                                                                </div>
+
+
+
+                                                                                <input type="hidden" id="draft_texture_{{ collection_3.counter }}" data-value="{{ collection_3.order_item_texture }}" data-text="{{ collection_3.order_item_texture }}">
+
+                                                                                <div class="md:col-span-2 {% if collection_3.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                        <div>
+                                                                                            <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"texture" }}</label>
+                                                                                             <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
+                                                                                               
+                                                                                                 <option value='{{ OrderData|get:"keep_flow_height"}}' {% if collection_3.order_item_texture == OrderData|get:'keep_flow_height' %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_height"}}</option>
+
+                                                                                                
+                                                                                                 <option value='{{ OrderData|get:"keep_flow_width"}}' {% if collection_3.order_item_texture == OrderData|get:'keep_flow_width' %} %} selected="selected" {% endif %}>{{ OrderData|get:"keep_flow_width" }}</option>
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                </div>
+
+                                                                                
+                                                                                <div class=" md:col-span-2 {% if collection_3.order_item_keepflow == '' %} hide_ {% endif %}">
+                                                                                    {% if collection_3.order_item_uploaded_img %}
+                                                                                            <div>
+                                                                                               
+
+                                                                                                <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" name="upload_file[]" id="{{ collection_3.counter }}" placeholder="Upload File"  data-list="{{ collection_3.order_item_id }}">
+                                                                                               
+                                                                                                   
+                                                                                               
+                                                                                            </div>
+                                                                                    {% else %}
+                                                                                    <div>
+                                                                                        <!-- <h2 class="nonsense">The heading</h2> -->
+                                                                                            <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                                            <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file" accept=".jpg, .jpeg, .png, .gif" name="upload_file[]" id="{{ collection_3.counter }}" placeholder="Upload File">
+                                                                                        </div>
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                 
+
+                                                                                  <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_{{ collection_3.counter }}" value="0">
+                                                                                {% if collection_3.order_item_uploaded_img %}
+                                                                                    <div class="md:col-span-2">
+                                                                                        <img src="{{ collection_3.order_item_uploaded_img.url  }}" id="collection_img_{{ collection_3.counter }}" class="w-[72px] h-[72px] rounded" alt="">
+                                                                                    </div>
+                                                                                
+                                                                                   
+                                                                                {% endif %}
+
+
+
+                                                                                <div class="md:col-span-12" id="keepflow_question_{{ collection_3.counter }}">
+                                                        
+                                                                        <div class="custom-radio form-check form-check-inline">
+                                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"do you want to add knob" }} </label>
+                                                                            
+                                                                            
+
+                                                                             <input  data-id="{{ collection_3.counter }}" class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="no"  name="keep_flow_question_{{collection_3.counter}}" {% if not collection_3.order_item_knobfamily_bool %} checked  {% endif %}>
+                                                                            <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">{{ OrderData|get:"no" }}</label>
+                                                                           
+                                                                            <br/>
+                                                                            
+
+                                                                             <input  data-id="{{ collection_3.counter }}"  class="w-3 h-3 mt-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" value="yes" name="keep_flow_question_{{collection_3.counter}}" {% if collection_3.order_item_knobfamily_bool %} checked {% endif %}>
+                                                                            <label class="text-gray-600 dark:text-zink-200"  for="customRadioInline1">{{ OrderData|get:"yes" }}</label>
+                                                                            
+
+
+
+                                                                        </div>
+                                                        
+                                                                    </div>
+
+                                                                        <input type="hidden" name="collection_{{ collection_3.counter }}_order_item_knobfamily_bool" id="collection_{{ collection_3.counter }}_order_item_knobfamily_bool" value="{%if collection_3.order_item_knobfamily_bool %}1{% else %}0{% endif %}" class="collection_edit_tracker">
+
+                                                                        <div class="md:col-span-6 knob_div_{{ collection_3.counter }}"  {% if not collection_3.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                            <div>
+                                                                                <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                                <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="{{ collection_3.counter }}" name="knob_family[]" required="">
+                                                                                           {% for item in knob_data %}
+                                                                                                <option value="{{ item.knob_family }}"  data-id= "{{item.color}}" {% if collection_3.order_item_knobfamily == item.knob_family %} selected {% endif %}>{{ item.knob_family}}</option>
+                                                                                            {% endfor %}
+                                                                                    
+                                                                                        
+                                                                                    
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="md:col-span-6 knob_div_{{ collection_3.counter }}" {% if not collection_3.order_item_knobfamily_bool %} style="display: none;" {% endif %}>
+                                                                                <div>
+                                                                                    <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Color"}}</label>
+                                                                                    <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-id="{{ collection_3.counter }}" data-record="{{ collection_3.counter }}" name="knob_color[]" required="">
+                                                                                        {% for item in knob_color_data %}
+                                                                                            
+                                                                                                <option value="{{ item.colorknob_description}}" data-id= "{{item.colorknob_color}}" {% if collection_3.order_item_knobcolor == item.colorknob_description %} selected {% endif %}>{{ item.colorknob_description}}</option>
+                                                                                           
+                                                                                        {% endfor %}
+                                                                                        
+                                                                                    </select>
+                                                                                </div>
+                                                                        </div>
+
+
+                                                                                <!-- <div class="md:col-span-6">
+                                                                                    <div>
+                                                                                        <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="{{ collection_3.counter }}" name="knob_family[]" required="">
+                                                                                                    {% for item in knob_data %}
+                                                                                        <option value="{{ item.knob_family }}"  data-id= "{{item.color}}" {% if collection_3.order_item_knobfamily == item.knob_family %} selected {% endif %}>{{ item.knob_family}}</option>
+                                                                                    {% endfor %}
+                                                                                            
+                                                                                                
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="md:col-span-6">
+                                                                                        <div>
+                                                                                            <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Color"}}</label>
+                                                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-id="{{ collection_3.counter }}" name="knob_color[]" required="">
+                                                                                                {% for item in knob_color_data %}
+                                                                                                        <option value="{{ item.colorknob_description}}" data-id= "{{item.colorknob_color}}" {% if collection_3.order_item_knobcolor == item.colorknob_description %} selected {% endif %}>{{ item.colorknob_description}}</option>
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </select>
+                                                                                        </div>
+                                                                                </div> -->
+
+                                                                        {% endif %}
+                                                    </div>
+
+
+                                                    <!-- table creation in case of no -->
+                                                    
+                                                        <div class="grid mt-6 relative overflow-x-auto" id="create_order_form_step_6"  data-id="no" style="display:none;">
+                                                                 <div id="error_fields" class="hide_"></div>
+                                                                
+                                                                <table class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" id="order_table">
+                                                                        <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                                            <tr class="border border-gray-300 dark:border-zink-50">
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300 barcode_th hide_" >
+                                                                                        {{ OrderData|get:"Collection Barcode"}}
+                                                                                    </th>
+
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"height "}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"width"}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"quantity"}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"knob model"}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"knob postion"}}
+                                                                                    </th>
+                                                                                   
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                       {{ OrderData|get:"drills"}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"notes"}}
+                                                                                    </th>
+                                                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                        {{ OrderData|get:"delete"}}
+                                                                                    </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="order_table_tbody">
+                                                                           
+                                                                        </tbody>
+                                                                </table>
+
+
+
+
+                                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_7">
+                                                                            <div class="md:col-span-2">
+                                                                                <div>
+                                                                                    <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5" id="add_row_btn"><i class="fa fa-plus"></i> {{ OrderData|get:"add row" }} </button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="md:col-span-4">
+                                                                                <div></div>
+                                                                            </div>
+
+                                                                            <div class="md:col-span-2">
+                                                                                <div>
+                                                                                    <button type="button" class="text-gray-500 border border-gray-400 btn hover:bg-gray-500 hover:text-white focus:bg-gray-500 focus:text-white focus:ring focus:ring-gray-100 dark:focus:ring-gray-500/20">
+                                                                                        <span class="px-1 ml-1 text-ls text-white bg-dark-500 rounded" id="quatity_counter">0</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                    </div>
+
+
+
+
+
+                                                        </div>
+                                                    
+                                                    
+
+                                                   
+                                                      <input type="hidden" id="draft_text" value ="ההזמנה נשמרה כטיוטה">
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="form_btn">
+
+                                                                        <div class="md:col-span-2">
+                                                                                <button type="button" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 block w-full btn text-16 py-2" id="send_order_data_to_draft">שמור טיוטה</button>
+                                                                               
+                                                                            </div>
+                                                                        <div class="md:col-span-2">
+                                                                            
+                                                                                <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 block w-full btn text-16 py-2" id="send_order_btn">{{ OrderData|get:"send order" }}</button>
+                                                                            
+                                                                        </div>
+
+
+                                                                        {% if product_type == OrderData|get:"door" %}
+                                                                            <div class="md:col-span-2">
+                                                                                    <a href="{% url 'super_admin:viewOrderDetails' %}?order_id={{order_id}}" id="preview_order_button" class="text-center text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 block w-full btn text-16 py-2" target="_blank">{{ OrderData|get:"preview order" }}</a>
+                                                                                </div>
+                                                                            </div>
+                                                                         {% endif %}
+                                                
+
+
+
+                                                </form>
+                                            </div> 
+
+                                </div>
+                         </div>
+            
+             
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+<script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/select2.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/pages/lightbox.init.js' %}"></script>
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/action_draft_order_page.js' %}"></script>
+<!-- <script src="{% static 'super_admin/assets/js/action_create_door_order_page.js' %}"></script> -->
+<script type="text/javascript">
+    var mapping = {
+        door:'{{ OrderData|get:"door" }}',
+        step_1_details_saved_success: '{{ OrderData|get:"details saved" }}',
+        step_1_details_msg_success: '{{ OrderData|get:"order sent to draft please procced further with form" }}',
+        step_1_details_msg_error: '{{ OrderData|get:"the record against the order id is already exists form"}}',
+        step_1_details_msg_warning: '{{ OrderData|get:"some fields are empty"}}',
+        ///////////// form fields
+        back: '{{ OrderData|get:"back" }}',
+        kant: '{{ OrderData|get:"kant" }}',
+        minorder: '{{ OrderData|get:"min order" }}',
+        description:'{{ OrderData|get:"description" }}',
+        collection_barcode: '{{ OrderData|get:"Collection Barcode"}}',
+        collection: '{{ OrderData|get:"Collection"}}',
+        select_a_value:'{{ OrderData|get:"select avalue"}}',
+        keep_flow:'{{ OrderData|get:"keep flow"}}',
+        texture:'{{ OrderData|get:"texture"}}',
+        uploadfile: '{{ OrderData|get:"upload file"}}',
+        choosefile: '{{ OrderData|get:"choose file"}}',
+        nofilechoosen: '{{ OrderData|get:"no file choosen"}}',
+        knob_family: '{{ OrderData|get:"Knob Family"}}',
+        knob_color: '{{ OrderData|get:"Knob Color"}}',
+        height:'{{ OrderData|get:"height "}}',
+        width:'{{ OrderData|get:"width"}}',
+        collection_barcode1: '{{  OrderData|get:"collection barcode 1" }}',
+        keep_flow_height:'{{ OrderData|get:"keep_flow_height"}}',
+        keep_flow_width:'{{ OrderData|get:"keep_flow_width"}}',
+       
+        no:'{{ OrderData|get:"no"}}',
+        yes:'{{ OrderData|get:"yes"}}',
+        addrow: '{{ OrderData|get:"add row"}}',
+        knobmodel: '{{ OrderData|get:"knob model"}}',
+        knobposition: '{{ OrderData|get:"knob postion"}}',
+        drills: '{{ OrderData|get:"drills"}}',
+        notes: '{{ OrderData|get:"notes"}}',
+        quantity: '{{ OrderData|get:"quantity"}}',
+        delete: '{{ OrderData|get:"delete"}}',
+        addanothercolletion : '{{ OrderData|get:"add another colletion"  }}', 
+        sendorder: '{{ OrderData|get:"send order"}}',
+         keepflow_question:'{{ OrderData|get:"do you want to add knob" }}',
+        ////////// for pop up
+
+        choose_entry_type: '{{ OrderData|get:"Choose Entry Type"}}',
+        drawer : '{{ OrderData|get:"drawer "}}',
+        claps : '{{ OrderData|get:"claps"}}',
+        hinge : '{{ OrderData|get:"hinge"}}', 
+        DrawerDetails : '{{ OrderData|get:"Drawer Details"}}',
+        DrawerType : '{{ OrderData|get:"Drawer Type"}}',
+        DrawerCode : '{{ OrderData|get:"Drawer Code"}}',
+        submit:  '{{ OrderData|get:"submit"}}',
+        ClapsDetails: '{{ OrderData|get:"Claps Details" }}',
+        ClapsPr: '{{ OrderData|get:"Claps Pr" }}',
+        HingeDetails :'{{ OrderData|get:"Hinge Details" }}',
+        HingeProvider :'{{ OrderData|get:"Hinge Provider" }}',
+        DoorOpeningSide :'{{ OrderData|get:"Door Opening Side" }}',
+        without_knob : '{{ OrderData|get:"without knob" }}',
+
+        nature: '{{ OrderData|get:"nature" }}',
+        drawer_success_msg: '{{ OrderData|get:"Drawer details has been Saved successfully" }}',
+        claps_success_msg: '{{ OrderData|get:"Claps details has been Saved successfully" }}',
+        hinge_success_msg: '{{ OrderData|get:"Hinge details has been Saved successfully" }}',
+        image_error_msg: '{{ OrderData|get:"Only Image file is allowed" }}',
+        close: '{{ OrderData|get:"close" }}',
+        good_job_title :'{{ OrderData|get:"Good Job" }}',
+        //good_job_text: '{{ OrderData|get:"All the data have been inserted successfully" }}', 
+        good_job_text: '{{ OrderData|get:"order sent successfully" }}', 
+        data_saved_msg : '{{ OrderData|get:"Data Saved" }}',
+
+        general_error_msg:'{{ OrderData|get:"There are some errors in inserting" }}',
+        error: '{{ OrderData|get:"error" }}',
+
+        click_here_to_duplicate:'{{ OrderData|get:"Click to duplicate above row value" }}',
+        selected_entry_type:'{{ OrderData|get:"Selected Entry Type" }}',
+
+        width_required: '{{ OrderData|get:"width field is missing" }}',
+        height_required: '{{ OrderData|get:"height field is missing" }}',
+        quantity_required: '{{ OrderData|get:"quantity field is missing" }}',
+
+
+        lo : '{{ OrderData|get:"lo" }}',
+        ro : '{{ OrderData|get:"ro" }}',
+        bo : '{{ OrderData|get:"bo" }}',
+
+        nh : '{{  OrderData|get:"nh" }}',
+        dty : '{{  OrderData|get:"dty" }}',
+        dty_option1 : '{{  OrderData|get:"dty_option1" }}',
+        dty_option2 : '{{  OrderData|get:"dty_option2" }}',
+        yp : '{{  OrderData|get:"yp" }}',
+        xp1 : '{{  OrderData|get:"xp1" }}',
+        xp2 : '{{  OrderData|get:"xp2" }}',
+        xp3 : '{{  OrderData|get:"xp3" }}',
+        xp4 : '{{  OrderData|get:"xp4" }}',
+        xp5 : '{{  OrderData|get:"xp5" }}',
+        xp6 : '{{  OrderData|get:"xp6" }}',
+    };
+    window.page = mapping;
+    // console.log("ClapsPr=",mapping.ClapsPr)
+</script>
+</body>
+</html>

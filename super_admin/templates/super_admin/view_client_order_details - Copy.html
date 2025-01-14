@@ -1,0 +1,506 @@
+{% load filters %}
+{% include 'super_admin/partials/main.html' %}
+{% include 'super_admin/partials/title-meta.html' with title=viewOrderDetailsData|get:"View Order Details" %}
+<head>
+    {% load static %}
+    <!-- <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}"> -->
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- <link href="{% static 'super_admin/assets/css/tables-editable.css' %}" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="{% static 'super_admin/assets/css/select2.min.css' %}" rel="stylesheet" type="text/css" /> -->
+    <!-- <link href="{% static 'super_admin/assets/css/ui-lightbox.css' %}" rel="stylesheet"> -->
+    {% include 'super_admin/partials/head-css.html' %}
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+.
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+                {% include 'super_admin/partials/page-title.html' with title=viewOrderDetailsData|get:"View Order Details" pagetitle=viewOrderDetailsData|get:"View Order Details" %}
+                {% include 'super_admin/partials/custom_modal.html' %}
+
+              <div id="pdf-content">
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                       <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                                <div class=" md:col-span-3">
+                                                        <div>
+                                                            <label for="order_id" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200 ">{{ OrderData|get:"Order ID" }}</label>
+
+                                                            <strong>{{order_track_response.order_id}}</strong>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-3">
+                                                        <div>
+                                                            <label for="Doors" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Product Type" }}</label>
+
+                                                            <strong>{{order_track_response.product_type}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="md:col-span-3">
+                                                        <div>
+                                                            <label for="username" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Employ Name" }}</label>
+
+                                                            <strong>{{order_track_response.employee_name}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                     <div class="md:col-span-3">
+                                                        <div>
+                                                            <label for="order_date" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200"> {{ OrderData|get:"Order Date" }}</label>
+
+                                                            <strong>{{order_track_response.created_at}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-1">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Order Status" }}</label>
+
+                                                            <strong>{{order_track_response.order_status}}</strong>
+
+                                                        </div>
+                                                    </div>
+                                        </div>
+
+
+                                      
+
+                                             <!-- for step 1 -->
+                                            <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_1">
+
+                                                    <div class="md:col-span-3">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Client Order Name" }}</label>
+                                                            <strong>{{ order_track_response.client_order_name }}</strong>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="md:col-span-3">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Client Order ID" }}</label>
+                                                            <strong>{{ order_track_response.client_order_id }}</strong>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    {% if order_track_response.product_type ==  OrderData|get:"door" %}
+                                                    <div class="md:col-span-3">
+                                                                    <div class="custom-radio form-check form-check-inline">
+                                                                        <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200"> {{ OrderData|get:"you need 2 type of colors" }}</label>
+                                                                        <strong>{{order_track_response.order_decision_tracker}}</strong>
+                                                                    </div>
+                                                    </div>
+
+                                                    {% endif %}
+
+
+                                                    {% if order_track_response.related_reservation %}
+                                                        <div class="md:col-span-3">
+                                                                        <div class="custom-radio form-check form-check-inline">
+                                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200"> {{ ReservationData|get:"related_reservation" }}</label>
+                                                                            <strong>{% if order_track_response.related_reservation == True%} {{ ReservationData|get:"yes" }} {% else %} {{ ReservationData|get:"no" }} {% endif %}</strong>
+                                                                        </div>
+                                                        </div>
+                                                    {% endif %}
+
+                                                 
+
+                                            </div>
+                                               
+
+                                               
+
+                                                <!-- in case of no/yes step3 -->
+                                                {% for order_item in order_item_response_list %}
+                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_3">
+
+
+                                                    
+                                                        <div class="md:col-span-2">
+                                                                <div>
+                                                                    <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Collection Barcode"}}</label>
+
+                                                                    <strong>{{order_item.order_item_collection_barcode }}</strong>
+                                                                   
+
+                                                                </div>
+                                                        </div>
+                                                    
+                                                {% if order_item.order_item_collection %}
+                                                    <div class="md:col-span-2">
+                                                            <div>
+                                                                <label for="collection" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Collection"}}</label>
+                                                                <strong>{{order_item.order_item_collection }}</strong>
+                                                                
+                                                            </div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if order_track_response.product_type ==  OrderData|get:"door"  %}
+                                                        <div class="md:col-span-2">
+                                                                
+                                                                    <div>
+                                                                        <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"keep flow" }}</label>
+                                                                        <strong>{{order_item.order_item_keepflow }}</strong>
+                                                                    </div>
+                                                                
+                                                        </div>
+
+
+                                                      
+                                                        
+                                                            <div class="md:col-span-2" >
+                                                                    <div>
+                                                                        <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"texture" }}</label>
+                                                                        <strong>{{ order_item.order_item_texture }}</strong>
+                                                                    </div>
+                                                            </div>
+
+
+
+                                                            
+                                                            <div class="md:col-span-2">
+                                                                         <div>
+                                                                            
+                                                                            
+                                                                            <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"upload file"}}</label>
+                                                                            {% if order_item.order_item_uploaded_img %}
+                                                                            <img src="{{ order_item.order_item_uploaded_img.url }}" class="w-24 h-24 rounded" alt="">
+                                                                            {% endif %}
+                                                                            
+                                                                        </div>
+                                                            </div>
+
+
+
+                                                {% endif %}
+
+
+
+                                                {% if order_item.knob_family_bool == True %}
+                                                    <div class="md:col-span-2">
+                                                            <div>
+                                                                <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">{{ OrderData|get:"Knob Family"}}</label>
+                                                                <strong>{{ order_item.order_item_knobfamily }}</strong>
+                                                            </div>
+
+                                                             <div>
+                                                                <label for="knob_color" class="block font-medium text-gray-700 text-13  dark:text-zink-200"> {{ OrderData|get:"Knob Color"}}</label>
+                                                                <strong>{{ order_item.order_item_knobcolor }}</strong>
+                                                            </div>
+                                                    </div>
+                                                 {% endif %}
+
+                                             
+
+                                            </div>
+                                            {% endfor %}
+
+
+                                            </div> 
+
+                                </div>
+                         </div>
+
+                        {% if cards %}
+                        <div class="grid">
+                            <div class="card dark:bg-zink-700">
+                                <div class="card-body">
+                                    <div class="space-y-6">
+                                        {% for card_key, card_data in cards.items %}
+                                         <h3 class="text-15 font-semibold mb-2">{{ viewOrderDetailsData|get:"Row"}} {{ forloop.counter }}</h3>
+                                        <div class="dark:bg-zink-50 p-3 rounded shadow-sm shadow-white-400/50 bg-white-50 dark:shadow-zink-700/50">
+                                            <div class="grid grid-cols-12 gap-x-6 md:gap-6"> 
+                                            <!-- card_1 -->
+                                                    {% if card_data.collection_barcode != '' %}
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"Collection Barcode"}} </label>
+                                                             <p>{{ card_data.collection_barcode }}</p>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+
+
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"height "}}</label>
+                                                             <p>{{ card_data.card_height }}</p>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"width"}}</label>
+                                                             <p>{{ card_data.card_width }}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"quantity"}}</label>
+                                                             <p>{{ card_data.card_quantity }}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {% if card_data.knob_model  %}
+                                                        <div class="md:col-span-2">
+                                                            <div>
+                                                                <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"knob model"}}</label>
+                                                                 <p>{{ card_data.knob_model }}</p>
+                                                            </div>
+                                                        </div>
+                                                    {%  endif %}
+
+                                                    {% if card_data.helper_value_hebrew  %}
+                                                        <div class="md:col-span-2">
+                                                            <div>
+                                                                <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"knob postion"}}</label>
+                                                                 <p>{{ card_data.helper_value_hebrew }}</p>
+                                                            </div>
+                                                        </div>
+                                                    {%  endif %}
+
+
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ OrderData|get:"notes"}}</label>
+                                                             <p>{{ card_data.card_notes }}</p>
+                                                        </div>
+                                                    </div>
+                                         </div>
+
+
+                                        
+                                            <div class="grid md:grid-cols-2 xl:grid-cols-3 md:gap-x-6">
+                                                    <!--Start Drawer Details Div -->
+                                                    {% if card_data.card_drawer_length %}
+                                                    {%  for card_drawer in card_data.card_drawer  %}
+                                                        <div class="card dark:bg-zink-700 rounded-md border border-grey-500 bg-grey mt-4">
+                                                            <div class="px-5 py-2">
+                                                                <h4 class="text-16 text-dark-500">{{ OrderData|get:"Drawer Details"}}</h4>
+                                                            </div>
+                                                            <div class="card-body">
+
+                                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6"> 
+                                                                    <div class="md:col-span-3">
+                                                                        <h4 class="text-15 font-semibold mb-2">{{ OrderData|get:"Drawer Type"}}</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_drawer.drawar_order_type }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-3">
+                                                                        <h4 class="text-15 font-semibold mb-2">{{ OrderData|get:"Drawer Code"}}</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_drawer.drawar_order_code }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">lo</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_drawer.drawar_order_lo }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">ro</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_drawer.drawar_order_ro }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">bo</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_drawer.drawar_order_bo }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                    <!--End Drawer Details Div -->
+                                            <!-- </div> -->
+                                        
+                                        
+
+
+
+                                       
+
+                                            <!-- <div class="grid md:grid-cols-2 xl:grid-cols-3 md:gap-x-6"> -->
+                                                 <!--Start Claps Details Div -->
+                                                {% if card_data.card_clap_length %}
+                                                {%  for card_clap in card_data.card_clap  %}
+                                                        <div class="card dark:bg-zink-700 rounded-md border border-grey-500 bg-grey mt-4">
+                                                            <div class="px-5 py-2">
+                                                                <h4 class="text-16 text-dark-500">{{ OrderData|get:"Claps Details" }}</h4>
+                                                            </div>
+                                                            <div class="card-body">
+
+                                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6"> 
+                                                                    <div class="md:col-span-4">
+                                                                        <h4 class="text-15 font-semibold mb-2">{{ OrderData|get:"Claps Pr" }}</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_clap.clap_claps_pr }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">lo</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_clap.clap_order_lo }}</p>
+                                                                    </div>
+
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">ro</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_clap.clap_order_ro }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">bo</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_clap.clap_order_bo }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                            <!-- </div> -->
+                                        
+                                        <!--End Claps Details Div -->
+
+
+                                        
+                                            <!-- <div class="grid md:grid-cols-2 xl:grid-cols-3 md:gap-x-6"> -->
+                                                <!--Start Hinge Details Div -->
+                                                    {% if card_data.card_hinge_length %}
+                                                        {%  for card_hinge in card_data.card_hinge  %}
+                                                        <div class="card dark:bg-zink-700 rounded-md border border-grey-500 bg-grey mt-4">
+                                                            <div class="px-5 py-2">
+                                                                <h4 class="text-16 text-dark-500">{{ OrderData|get:"Hinge Details" }}</h4>
+                                                            </div>
+                                                            <div class="card-body">
+
+                                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6"> 
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">{{ OrderData|get:"Hinge Provider" }}</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_provider }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-4">
+                                                                        <h4 class="text-15 font-semibold mb-2">{{ OrderData|get:"Door Opening Side" }}</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_door_opening_side }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">dty</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_dty }}</p>
+                                                                    </div>
+
+                                                                    <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">yp</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_yp }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp1</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp1 }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp2</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp2 }}</p>
+                                                                    </div>
+
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp3</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp3 }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp4</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp4 }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp5</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp5 }}</p>
+                                                                    </div>
+
+                                                                     <div class="md:col-span-2">
+                                                                        <h4 class="text-15 font-semibold mb-2">xp6</h4>
+                                                                        <p class="dark:text-zink-200 text-13">{{ card_hinge.hinge_order_xp6 }}</p>
+                                                                    </div>
+
+                                                                
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+
+
+                                            </div>
+                                        
+                                        <!--End Hinge Details Div -->
+
+
+                                            
+
+
+
+
+
+                                        </div>
+                                         {% endfor %}
+                                       
+                                    
+                                        
+
+
+                                        
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endif %}
+                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="form_btn">
+                                                <div class="md:col-span-2 text-center">
+                                                    <div>
+                                                            <button type="button" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 block w-full btn text-16 py-2" onclick="window.print();">{{ viewOrderDetailsData|get:"Generate PDF" }} </button>
+                                                    </div>
+                                                </div>
+                                        </div>
+            
+             
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+<!-- <script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/select2.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/pages/lightbox.init.js' %}"></script> -->
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+<!-- <script src="{% static 'super_admin/assets/js/action_create_door_order_page.js' %}"></script> -->
+</body>
+</html>

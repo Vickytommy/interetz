@@ -1,0 +1,332 @@
+{% load filters %}
+{% include 'super_admin/partials/main.html' %}
+{% include 'super_admin/partials/title-meta.html' with title=data|get:"knobs" %}
+
+<head>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}">
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'super_admin/assets/css/tables-editable.css' %}" rel="stylesheet" type="text/css" />
+    {% include 'super_admin/partials/head-css.html' %}
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+
+               
+                {% include 'super_admin/partials/page-title.html' with title=data|get:"products" pagetitle=data|get:"knobs" %}
+                {% include 'super_admin/partials/custom_modal.html' %}
+
+                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Drawers</a> -->
+                <input type="hidden" value='{% url "super_admin:all_knobs" %}' id="link_to_view_">
+                <!-- <input type="hidden" value="{% url 'super_admin:add_drawars' %}" id="link_to_add_"> -->
+
+
+              <div id="add_form_drawer">
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                        <strong id="add_knob_form_title">{{ data|get:"Add Knob Form" }}</strong>
+
+                                        <form id="add_knob_form" class="{% url 'super_admin:add_knobs' %}" method="POST" enctype="multipart/form-data">
+                                            <div id="info_selector" class="mt-4 mb-4" ></div>
+                                             {% csrf_token %}
+                                            <input type="hidden" name="action" id="action" value="insert">
+                                            <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+
+
+                                                  <div class="md:col-span-2" id="entry_type">
+                                                        <div>
+                                                            
+                                                            <select class="col-span-6 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
+                                                                <option selected disabled value="">{{ data|get:"choose entry type" }}</option>>Choose Entry Type</option>
+                                                                 <option value="single">{{ data|get:"single " }}</option>
+                                                                <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-1 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_family" name="knob_family" placeholder='{{ data|get:"knobs_family" }}'>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class=" md:col-span-1 single_entry_type" style="display:none;">
+                                                             <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_model" name="knob_model" placeholder='{{ data|get:"knob model" }}'>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-2 single_entry_type" style="display:none;">
+                                                             <div>
+                                                            		<select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="two_partsknob" name="two_partsknob" required placeholder='{{ data|get:"two part knobs" }}'>
+		                                                                <option selected disabled value="">{{ data|get:"two part knobs" }} </option>
+		                                                                 <option value="1">{{ data|get:"yes" }}</option>
+                                                                        <option value="0">{{ data|get:"no" }}</option>
+		                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="md:col-span-1 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color" name="knob_color">
+                                                                <option value="" selected disabled>{{ data|get:"knob color" }}</option>
+                                                                <option value="1">{{ data|get:"yes" }}</option>
+                                                                <option value="0">{{ data|get:"no" }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-1 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_size" name="knob_size"  step="0.01" placeholder='{{ data|get:"knob size" }}' type="number">
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="md:col-span-2 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="button_height" name="button_height"  placeholder='{{ data|get:"button height" }}' type="number">
+                                                        </div>
+                                                    </div>
+
+
+                                                    
+
+
+
+
+                                                    <div class=" md:col-span-3 bulk_entry_type" style="display:none;">
+                                                             <div>
+                                                                
+                                                                
+
+                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file"  accept=".csv" id="upload_drawer" name="upload_drawer"/>
+
+                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">
+                                                                    {{ data|get:"Note: Only CSV files are allowed with header" }}
+                                                                 (knob_family,knob_model,two_parts_knob,color,knob_size,button_height)</label>
+                                                            </div>
+                                                    </div>
+            
+                                                <div id="form_btn" style="display:none;">
+                                                    <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_drawer_submit_btn"><i class="fa fa-save"></i></button>
+                                                </div>
+                                                
+                                            </div> 
+                                        </form>
+
+
+                                       
+
+
+                                </div>
+
+
+
+
+                         </div>
+                </div>
+
+
+                <div id="edit_form_drawer" style="display:none;">
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                        <strong id="add_drawer_form_title">{{ data|get:"Edit Data" }}</strong>
+
+                                         <form id="edit_drawer_form" class="{% url 'super_admin:add_knobs' %}" method="POST" >
+                                            <div id="info_selector_2" class="mt-4 mb-4" ></div>
+                                             {% csrf_token %}
+                                            <input type="hidden" name="action" id="action" value="edit">
+                                             <input type="hidden" name="knob_id" id="knob_id" value="">
+                                            <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                                  
+                                            	<div class=" md:col-span-1" >
+                                                        <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_family_edit" name="knob_family" placeholder='{{ data|get:"knobs_family" }}'>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class=" md:col-span-2" >
+                                                             <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_model_edit" name="knob_model" placeholder='{{ data|get:"knob model" }}'>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-2" >
+                                                             <div>
+                                                            		<select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="two_partsknob_edit" name="two_partsknob" required >
+		                                                               <option selected disabled value="">{{ data|get:"two part knobs" }} </option>
+                                                                         <option value="1">{{ data|get:"yes" }}</option>
+                                                                        <option value="0">{{ data|get:"no" }}</option>
+		                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="md:col-span-1" >
+                                                        <div>
+                                                            
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color_edit" name="knob_color">
+                                                                <option value="" selected disabled>{{ data|get:"knob color" }}</option>
+                                                                <option value="1">{{ data|get:"yes" }}</option>
+                                                                <option value="0">{{ data|get:"no" }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-1" >
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="knob_size_edit" name="knob_size" placeholder='{{ data|get:"knob size" }}' type="number" step="0.01">
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="md:col-span-2" >
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="button_height_edit" name="button_height" placeholder='{{ data|get:"button height" }}' type="number">
+                                                        </div>
+                                                    </div>
+
+                                                    
+
+                                                   
+            
+                                                <div id="form_btn" >
+                                                    <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_drawer_submit_btn"><i class="fa fa-save"></i></button>
+                                                </div>
+                                                
+                                            </div> 
+                                        </form>
+
+                                       
+
+
+                                </div>
+
+
+                                
+
+                         </div>
+                </div>
+
+
+
+                <div>
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                            <strong>{{ request.session|get:"products" }}</strong>
+                            <a href="{% url 'super_admin:add_collection' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"collection" }}</a>
+
+                            
+                            <a href="{% url 'super_admin:add_knobs' %}" class="text-white transition-all duration-300 ease-linear  bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn mr-4">{{ request.session|get:"knobs" }}</a>
+
+
+                            <a href="{% url 'super_admin:add_knob_color' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"knob color" }}</a>
+
+                            
+
+                             <a href="{% url 'super_admin:add_drawars' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"drawers" }}</a>
+
+
+                            <!-- <h6 class="font-semibold text-15 mb-3 dark:text-white mt-2">View Drawer List</h6> -->
+                           
+                            <!-- <div class="flex flex-wrap gap-2 mt-4  mb-4"></div> -->
+                            <div class="flex flex-wrap gap-2 mt-4  mb-4">
+                                <!-- <button type="button" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn min-w-[90px] add_btn"  data-modal-target="custom_modal" data-id="{% url 'super_admin:add_drawars' %}" data-action = "single_entry"> Add New Drawer <i class="fa fa-plus"></i></button>
+
+                                <button type="button" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn min-w-[95px] add_btn"  data-modal-target="custom_modal" data-id="{% url 'super_admin:add_drawars' %}" data-action = "bulk_entry">Upload Full List <i class="fa fa-plus"></i></button> -->
+
+                                <a href="{% static 'super_admin/assets/files_format/knob_bulk_upload_template.csv' %}" download="knob_bulk_upload_template.csv" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn min-w-[10px]" title='{{ data|get:"Download Bulk File Template" }}'> <i class="fa fa-download"></i></a>
+
+                               
+                            </div>
+
+                            <table id="knob_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knobs_family" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knob model" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"two part knobs" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knob color" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knob size" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"button height" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"actions" }}</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+
+<script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/data-tables.tailwindcss.min.js' %}"></script>
+<!--buttons dataTables-->
+<script src="{% static 'super_admin/assets/js/datatables/datatables.buttons.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/jszip.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/pdfmake.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/vfs_fonts.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.html5.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.print.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/table-edits/build/table-edits.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/actions_knob_file.js' %}"></script>
+<script type="text/javascript">
+   
+    var mapping = {
+        search: '{{ data_table|get:"Search" }}',
+        sFirst: '{{ data_table|get:"first" }}', 
+        sLast: '{{ data_table|get:"last" }}', 
+        sNext: '{{ data_table|get:"next" }}', 
+        sPrevious: '{{ data_table|get:"previous" }}',
+        export_excel: '{{ data_table|get:"Export Excel" }}',
+        csv_error_msg: '{{ data|get:"Only CSV file is allowed" }}',
+
+        error:'{{ data|get:"Error" }}',
+
+         //sweet alerts
+        sure_msg:'{{ data|get:"Are you sure" }}',
+        revert_msg:'{{ data|get:"You wont be able to revert this"  }}',
+       
+        delete_msg: '{{ data|get:"Yes, delete it" }}',
+        no_cancel: '{{ data|get:"No, cancel" }}',
+        deleted: '{{ data|get:"Deleted" }}',
+        cancelled: '{{ data|get:"Cancelled" }}',
+        action_msg:  '{{ data|get:"The action has not performed" }}',
+    };
+    window.page = mapping;
+</script>
+</body>
+</html>

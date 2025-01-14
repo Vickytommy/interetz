@@ -1,0 +1,412 @@
+{% include 'super_admin/partials/main.html' %}
+{% include 'super_admin/partials/title-meta.html' with title="Create Order" %}
+
+<head>
+
+    {% load static %}
+    <!-- <link rel="stylesheet" href="{% static 'super_admin/assets/js/datatables/buttons.datatables.min.css' %}"> -->
+    <link href="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- <link href="{% static 'super_admin/assets/css/tables-editable.css' %}" rel="stylesheet" type="text/css" /> -->
+    <link href="{% static 'super_admin/assets/css/select2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'super_admin/assets/css/ui-lightbox.css' %}" rel="stylesheet">
+     
+    {% include 'super_admin/partials/head-css.html' %}
+
+    <style>
+        .active-button {
+            background-color: #4CAF50; /* Green color, adjust as needed */
+            color: white;
+        }
+        .hide-modal{
+            display: none !important;
+        }
+
+        .show-modal{
+            display:block !important;
+        }
+
+
+        
+        .hide_{
+            display: none !important;
+        }
+
+    </style>
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+    {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+                {% include 'super_admin/partials/page-title.html' with title="Orders" pagetitle="Create Order" %}
+                {% include 'super_admin/partials/custom_modal.html' %}
+
+                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Drawers</a> -->
+                <!-- <input type="hidden" value='{% url "super_admin:all_knobs" %}' id="link_to_view_"> -->
+                <input type="hidden" value="{% url 'super_admin:CreateOrder' %}" id="link_to_add_">
+                <input type="hidden" value="{% url 'super_admin:orderPageAjaxCalls' %}" id="link_to_grab_order_page_data_">
+                
+
+            {% if success == 1 %}
+              <div id="add_form_drawer">
+                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                                <div class="pb-0 card-body">
+                                       <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                                <div class=" md:col-span-2">
+                                                        <div>
+                                                            <label for="order_id" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200 ">Order ID</label>
+
+                                                            <strong>{{order_id}}</strong>
+
+                                                            <!-- <input type="hidden" name="order_id" value="{{order_id}}"> -->
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-1">
+                                                        <div>
+                                                            <label for="Doors" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Product Type</label>
+
+                                                            <strong>{{product_type}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class=" md:col-span-1">
+                                                        <div>
+                                                            <label for="username" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Employ Name</label>
+
+                                                            <strong>{{request.user.username}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                     <div class=" md:col-span-1">
+                                                        <div>
+                                                            <label for="order_date" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Order Date</label>
+
+                                                            <strong>{{order_date}}</strong>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class=" md:col-span-1">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Order Status</label>
+
+                                                            <strong>{{order_status}}</strong>
+
+                                                        </div>
+                                                    </div>
+                                        </div>
+
+
+                                        <!-- starting order create form here -->
+
+                                        <form id="create_order_form" class="" method="POST" enctype="multipart/form-data">
+                                                <div id="create_order_form_action_msg" class="mt-4 mb-4"></div>
+                                             {% csrf_token %}
+                                                <input type="hidden" name="action" id="action" value="insert">
+                                             <input type="hidden" id="step" value="">
+                                             <input type="hidden" name="decision" id="decision" value="">
+                                             <input type="hidden" name="active_pop_up_id" id="active_pop_up_id" value="">
+                                             <input type="hidden" name="step_click_counter" id="step_click_counter" value="1">
+                                             <!-- <input type="hidden" name="order_id" id="order_id" value="{{order_id}}"> -->
+                                             <input type="hidden" id="order_id" name="order_id" value="{{order_id}}">
+                                             <input type="hidden" id="product_type" name="product_type" value="{{product_type}}">
+
+
+
+                                             <!-- for step 1 -->
+                                            <div class="grid grid-cols-12 gap-x-6 md:gap-6" id="create_order_form_step_1">
+
+                                                    <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Client Order Name</label>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="client_order_name" name="client_order_name">
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="order_status" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Client Order ID</label>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="client_order_id" name="client_order_id" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="hidden" name="request_status_step1" id="request_status_step1" value="draft">
+                                                    <input type="hidden" name="request_status_step1_user_id" id="request_status_step1_user_id" value="{{ request.user.id }}">
+
+                                                    <div class="md:col-span-6">
+                                                        <div>
+                                                            <button type="button" class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2 text-center" id="create_order_form_next_btn_step_1">Next</button>
+                                                        </div>
+                                                    </div>
+
+
+                                            </div>
+                                               
+
+                                                <!--end for step 2 -->
+
+                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_2">
+                                                        <div class="md:col-span-6">
+                                                                    <div class="custom-radio form-check form-check-inline">
+                                                                        <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200"> you need 2 type of colors</label>
+                                                                        <input class="w-3 h-3 mr-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="yes" disabled>
+
+                                                                        <label class="text-gray-600 dark:text-zink-200" for="customRadioInline1">No</label>
+                                                                        <input class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="no" disabled>
+                                                                        <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">Yes</label>
+                                                                    </div>
+                                                        </div>
+                                                </div>
+
+                                                <!-- in case of no/yes step3 -->
+                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_3">
+
+                                                <!-- <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Collection Barcode</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="collection_barcode" name="collection_barcode" required>
+                                                                <option selected value="" disabled>Collection Barcode</option>
+                                                                
+                                                            </select>
+                                                        </div>
+                                                </div>
+
+                                                <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="collection" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Collection</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="collection" name="collection" required>
+                                                                <option selected value="" disabled>Collection</option>
+                                                                
+                                                            </select>
+                                                        </div>
+                                                </div>
+
+                                                <div class="md:col-span-4">
+                                                        <div>
+                                                            <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Keep Flow</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="keepflow" name="keepflow" required>
+                                                                <option selected value="" disabled>Keep Flow</option>
+                                                                <option value="1">Yes</option>
+                                                                <option value="0">No</option>
+                                                                
+                                                            </select>
+                                                        </div>
+                                                </div>
+
+                                                <div class="md:col-span-4">
+                                                        <div>
+                                                            <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Texture</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="texture" name="texture" required>
+                                                                <option selected value="" disabled>Texture</option>
+                                                                <option value="height">Height</option>
+                                                                <option value="width">Width</option>
+                                                                
+                                                            </select>
+                                                        </div>
+                                                </div>
+
+
+                                                <div class=" md:col-span-4">
+                                                             <div>
+                                                                
+                                                                
+                                                                <label for="upload_file" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Upload File</label>
+                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file" accept=".jpg, .jpeg, .png, .gif" id="upload_file" name="upload_file"  placeholder="Upload File" required/>
+                                                                
+                                                            </div>
+                                                </div>
+
+                                                <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Knob Family</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_family" name="knob_family" required>
+                                                                <option selected value="" disabled>Knob Family</option>
+                                                                
+                                                                
+                                                            </select>
+                                                        </div>
+                                                </div>
+
+                                                <div class="md:col-span-6">
+                                                        <div>
+                                                            <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">Knob Color</label>
+                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color" name="knob_color" required>
+                                                                <option selected value="" disabled>Knob color</option>
+                                                            </select>
+                                                        </div>
+                                                </div> -->
+                                                    
+
+
+
+
+                                                    </div>
+
+                                                    <!-- in case of yes this button will appears -->
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4 create_order_form_yes_decision_div" id="create_order_form_add_collection_div" style="display:none;">
+                                                        <div class="md:col-span-12 text-right">
+                                                            <div>
+                                                                <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_collection_btn" data-id="4"><i class="fa fa-plus"></i> Add Another Collection</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_no_decision_div" style="display:none;">
+                                                        <div class="md:col-span-12 text-center">
+                                                            <div>
+                                                                <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="choose_knob_family_btn"> Choose Knob Family </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-6" id="create_order_form_step_4"></div>
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-6" id="create_order_form_step_5"></div>
+
+
+                                                    <!-- table creation in case of no -->
+
+                                                    <div class="grid mt-6 relative overflow-x-auto" id="create_order_form_step_6"  data-id="no" style="display:none;">
+                                                        
+                                                        <!-- <div class="relative overflow-x-auto"> -->
+                                                                <table class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" id="order_table">
+                                                                    <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                                                        <tr class="border border-gray-300 dark:border-zink-50">
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300 barcode_th hide_" >
+                                                                                    Collection Barcode
+                                                                                </th>
+
+
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Height
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Width
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Quantity
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Knob Model
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Knob Position
+                                                                                </th>
+                                                                               
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Drills
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Notes
+                                                                                </th>
+                                                                                <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                                                    Delete
+                                                                                </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="order_table_tbody">
+                                                                       
+                                                                    </tbody>
+                                                                </table>
+
+
+
+
+                                                                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_7">
+                                                                        <div class="md:col-span-12 text-right">
+                                                                            <div>
+                                                                                <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5" id="add_row_btn"><i class="fa fa-plus"></i> Add Row </button>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+
+
+
+
+
+                                                        <!-- </div> -->
+                                                    </div>
+                                                    
+
+                                                   
+
+                                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="form_btn">
+                                                                        <div class="md:col-span-2 text-right">
+                                                                            <div>
+                                                                                <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 block w-full btn text-16 py-2 hide_" id="send_order_btn">Send Order</button>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                
+
+
+
+                                                </form>
+                                            </div> 
+
+                                </div>
+                         </div>
+            {% elif success == 0 %}
+                <div class="relative px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20 pe-10">
+                                        Allowed product types are {{ types }}
+                                        <button class="absolute top-1/2 ltr:right-4 rtl:left-4 transform -translate-y-1/2 ml-auto text-lg text-red-800 dark:text-red-200 alert-close"><i class="mdi mdi-close"></i></button>
+                                    </div>
+            {% endif %}
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+        
+        {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+
+
+<!-- end main content -->
+
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+
+<script src="{% static 'super_admin/assets/js/datatables/jquery-3.7.0.js' %}"></script>
+<!-- <script src="{% static 'super_admin/assets/js/datatables/data-tables.min.js' %}"></script> -->
+<!-- <script src="{% static 'super_admin/assets/js/datatables/data-tables.tailwindcss.min.js' %}"></script> -->
+<!--buttons dataTables-->
+<!-- <script src="{% static 'super_admin/assets/js/datatables/datatables.buttons.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/jszip.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/pdfmake.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/vfs_fonts.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.html5.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/datatables/buttons.print.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/table-edits/build/table-edits.min.js' %}"></script> -->
+<script src="{% static 'super_admin/assets/js/select2.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
+
+
+
+<script src="{% static 'super_admin/assets/libs/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/pages/lightbox.init.js' %}"></script>
+
+
+
+<!-- Datatable init js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/action_create_order_page.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+{% include 'super_admin/partials/main.html' %}
+{% include 'super_admin/partials/title-meta.html' with title="Add Super Admin" %}
+<head>
+
+       {% load static %}
+    {% include 'super_admin/partials/head-css.html' %}
+
+</head>
+
+{% include 'super_admin/partials/body.html' %}
+<div class="group-data-[sidebar-size=sm]:min-h-[1500px] group-data-[sidebar-size=sm]:relative">
+
+      {% include 'super_admin/partials/sidebar.html' %}
+    {% include 'super_admin/partials/topbar.html' %}
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
+
+        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+            <div class="container-fluid">
+
+                {% include 'super_admin/partials/page-title.html' with title="Profile" pagetitle="My Profile" %}
+                <div class="grid grid-cols-12">
+                    <div class="col-span-12 mb-5 2xl:col-span-4">
+                        
+                        <div class="card dark:bg-zink-700">
+                            <div class="card-body">
+                                <div class="text-gray-700 dark:text-zinc-200">
+                                    <h5 class="mb-6 text-gray-700 text-15 font-semibold dark:text-gray-50">Personal Information</h5>
+                                    <div class="mt-5">
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Employee Name </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.employee_name }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Employee Last Name </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.employee_last_name }}</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Mobile </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.phone_number }}</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">E-mail </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.employee_email }}</p>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Active Status </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.is_active }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Company ID </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.company_id }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Employee ID </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">{{ request.user.employee_id }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-12 border-b border-gray-300 dark:border-zink-50 py-3">
+                                            <div class="col-span-4">
+                                                <p class="text-gray-900 text-13 font-semibold dark:text-zink-200">Role </p>
+                                            </div>
+                                            <div class="col-span-8">
+                                                <p class="text-13 dark:text-zink-200">
+                                                    {% if request.user.role_id == 1 %}
+                                                        <p>Super admin</p>
+                                                    {% elif request.user.role_id == 2 %}
+                                                        <p>Admin</p>
+                                                    {% else %}
+                                                        <p>Client</p>
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    
+                </div>
+
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+         {% include 'super_admin/partials/footer.html' %}
+    </div>
+</div>
+<!-- end main content -->
+
+{% include 'super_admin/partials/customizer.html' %}
+{% include 'super_admin/partials/vendor-scripts.html' %}
+
+<!-- <script src="assets/libs/apexcharts/apexcharts.min.js"></script> -->
+<script src="{% static 'super_admin/assets/js/profile.init.js' %}"></script>
+<!-- App js -->
+<script src="{% static 'super_admin/assets/js/app.js' %}"></script>
+</body>
+</body>
+
+</html>
