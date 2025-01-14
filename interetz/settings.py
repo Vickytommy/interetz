@@ -109,7 +109,7 @@ DATABASES = {
         'NAME': 'elite_nova',
         'USER': 'elite_nova',
         'PASSWORD': 'hockey93jweoru932u294u0',
-        'HOST': '34.165.7.142',
+        'HOST': '34.67.18.233',
         'PORT': '5432',
     }
 }
