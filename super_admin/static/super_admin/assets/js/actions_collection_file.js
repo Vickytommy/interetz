@@ -45,7 +45,7 @@ $(document).ready(function(){
                         data: 'image',
                         render: function(data, type, row) {
                             if (data) {
-                                return `<img src="${data}" alt="${row.collection_name}" class="w-24 h-24 max-w-none object-cover"/>`;
+                                return `<img src="${data}" alt="${row.collection_name}" class="w-full aspect-[1/1] object-cover"/>`;
                             }
                             return ''; // Return empty string if no image exists
                         },
@@ -178,7 +178,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('change', '#new_bulk_collection_images', function (event) {
+    $(document).on('change', '#new_bulk_collection_image', function (event) {
         const selectedFiles = event.target.files; // Get all selected files
         const validExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
         let allValid = true;
@@ -206,7 +206,7 @@ $(document).ready(function(){
             // Handle the files or perform further actions here
         } else {
             // Clear the file input if any invalid file is found
-            $('#new_collection_images').val(''); // Clears all selected files
+            $('#new_bulk_collection_image').val(''); // Clears all selected files
         }
     });
     
@@ -363,7 +363,7 @@ $(document).ready(function(){
         // Get data from the clicked row
         //$("#custom_modal").show('modal');
         var rowData = collection_table.row($(this).closest('tr')).data();
-        console.log('the row data - ', rowData)
+        // console.log('the row data - ', rowData)
         // console.table(rowData);
         $("form#edit_collection_form #collection_id").val(rowData.collection_id);
         $("form#edit_collection_form #collection_name").val(rowData.collection_name);
@@ -377,7 +377,7 @@ $(document).ready(function(){
         $("form#edit_collection_form #in_stock").val(rowData.in_stock_bool);
         // $("#flow").val(rowData.flow);
         $("form#edit_collection_form #flow").val(rowData.flow_bool);
-         console.log(rowData.flow_bool,rowData.flow );
+        //  console.log(rowData.flow_bool,rowData.flow );
         $("form#edit_collection_form #height").val(rowData.height);
         $("form#edit_collection_form #width").val(rowData.width);
         $("form#edit_collection_form #kant_code").val(rowData.kant_code);
