@@ -144,11 +144,20 @@ class Collection(models.Model):
     width = models.FloatField()
     kant_code = models.TextField()
     formica = models.IntegerField()
+
+    price_group = models.CharField(max_length=255, default='')
+    price_two_side = models.CharField(max_length=255, default='')
+    price_one_side = models.CharField(max_length=255, default='')
+    color_type = models.CharField(max_length=255, default='')
+    thick = models.CharField(max_length=255, default='')
+    collection_image = models.ImageField(upload_to='collection_images/', null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    
     def __str__(self):
         return self.collection_name
+
 
 class OrderTrack(models.Model):
     order_track_id = models.AutoField(primary_key=True)

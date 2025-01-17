@@ -112,6 +112,9 @@ def generate_password():
     return password
 
 
+def generate_random_string():
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choices(characters, k=6))
 
 @receiver(user_logged_in)
 def update_last_login(sender, user, request, **kwargs):
@@ -592,7 +595,8 @@ def changeRole(request):
 @role_required(allowed_roles=['super admin'])
 def add_collection(request):
 
-    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica"]
+    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica","price_group","price_two_sid","price_one_side","image","color_type","thick"]
+    
     if request.method=='POST':
         translations = get_translation('products')
         action = request.POST.get('action')
@@ -614,7 +618,13 @@ def add_collection(request):
                                 height = row_data["height"], 
                                 width = row_data["width"], 
                                 kant_code = row_data["kant_code"],
-                                formica = row_data["formica"]
+                                formica = row_data["formica"],
+
+                                price_group = row_data["price_group"], 
+                                price_two_side = row_data["price_two_side"], 
+                                price_one_side = row_data["price_one_side"], 
+                                color_type = row_data["color_type"],
+                                thick = row_data["thick"],
                             )
                             
                         return JsonResponse({'msg': translations['Collection has been added successfully'], 'success':1})
@@ -622,6 +632,50 @@ def add_collection(request):
                         return JsonResponse({'msg': f'Error in reading columns, the columns must be only twelve and with name of ({",".join(expected_columns)})', 'success':0})
                 else:
                     return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
+            
+            
+            if 'new_bulk_collection_image' in request.FILES:
+                uploaded_files = request.FILES.getlist('new_bulk_collection_image')  # Get all uploaded files
+                
+                if uploaded_files:  # Ensure there are files
+                    num_of_valid_uploads = 0
+                    for uploaded_file in uploaded_files:
+                        # Extract collection_id from the image name (e.g., "123.jpg" -> "123")
+                        file_name_without_extension = splitext(uploaded_file.name)[0]
+                        
+                        # Check if the file name is an integer
+                        if file_name_without_extension.isdigit():
+                            collection_id = int(file_name_without_extension)  # Convert to integer
+            
+                            try:
+                                # Check if a collection exists with the given collection_id
+                                collection_id = int(file_name_without_extension)  # Assuming collection_id is an integer
+                                collection = Collection.objects.get(collection_id=collection_id)
+                                
+                                # Delete the existing image, if any
+                                if collection.collection_image:
+                                    collection.collection_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                                # Save the image to the collection
+                                collection.collection_image.save(
+                                    f"{collection_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}",
+                                    uploaded_file
+                                )
+                                collection.save()  # Save any changes to the collection object
+                                num_of_valid_uploads+=1
+                                
+                            except Collection.DoesNotExist:
+                                # Log or ignore files that don't match a valid collection_id
+                                print(f"No collection found for ID: {file_name_without_extension}")
+                            
+                            except ValueError:
+                                # Handle invalid file names that cannot be converted to an integer
+                                print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
+
+                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
+                else:
+                    return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
+            
             else:
                 new_collection =  Collection(
                     collection_name = request.POST.get('collection_name'),
@@ -636,9 +690,22 @@ def add_collection(request):
                     width = request.POST.get('width'),
                     kant_code = request.POST.get('kant_code'),
                     formica = request.POST.get('formica'),
+                    
+                    price_group = request.POST.get('price_group'),
+                    price_two_side = request.POST.get('price_two_side'),
+                    price_one_side = request.POST.get('price_one_side'),
+                    color_type = request.POST.get('color_type'),
+                    thick = request.POST.get('thick'),
                 )
+                
                 try:
                     new_collection.save()
+
+                    # If image in REQUEST exists
+                    if request.FILES.get('new_collection_image'):
+                        uploaded_file = request.FILES.get('new_collection_image')
+                        new_collection.collection_image.save(f"{new_collection.collection_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
                     return JsonResponse({'msg': translations['Collection has been added successfully'] , 'success':1})
                 except Exception as e:
                     return JsonResponse({'msg':translations['Error in adding Collection'], 'success':0})
@@ -652,22 +719,42 @@ def add_collection(request):
         elif action == "edit":        
             collection_id = int(request.POST.get('collection_id'))
             existing_obj = Collection.objects.get(collection_id = collection_id)
+            print('the existing obj - ', existing_obj, collection_id, request.POST.get('kant_code'), request.FILES.get('edit_collection_image'))
             if existing_obj: #
-                
-                existing_obj.collection_name = request.POST.get('collection_name')
-                existing_obj.collection_barcode = request.POST.get('collection_barcode')
-                existing_obj.description = request.POST.get('description')
-                existing_obj.back = request.POST.get('back')
-                existing_obj.kant = request.POST.get('kant')
-                existing_obj.min_order = request.POST.get('min_order')
-                existing_obj.in_stock = request.POST.get('in_stock')
-                existing_obj.flow = request.POST.get('flow')
-                existing_obj.height = int(request.POST.get('height'))
-                existing_obj.width = int(request.POST.get('width'))
-                existing_obj.kant_code = request.POST.get('kant_code')
-                existing_obj.formica = request.POST.get('formica')
                 try:
+                    existing_obj.collection_name = request.POST.get('collection_name')
+                    existing_obj.collection_barcode = request.POST.get('collection_barcode')
+                    existing_obj.description = request.POST.get('description')
+                    existing_obj.back = request.POST.get('back')
+                    existing_obj.kant = request.POST.get('kant')
+                    existing_obj.min_order = request.POST.get('min_order')
+                    existing_obj.in_stock = request.POST.get('in_stock')
+                    existing_obj.flow = request.POST.get('flow')
+                    existing_obj.height = int(request.POST.get('height'))
+                    existing_obj.width = int(request.POST.get('width'))
+                    existing_obj.kant_code = request.POST.get('kant_code')
+                    existing_obj.formica = request.POST.get('formica')
+                    
+                    existing_obj.price_group = request.POST.get('price_group')
+                    existing_obj.price_two_side = request.POST.get('price_two_side')
+                    existing_obj.price_one_side = request.POST.get('price_one_side')
+                    # existing_obj.image = request.POST.get('image')
+                    existing_obj.color_type = request.POST.get('color_type')
+                    existing_obj.thick = request.POST.get('thick')
+
                     existing_obj.save()
+
+                    # If image in REQUEST exists
+                    if request.FILES.get('edit_collection_image'):
+                        uploaded_file = request.FILES.get('edit_collection_image')
+
+                        # Delete the existing image, if any
+                        if existing_obj.collection_image:
+                            existing_obj.collection_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                        existing_obj.collection_image.save(f"{existing_obj.collection_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
+                    print('the EDIT -  ',request.POST.get('kant_code'), existing_obj.collection_image, existing_obj.kant_code)
                     return JsonResponse({'msg': translations['Collection has been updated successfully'], 'success':1})
                 except IntegrityError as e:
                     return JsonResponse({'msg': translations["Update failed"], 'success':0})
@@ -684,6 +771,7 @@ def add_collection(request):
 def all_collection(request):
     translations = get_translation('products')
     all_collection_cls = Collection.objects.all()
+
     data = [{"collection_id": collection.collection_id,
             "collection_name": collection.collection_name,
             "collection_barcode": collection.collection_barcode,
@@ -698,10 +786,18 @@ def all_collection(request):
             "height": collection.height,
             "width": collection.width,
             "kant_code": collection.kant_code,
+            
+            "price_group": collection.price_group,
+            "price_two_side": collection.price_two_side,
+            "price_one_side": collection.price_one_side,
+            "image": collection.collection_image,
+            "color_type": collection.color_type,
+            "thick": collection.thick,
+            "image": collection.collection_image.url if collection.collection_image else "",
+
             "formica": translations['yes'] if collection.formica == 1 else translations['no'],
             "formica_bool":collection.formica
         } for collection in all_collection_cls]
-    print(data)
     return JsonResponse({'data': data}, safe=False)
     
 
@@ -1332,7 +1428,6 @@ def CreateDoorOrder(request):
                         random_str = f"{client_order_id}_{index}"  # Remove last 3 digits for milliseconds
                         random_filename = f"{random_str}_{splitext(uploaded_file.name)[1]}"
                         order_items_instance.order_item_uploaded_img.save(random_filename, uploaded_file)
-                        print(upload_file_tracker_iter,"Image uploaded")
 
                 elif product_type in [translations['plates'], translations['formica']]:
                     # print("product_type=",product_type)
@@ -3677,3 +3772,13 @@ def downloadOrderImage(request):
         response = HttpResponse(img_file.read(), content_type=mime_type)
         response["Content-Disposition"] = f'attachment; filename="{os.path.basename(absolute_image_path)}"'
         return response
+    
+
+
+@role_required(allowed_roles=['super admin'])
+def markOrderAsComplete(request):
+    order_track_id = int(request.GET.get('order_track_id'))
+    
+    # Fetch the order track
+    # order_item = OrderItems.objects.filter(order_track_id=order_track_id).first()
+    # order_item.status = "Completed"

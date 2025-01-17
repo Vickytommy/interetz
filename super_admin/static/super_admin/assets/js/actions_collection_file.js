@@ -37,6 +37,22 @@ $(document).ready(function(){
                     { data: 'width' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'kant_code' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'formica' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    
+                    { data: 'price_group' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    { data: 'price_two_side' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    { data: 'price_one_side' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    {
+                        data: 'image',
+                        render: function(data, type, row) {
+                            if (data) {
+                                return `<img src="${data}" alt="${row.collection_name}" class="w-24 h-24 max-w-none object-cover"/>`;
+                            }
+                            return ''; // Return empty string if no image exists
+                        },
+                        className: 'text-center border border-gray-300 dark:border-zink-50',
+                    },
+                    { data: 'color_type' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    { data: 'thick' , className:'text-center border border-gray-300 dark:border-zink-50'},
 
                     {
                         // New column for buttons
@@ -68,50 +84,6 @@ $(document).ready(function(){
             }
             
         },
-
-                //  initComplete: function(){
-
-                //     var searchableColumns = Array.from(Array(9), (_, index) => index + 1); // Adjust column indices as needed
-                   
-
-                //     this.api().columns().every(function (index) {
-                       
-                //                 let column = this;
-                //                 let title = column.header().textContent;
-                //                 let input = document.createElement('input');
-                //                 input.classList.add(
-                //                     'w-full', 
-                //                     'border', 
-                //                     'py-2', 
-                //                     'px-3', 
-                //                     'text-13', 
-                //                     'rounded', 
-                //                     'border-gray-400', 
-                //                     'placeholder:text-13', 
-                //                     'focus:border', 
-                //                     'focus:border-gray-400', 
-                //                     'focus:ring-0', 
-                //                     'focus:outline-none', 
-                //                     'text-gray-700', 
-                //                     'dark:bg-transparent', 
-                //                     'placeholder:text-gray-600', 
-                //                     'dark:border-zink-50', 
-                //                 );
-
-                //                 input.setAttribute('placeholder', title);
-                //                 column.header().replaceChildren(input);
-
-                //                 // Event listener for user input
-                //                 input.addEventListener('keyup', () => {
-                //                     if (column.search() !== input.value) {
-                //                         column.search(input.value).draw();
-                //                     }
-                //                 });
-                     
-                //     });  //end search feature here
-                    
-                //     this.api().columns.adjust();
-                // },
     });
 
 
@@ -122,6 +94,7 @@ $(document).ready(function(){
         if(type=="single"){
             $('.single_entry_type').show();
             $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').hide();
             $("#add_collection_form input").attr('required',true);
             $("#add_collection_form select").attr('required', true);
             $("#add_collection_form input[type='file']").attr('required',false);
@@ -130,16 +103,32 @@ $(document).ready(function(){
         }else if (type=="bulk"){
             $('.single_entry_type').hide();
             $('.bulk_entry_type').show();
+            $('.bulk_image_entry_type').hide();
            
             $("#add_collection_form input").attr('required', false);
             $("#add_collection_form select").attr('required', false);
-            $("#add_collection_form input[type='file']").attr('required',true);
-            
+            $("#add_collection_form #upload_drawer").attr('required',true);
+            $("#add_collection_form #new_bulk_collection_image").attr('required',false);
+        
+            $("#new_bulk_collection_image").val('');
 
-        }else{
-
+        }else if (type=="bulk_image") {
             $('.single_entry_type').hide();
             $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').show();
+           
+            $("#add_collection_form input").attr('required', false);
+            $("#add_collection_form select").attr('required', false);
+            $("#add_collection_form #upload_drawer").attr('required',false);
+            $("#add_collection_form #new_bulk_collection_image").attr('required',true);
+        
+            $("#upload_drawer").val('');
+        }
+        
+        else{
+            $('.single_entry_type').hide();
+            $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').hide();
         }
         $("#form_btn").show();
 
@@ -165,11 +154,113 @@ $(document).ready(function(){
                 }
         
     });
+
+    $(document).on('change','#new_collection_image',function(event){
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const fileName = selectedFile.name.toLowerCase();
+            const all_exts = ['.png', '.jpg', '.jpeg', '.gif'];
+    
+            if (all_exts.some(ext => fileName.endsWith(ext))) {
+                console.log('Valid image selected:', selectedFile);
+                // Handle the file or perform further actions here
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error', // Changed from 'danger' to 'error'
+                    title: 'Invalid file type. Please select an image file.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // Clear the file input
+                $('#new_collection_image').val(''); // Clears the selected file
+            }
+        }
+    });
+
+    $(document).on('change', '#new_bulk_collection_images', function (event) {
+        const selectedFiles = event.target.files; // Get all selected files
+        const validExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+        let allValid = true;
+    
+        // Iterate over the files
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            const fileName = file.name.toLowerCase();
+    
+            if (!validExtensions.some((ext) => fileName.endsWith(ext))) {
+                allValid = false;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: `Invalid file type: ${file.name}. Please select valid image files.`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                break; // Stop validation on the first invalid file
+            }
+        }
+    
+        if (allValid) {
+            console.log('All files are valid:', selectedFiles);
+            // Handle the files or perform further actions here
+        } else {
+            // Clear the file input if any invalid file is found
+            $('#new_collection_images').val(''); // Clears all selected files
+        }
+    });
+    
+    $(document).on('change','#edit_collection_image',function(event){
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const fileName = selectedFile.name.toLowerCase();
+            const all_exts = ['.png', '.jpg', '.jpeg', '.gif'];
+    
+            if (all_exts.some(ext => fileName.endsWith(ext))) {
+                console.log('Valid image selected:', selectedFile);
+                // Handle the file or perform further actions here
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error', // Changed from 'danger' to 'error'
+                    title: 'Invalid file type. Please select an image file.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // Clear the file input
+                $('#edit_collection_image').val(''); // Clears the selected file
+            }
+        }
+    });
+
+    // $(document).on('change','input[type="file"]',function(event){
+    //     const selectedFile = event.target.files[0];
+    //     const fileName = selectedFile.name.toLowerCase();
+    //     let all_exts = ['.png','.jpg','jpeg','.gif']
+    //     if (all_exts.some(ext => fileName.endsWith(ext))) {
+    //         let id_ = $(this).attr('id');
+    //         console.log('Valid file selected:', fileName);
+    //         console.log('id_:', id_);
+    //         $(`#upload_file_tracker_${id_}`).val(1);
+    //         // Handle the file or perform further actions
+    //     } else {
+    //         let error_msg = window.page.image_error_msg;
+    //         Swal.fire({
+    //                 position: 'center',
+    //                 icon: 'warning',
+    //                 title: error_msg,
+    //                 showConfirmButton: false,
+    //                 timer: 3000
+    //         });
+    //         // Clear the file input
+    //         $('#upload_file').val('');
+    //     }
+    // });
     
 
 
     $(document).on('submit','#add_collection_form',function(e){
-        e.preventDefault();
+        e.preventDefault()
         var formData = new FormData(this);
         $.ajax({
             url: $(this).attr('class'),
@@ -196,7 +287,7 @@ $(document).ready(function(){
             error:function(data) {
                 console.log(data);
             }
-        }); 
+        }); ;
     });
 
     $(document).on('click','.remove_record',function(){
@@ -272,6 +363,7 @@ $(document).ready(function(){
         // Get data from the clicked row
         //$("#custom_modal").show('modal');
         var rowData = collection_table.row($(this).closest('tr')).data();
+        console.log('the row data - ', rowData)
         // console.table(rowData);
         $("form#edit_collection_form #collection_id").val(rowData.collection_id);
         $("form#edit_collection_form #collection_name").val(rowData.collection_name);
@@ -291,38 +383,39 @@ $(document).ready(function(){
         $("form#edit_collection_form #kant_code").val(rowData.kant_code);
         // $("#formica").val(rowData.formica);
         $("form#edit_collection_form #formica").val(rowData.formica_bool);
+        
+        $("form#edit_collection_form #price_group").val(rowData.price_group);
+        $("form#edit_collection_form #price_two_side").val(rowData.price_two_side);
+        $("form#edit_collection_form #price_one_side").val(rowData.price_one_side);
+        $("form#edit_collection_form #color_type").val(rowData.color_type);
+        $("form#edit_collection_form #thick").val(rowData.thick);
 
         $("#edit_form_drawer").show();
     });
 
-
-
-
-
-
     $(document).on('submit','#edit_collection_form',function(e){
         e.preventDefault();
-        var formData = $(this).serialize();
+        var formData = new FormData(this);
+        console.log('the form data - ', formData)
         $.ajax({
             url: $(this).attr('class'),
             dataType:'JSON',
             method:'POST',
             data:formData,
-           
+            processData: false, // Prevent jQuery from processing data
+            contentType: false, // Prev
             success:function(data){
                     if (data.success == 1){
-
                         $("#edit_collection_form")[0].reset();
-                        $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
+                        $("#info_selector").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
                         collection_table.ajax.reload();
-
+                        $("#entry_type_select").val('').trigger('change');
                     }else{
-                        $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);
+                        $("#info_selector").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);
                     }
                     
                     setTimeout(() => {
-                        $("#info_selector_2").empty();
-                        $("#edit_form_drawer").hide();
+                        $("#info_selector").empty();
                         
                     }, 5000);
             },
@@ -330,6 +423,7 @@ $(document).ready(function(){
                 console.log(data);
             }
         }); 
+
     });
 
 

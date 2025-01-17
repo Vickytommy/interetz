@@ -74,6 +74,8 @@ urlpatterns = [
     path("exportOrderToCsv",views.exportOrderToCsv, name = "exportOrderToCsv"),
     # for downloading order image
     path("downloadOrderImage",views.downloadOrderImage, name = "downloadOrderImage"),
+    # for marking order as complete
+    path("markOrderAsComplete",views.markOrderAsComplete, name = "markOrderAsComplete"),
 
 
 ]
