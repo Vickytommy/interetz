@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between py-4 p-2 border-b border-gray-800">
             <div style="width: 180px;">
                 <a href="{% url 'super_admin:viewSuperAdminOrders' %}">
-                    <p class="text-md text-gray">Elite Nova</p>
+                    <p class="text-md text-gray">צור קשר 050-3623006</p>
                 </a>
             </div>
             <div>
@@ -22,53 +22,96 @@
         </div>
 
         <!-- BOTTOM NAVBAR -->
-         <div class="flex items-center justify-center px-2">
-            
-        <ul class="nav-list">
-            <!-- Door ordering -->
-            <li class="py-4">
-                <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנה חדשה</a>
-            </li>
+        <div class="flex items-center justify-center px-2">
+            <ul class="nav-list">
+                <!-- Door ordering -->
+                <li class="py-4">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנה חדשה<a>
+                </li>
 
-            <!-- Not shipped -->
-            <li class="py-4">
-                <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנה חדשה</a>
-            </li>
+                <!-- Not shipped -->
+                <li class="py-4">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">טיוטות</a>
+                </li>
 
-            <!-- Pending fulfilment -->
-            <li class="py-4">
-                <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנה חדשה</a>
-            </li>
+                <!-- Pending fulfilment -->
+                <li class="py-4">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנות בתהליך</a>
+                </li>
 
-            <!-- Delivered orders -->
-            <li class="py-4">
-                <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנות סגורות</a>
-            </li>
+                <!-- Delivered orders -->
+                <li class="py-4">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנות סגורות</a>
+                </li>
 
-            <!-- Product -->
-            <li class="py-4">
-                <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">תמחור</a>
-                <ul class="dropdown border-b border-l border-r border-gray-800">
-                    <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תמחור</a></li>
-                    <li class="border-b border-gray-600">
-                        <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">מוצרים</a>
-                        <!-- Sub-dropdown for Item 2 -->
-                        <ul class="sub-dropdown border-b border-l border-r border-gray-800">
-                            <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">צבעים</a></li>
-                            <li class=""><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">ידיות</a></li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">פריט 3</a>
-                        <!-- Sub-dropdown for Item 3 -->
-                        <ul class="sub-dropdown border-b border-l border-r border-gray-800">
-                            <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תת פריט 3.1</a></li>
-                            <li class=""><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תת פריט 3.2</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-         </div>
+                <!-- Product -->
+                <li class="py-4">
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">תמחור</a>
+                    <ul class="dropdown border-b border-l border-r border-gray-800">
+                        <li class="border-b border-gray-600">
+                            <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תמחור</a>
+                        </li>
+                        <li class="border-b border-gray-600">
+                            <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">מוצרים</a>
+
+                            <!-- Sub-dropdown for Item 2 -->
+                            <ul class="sub-dropdown border-b border-l border-r border-gray-800">
+                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        צבעים
+                                        <!-- 2.1 Add Collection -->
+                                </a></li>
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        ידיות
+                                        <!-- 2.2 Add Knobs -->
+                                    </a>
+                                </li>
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        צבע ידיות
+                                        <!-- 2.3 Add Knob Color -->
+                                    </a>
+                                </li>
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        מגירות
+                                        <!-- 2.4 Add Drawers -->
+                                    </a>
+                                </li>
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        צירים 
+                                        <!-- 2.5 Add Hinge -->
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        קלאפות
+                                        <!-- 2.5 Add Claps -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">ניהול משתמשים</a>
+
+                            <!-- Sub-dropdown for Item 3 -->
+                            <ul class="sub-dropdown border-b border-l border-r border-gray-800">
+                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        מגירות
+                                        <!-- 3.1 Add Drawers -->
+                                    </a>
+                                </li>
+                                <li class=""><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
+                                        מגירות
+                                        <!-- 3.2 Add Drawers -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </header>
