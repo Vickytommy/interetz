@@ -55,6 +55,7 @@
                                                                 <option selected disabled value="">{{ data|get:"choose entry type" }}</option>>Choose Entry Type</option>
                                                                  <option value="single">{{ data|get:"single " }}</option>
                                                                 <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                                <option value="bulk_image">Bulk Images</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -105,23 +106,35 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="md:col-span-2 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price" name="price"  placeholder='{{ data|get:"price" }}'>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                        <input style="padding-top: .16rem; padding-bottom: .16rem" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.16rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  id="new_knob_image" name="new_knob_image" accept="image/*" placeholder='{{ data|get:"image" }}'/>
 
+                                                    </div>
                                                     
-
-
-
 
                                                     <div class=" md:col-span-3 bulk_entry_type" style="display:none;">
                                                              <div>
-                                                                
-                                                                
-
                                                                 <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file"  accept=".csv" id="upload_drawer" name="upload_drawer"/>
 
                                                                 <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">
                                                                     {{ data|get:"Note: Only CSV files are allowed with header" }}
-                                                                 (knob_family,knob_model,two_parts_knob,color,knob_size,button_height)</label>
+                                                                 (knob_family,knob_model,two_parts_knob,color,knob_size,button_height,price)</label>
                                                             </div>
+                                                    </div>
+                                                    
+
+                                                    <div class="md:col-span-3 bulk_image_entry_type" style="display:none;">
+                                                        <div>
+                                                            <input multiple class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  accept="image/*" id="new_bulk_knob_image" name="new_bulk_knob_image"/>
+
+                                                            <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">Bulk Images</label>
+                                                        </div>
                                                     </div>
             
                                                 <div id="form_btn" style="display:none;">
@@ -202,6 +215,17 @@
                                                         </div>
                                                     </div>
 
+
+                                                    <div class="md:col-span-2">
+                                                        <div>
+                                                            		<input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_edit" name="price"  placeholder='{{ data|get:"price" }}'>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class=" md:col-span-3">
+                                                        <input style="padding-top: .16rem; padding-bottom: .16rem" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.16rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  id="edit_knob_image" name="edit_knob_image" accept="image/*" placeholder='{{ data|get:"image" }}'/>
+
+                                                    </div>
                                                     
 
                                                    
@@ -266,6 +290,8 @@
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knob color" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"knob size" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"button height" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"price" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"image" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"actions" }}</th>
                                     </tr>
                                 </thead>

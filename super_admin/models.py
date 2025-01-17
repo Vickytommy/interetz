@@ -123,6 +123,10 @@ class Knob(models.Model):
     color = models.IntegerField()
     knob_size = models.FloatField()
     button_height = models.IntegerField()
+    
+    price = models.FloatField(default=0)
+    knob_image = models.ImageField(upload_to='knob_images/', null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -150,7 +154,7 @@ class Collection(models.Model):
     price_one_side = models.CharField(max_length=255, default='')
     color_type = models.CharField(max_length=255, default='')
     thick = models.CharField(max_length=255, default='')
-    collection_image = models.ImageField(upload_to='collection_images/', null=True)
+    knob_image = models.ImageField(upload_to='collection_images/', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

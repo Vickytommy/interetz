@@ -595,7 +595,7 @@ def changeRole(request):
 @role_required(allowed_roles=['super admin'])
 def add_collection(request):
 
-    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica","price_group","price_two_sid","price_one_side","image","color_type","thick"]
+    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica","price_group","price_two_sid","price_one_side","color_type","thick"]
     
     if request.method=='POST':
         translations = get_translation('products')
@@ -754,7 +754,6 @@ def add_collection(request):
                 
                         existing_obj.collection_image.save(f"{existing_obj.collection_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
                     
-                    print('the EDIT -  ',request.POST.get('kant_code'), existing_obj.collection_image, existing_obj.kant_code)
                     return JsonResponse({'msg': translations['Collection has been updated successfully'], 'success':1})
                 except IntegrityError as e:
                     return JsonResponse({'msg': translations["Update failed"], 'success':0})
@@ -790,10 +789,10 @@ def all_collection(request):
             "price_group": collection.price_group,
             "price_two_side": collection.price_two_side,
             "price_one_side": collection.price_one_side,
-            "image": collection.collection_image,
+            "image": collection.knob_image,
             "color_type": collection.color_type,
             "thick": collection.thick,
-            "image": collection.collection_image.url if collection.collection_image else "",
+            "image": collection.knob_image.url if collection.knob_image else "",
 
             "formica": translations['yes'] if collection.formica == 1 else translations['no'],
             "formica_bool":collection.formica
@@ -810,7 +809,7 @@ def add_knobs(request):
             if 'upload_drawer' in request.FILES and request.FILES['upload_drawer']!='':
                 df = pd.read_csv(request.FILES['upload_drawer'])
                 if len(df) > 0:
-                    expected_columns = ["knob_family","knob_model","two_parts_knob","color","knob_size","button_height"]
+                    expected_columns = ["knob_family","knob_model","two_parts_knob","color","knob_size","button_height","price"]
                     if set(df.columns) == set(expected_columns):
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
                             Knob.objects.create(
@@ -820,6 +819,7 @@ def add_knobs(request):
                                 color = row_data['color'],
                                 knob_size = row_data['knob_size'],
                                 button_height = row_data['button_height'],
+                                price = row_data['price']
                             )
                             # if index == len(df)-1:
                             #     return JsonResponse({'msg': 'Knob Details has been added successfully', 'success':1})
@@ -828,6 +828,52 @@ def add_knobs(request):
                         return JsonResponse({'msg': f'Error in reading columns, the columns must be only six and with name of ({",".join(expected_columns)})', 'success':0})
                 else:
                     return JsonResponse({'msg':translations['Uploaded file must have some data, its seems empty file'], 'success':0})
+           
+           
+            if 'new_bulk_knob_image' in request.FILES:
+                uploaded_files = request.FILES.getlist('new_bulk_bulk_image')  # Get all uploaded files
+                
+                if uploaded_files:  # Ensure there are files
+                    num_of_valid_uploads = 0
+                    for uploaded_file in uploaded_files:
+                        # Extract knob_id from the image name (e.g., "123.jpg" -> "123")
+                        file_name_without_extension = splitext(uploaded_file.name)[0]
+                        
+                        # Check if the file name is an integer
+                        if file_name_without_extension.isdigit():
+                            knob_id = int(file_name_without_extension)  # Convert to integer
+            
+                            try:
+                                # Check if a collection exists with the given knob_id
+                                knob_id = int(file_name_without_extension)  # Assuming knob_id is an integer
+                                knob = Knob.objects.get(knob_id=knob_id)
+                                
+                                # Delete the existing image, if any
+                                if knob.knob_image:
+                                    knob.knob_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                                # Save the image to the collection
+                                knob.knob_image.save(
+                                    f"{knob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}",
+                                    uploaded_file
+                                )
+                                knob.save()  # Save any changes to the collection object
+                                num_of_valid_uploads+=1
+                                
+                            except Knob.DoesNotExist:
+                                # Log or ignore files that don't match a valid collection_id
+                                print(f"No Knob found for ID: {file_name_without_extension}")
+                            
+                            except ValueError:
+                                # Handle invalid file names that cannot be converted to an integer
+                                print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
+
+                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
+                else:
+                    return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
+            
+           
+           
             else: ## for single insertion
                 knob_family = request.POST.get('knob_family')
                 knob_model = request.POST.get('knob_model')
@@ -835,6 +881,7 @@ def add_knobs(request):
                 knob_color = request.POST.get('knob_color')
                 knob_size = request.POST.get('knob_size')
                 button_height = request.POST.get('button_height')
+                price = request.POST.get('price')
                 new_knob = Knob(
                     knob_family = knob_family,
                     knob_model = knob_model,
@@ -842,9 +889,16 @@ def add_knobs(request):
                     color = knob_color,
                     knob_size = knob_size,
                     button_height = button_height,
+                    price = price
                 )
                 try:
                     new_knob.save()
+
+                    # If image in REQUEST exists
+                    if request.FILES.get('new_knob_image'):
+                        uploaded_file = request.FILES.get('new_knob_image')
+                        new_knob.knob_image.save(f"{new_knob.knob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
                     return JsonResponse({'msg': translations['Knob Details has been added successfully'], 'success':1})
                 except Exception as e:
                     return JsonResponse({'msg': translations['Error in adding knob'], 'success':0})
@@ -858,8 +912,20 @@ def add_knobs(request):
                 existing_obj.color = request.POST.get('knob_color')
                 existing_obj.knob_size = request.POST.get('knob_size')
                 existing_obj.button_height = request.POST.get('button_height')
+                existing_obj.price = request.POST.get('price')
                 try:
                     existing_obj.save()
+
+                    # If image in REQUEST exists
+                    if request.FILES.get('edit_knob_image'):
+                        uploaded_file = request.FILES.get('edit_knob_image')
+
+                        # Delete the existing image, if any
+                        if existing_obj.knob_image:
+                            existing_obj.knob_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                        existing_obj.knob_image.save(f"{existing_obj.knob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
                     return JsonResponse({'msg': translations['Knob Details has been updated successfully'], 'success':1})
                 except IntegrityError as e:
                     return JsonResponse({'msg':translations["Update failed"], 'success':0})
@@ -882,7 +948,17 @@ def add_knobs(request):
 def all_knobs(request):
     translations = get_translation('products')
     all_knob_cls = Knob.objects.all()
-    data = [{'knob_id': knob.knob_id, 'knob_family': knob.knob_family, 'knob_model': knob.knob_model, 'two_parts_knob': translations['yes'] if knob.two_parts_knob == 1 else translations['no'], 'color': translations['yes'] if knob.color == 1 else translations['no'], 'knob_size': knob.knob_size, 'button_height': knob.button_height} for knob in all_knob_cls]
+    data = [{
+        'knob_id': knob.knob_id, 
+        'knob_family': knob.knob_family, 
+        'knob_model': knob.knob_model, 
+        'two_parts_knob': translations['yes'] if knob.two_parts_knob == 1 else translations['no'], 
+        'color': translations['yes'] if knob.color == 1 else translations['no'], 
+        'knob_size': knob.knob_size, 
+        'button_height': knob.button_height, 
+        'price': knob.price, 
+        'image': knob.knob_image.url if knob.knob_image else ""
+    } for knob in all_knob_cls]
     return JsonResponse({'data': data}, safe=False)
 
 @role_required(allowed_roles=['super admin'])
