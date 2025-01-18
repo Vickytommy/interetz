@@ -51,6 +51,7 @@
                                                                <option selected disabled value="">{{ data|get:"choose entry type" }}</option>
                                                                 <option value="single">{{ data|get:"single " }}</option>
                                                                 <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                                <option value="bulk_image">Bulk Images</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -77,6 +78,19 @@
                                                             </select>
                                                                 
                                                             </div>
+                                                    </div>
+
+                                                    <div class="md:col-span-3 bulk_image_entry_type" style="display:none;">
+                                                            <div>
+                                                                <input multiple class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  accept="image/*" id="new_bulk_color_knob_image" name="new_bulk_color_knob_image"/>
+    
+                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">Bulk Images</label>
+                                                            </div>
+                                                    </div>
+                                                    
+                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                            <input style="padding-top: .16rem; padding-bottom: .16rem" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.16rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  id="new_color_knob_image" name="new_color_knob_image" accept="image/*" placeholder='{{ data|get:"image" }}'/>
+    
                                                     </div>
 
 
@@ -149,6 +163,14 @@
                                                                 
                                                             </div>
                                                     </div>
+                                            
+
+                                                    <div class=" md:col-span-3">
+                                                        <div>
+                                                            <input style="padding-top: .16rem; padding-bottom: .16rem" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.16rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" type="file"  id="edit_color_knob_image" name="edit_color_knob_image" accept="image/*" placeholder='{{ data|get:"image" }}'/>
+        
+                                                        </div>
+                                                    </div>
 
                                                    
             
@@ -210,6 +232,7 @@
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"color knob barcode" }} </th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"color knob description" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"color" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"image" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"actions" }}</th>
                                     </tr>
                                 </thead>

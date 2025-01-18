@@ -25,6 +25,21 @@ $(document).ready(function(){
                     
                     { data: 'drawer_type', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'drawer_code', className:'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'side_kant', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'lower_kant', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'default_side', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'default_low', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'diameter', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drills_amount', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_1', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_2', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_3', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_4', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_5', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_6', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'drill_7', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'height', className: 'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'price', className: 'text-center border border-gray-300 dark:border-zink-50' },
                     {
                         // New column for buttons
                         data: null,
@@ -57,49 +72,7 @@ $(document).ready(function(){
             }
             
         },
-                // initComplete: function(){
-
-                //     var searchableColumns = Array.from(Array(9), (_, index) => index + 1); // Adjust column indices as needed
-                   
-
-                //     this.api().columns().every(function (index) {
-                       
-                //                 let column = this;
-                //                 let title = column.header().textContent;
-                //                 let input = document.createElement('input');
-                //                 input.classList.add(
-                //                     'w-full', 
-                //                     'border', 
-                //                     'py-2', 
-                //                     'px-3', 
-                //                     'text-13', 
-                //                     'rounded', 
-                //                     'border-gray-400', 
-                //                     'placeholder:text-13', 
-                //                     'focus:border', 
-                //                     'focus:border-gray-400', 
-                //                     'focus:ring-0', 
-                //                     'focus:outline-none', 
-                //                     'text-gray-700', 
-                //                     'dark:bg-transparent', 
-                //                     'placeholder:text-gray-600', 
-                //                     'dark:border-zink-50', 
-                //                 );
-
-                //                 input.setAttribute('placeholder', title);
-                //                 column.header().replaceChildren(input);
-
-                //                 // Event listener for user input
-                //                 input.addEventListener('keyup', () => {
-                //                     if (column.search() !== input.value) {
-                //                         column.search(input.value).draw();
-                //                     }
-                //                 });
-                     
-                //     });  //end search feature here
-                    
-                //     this.api().columns.adjust();
-                // },
+                
     });
 
 
@@ -112,17 +85,51 @@ $(document).ready(function(){
             $('.bulk_entry_type').hide();
             $("#drawers_type").attr('required',true);
             $("#drawers_code").attr('required',true);
+            $("#side_kant").attr('required', true);
+            $("#lower_kant").attr('required', true);
+            $("#default_side").attr('required', true);
+            $("#default_low").attr('required', true);
+            $("#diameter").attr('required', true);
+            $("#drills_amount").attr('required', true);
+            $("#drill_1").attr('required', true);
+            $("#drill_2").attr('required', true);
+            $("#drill_3").attr('required', true);
+            $("#drill_4").attr('required', true);
+            $("#drill_5").attr('required', true);
+            $("#drill_6").attr('required', true);
+            $("#drill_7").attr('required', true);
+            $("#height").attr('required', true);
+            $("#price").attr('required', true);
             $("#upload_drawer").attr('required',false);
             $("#upload_drawer").val('');
-        }else{
+        }else if (type=="bulk") {
             $('.single_entry_type').hide();
             $('.bulk_entry_type').show();
              $("#drawers_type").attr('required',false);
             $("#drawers_code").attr('required',false);
-            $("#upload_drawer").attr('required',true);
+            $("#side_kant").attr('required', false);
+            $("#lower_kant").attr('required', false);
+            $("#default_side").attr('required', false);
+            $("#default_low").attr('required', false);
+            $("#diameter").attr('required', false);
+            $("#drills_amount").attr('required', false);
+            $("#drill_1").attr('required', false);
+            $("#drill_2").attr('required', false);
+            $("#drill_3").attr('required', false);
+            $("#drill_4").attr('required', false);
+            $("#drill_5").attr('required', false);
+            $("#drill_6").attr('required', false);
+            $("#drill_7").attr('required', false);
+            $("#height").attr('required', false);
+            $("#price").attr('required', false);
 
+            $("#upload_drawer").attr('required',true);
+            
+            $("#form_btn").show();
+
+        } else {
+        $("#form_btn").hide();
         }
-        $("#form_btn").show();
 
     });
 
@@ -259,6 +266,22 @@ $(document).ready(function(){
         var rowData = drawer_table.row($(this).closest('tr')).data();
         $("#drawers_type_edit").val(rowData.drawer_type);
         $("#drawers_code_edit").val(rowData.drawer_code);
+        $("#side_kant_edit").val(rowData.side_kant);
+        $("#lower_kant_edit").val(rowData.lower_kant);
+        $("#default_side_edit").val(rowData.default_side);
+        $("#default_low_edit").val(rowData.default_low);
+        $("#diameter_edit").val(rowData.diameter);
+        $("#drills_amount_edit").val(rowData.drills_amount);
+        $("#drill_1_edit").val(rowData.drill_1);
+        $("#drill_2_edit").val(rowData.drill_2);
+        $("#drill_3_edit").val(rowData.drill_3);
+        $("#drill_4_edit").val(rowData.drill_4);
+        $("#drill_5_edit").val(rowData.drill_5);
+        $("#drill_6_edit").val(rowData.drill_6);
+        $("#drill_7_edit").val(rowData.drill_7);
+        $("#height_edit").val(rowData.height);
+        $("#price_edit").val(rowData.price);
+        
         $("#drawer_id").val(rowData.drawer_id);
         $("#edit_form_drawer").show();
     });
@@ -283,6 +306,7 @@ $(document).ready(function(){
                         $("#edit_drawer_form")[0].reset();
                         $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
                         drawer_table.ajax.reload();
+                        $("#entry_type_select").val('').trigger('change');
 
                     }else{
                         $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);

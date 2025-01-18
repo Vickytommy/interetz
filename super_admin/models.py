@@ -98,6 +98,23 @@ class Drawer(models.Model):
     drawer_id = models.AutoField(primary_key=True)
     drawer_type = models.CharField(max_length=255)
     drawer_code = models.CharField(max_length=255)
+
+    side_kant = models.TextField( default='')  
+    lower_kant = models.TextField( default='') 
+    default_side = models.TextField( default='')  
+    default_low = models.TextField( default='') 
+    diameter = models.TextField( default='')
+    drills_amount = models.TextField( default='')
+    drill_1 = models.TextField( default='')
+    drill_2 = models.TextField( default='')
+    drill_3 = models.TextField( default='')
+    drill_4 = models.TextField( default='')
+    drill_5 = models.TextField( default='')
+    drill_6 = models.TextField( default='')
+    drill_7 = models.TextField( default='')
+    height = models.TextField( default='')
+    price = models.TextField( default='') 
+
     created_at = models.DateTimeField(auto_now_add=datetime_now)
     updated_at = models.DateTimeField(auto_now=datetime_now)
 
@@ -109,6 +126,9 @@ class ColorKnob(models.Model):
     colorknob_id = models.AutoField(primary_key=True)
     colorknob_barcode = models.CharField(max_length=255)
     colorknob_description = models.TextField()
+    
+    colorknob_image = models.ImageField(upload_to='color_knob_images/', null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     colorknob_color = models.IntegerField(default=0)
@@ -154,7 +174,7 @@ class Collection(models.Model):
     price_one_side = models.CharField(max_length=255, default='')
     color_type = models.CharField(max_length=255, default='')
     thick = models.CharField(max_length=255, default='')
-    knob_image = models.ImageField(upload_to='collection_images/', null=True)
+    collection_image = models.ImageField(upload_to='collection_images/', null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

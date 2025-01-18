@@ -26,6 +26,16 @@ $(document).ready(function(){
                     { data: 'colorknob_description',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     {data:'colorknob_color_word',  className:'text-center border border-gray-300 dark:border-zink-50'},
                     {
+                        data: 'image',
+                        render: function(data, type, row) {
+                            if (data) {
+                                return `<img src="${data}" alt="${row.colorknob_barcode}" class="w-full aspect-[1/1] object-cover"/>`;
+                            }
+                            return ''; // Return empty string if no image exists
+                        },
+                        className: 'text-center border border-gray-300 dark:border-zink-50',
+                    },
+                    {
                         // New column for buttons
                         data: null,
                         render: function(data, type, row) {
@@ -67,24 +77,46 @@ $(document).ready(function(){
         if(type=="single"){
             $('.single_entry_type').show();
             $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').hide();
+
             $("#drawers_type").attr('required',true);
             $("#drawers_code").attr('required',true);
             $("#color").attr('required',true);
             $("#upload_drawer").attr('required',false);
+            $("#new_bulk_color_knob_image").attr('required',false);
             $("#upload_drawer").val('');
+            $("#new_bulk_color_knob_image").val('');
              $("#form_btn").show();
         }else if (type=="bulk"){
             $('.single_entry_type').hide();
             $('.bulk_entry_type').show();
+            $('.bulk_image_entry_type').hide();
+
              $("#drawers_type").attr('required',false);
             $("#drawers_code").attr('required',false);
              $("#color").attr('required',false);
             $("#upload_drawer").attr('required',true);
+            $("#new_bulk_color_knob_image").attr('required',false);
              $("#form_btn").show();
 
+        }else if (type=="bulk_image") {
+            $('.single_entry_type').hide();
+            $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').show();
+           
+             $("#drawers_type").attr('required',false);
+            $("#drawers_code").attr('required',false);
+             $("#color").attr('required',false);
+            $("#upload_drawer").attr('required',false);
+            $("#new_bulk_color_knob_image").attr('required',true);
+        
+             $("#form_btn").show();
         }else{
             $('.single_entry_type').hide();
             $('.bulk_entry_type').hide();
+            $('.bulk_image_entry_type').hide();
+            
+            $("#form_btn").hide();
         }
        
 
@@ -111,6 +143,84 @@ $(document).ready(function(){
         
     });
     
+    
+    $(document).on('change','#new_color_knob_image',function(event){
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const fileName = selectedFile.name.toLowerCase();
+            const all_exts = ['.png', '.jpg', '.jpeg', '.gif'];
+    
+            if (all_exts.some(ext => fileName.endsWith(ext))) {
+                console.log('Valid image selected:', selectedFile);
+                // Handle the file or perform further actions here
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error', // Changed from 'danger' to 'error'
+                    title: 'Invalid file type. Please select an image file.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // Clear the file input
+                $('#new_color_knob_image').val(''); // Clears the selected file
+            }
+        }
+    });
+
+    $(document).on('change', '#new_bulk_color_knob_image', function (event) {
+        const selectedFiles = event.target.files; // Get all selected files
+        const validExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+        let allValid = true;
+    
+        // Iterate over the files
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            const fileName = file.name.toLowerCase();
+    
+            if (!validExtensions.some((ext) => fileName.endsWith(ext))) {
+                allValid = false;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: `Invalid file type: ${file.name}. Please select valid image files.`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                break; // Stop validation on the first invalid file
+            }
+        }
+    
+        if (allValid) {
+            console.log('All files are valid:', selectedFiles);
+            // Handle the files or perform further actions here
+        } else {
+            // Clear the file input if any invalid file is found
+            $('#new_bulk_color_knob_image').val(''); // Clears all selected files
+        }
+    });
+    
+    $(document).on('change','#edit_color_knob_image',function(event){
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const fileName = selectedFile.name.toLowerCase();
+            const all_exts = ['.png', '.jpg', '.jpeg', '.gif'];
+    
+            if (all_exts.some(ext => fileName.endsWith(ext))) {
+                console.log('Valid image selected:', selectedFile);
+                // Handle the file or perform further actions here
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error', // Changed from 'danger' to 'error'
+                    title: 'Invalid file type. Please select an image file.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                // Clear the file input
+                $('#edit_color_knob_image').val(''); // Clears the selected file
+            }
+        }
+    });
 
 
     $(document).on('submit','#add_drawer_form',function(e){
@@ -236,12 +346,14 @@ $(document).ready(function(){
 
     $(document).on('submit','#edit_drawer_form',function(e){
         e.preventDefault();
-        var formData = $(this).serialize();
+        var formData = new FormData(this);
         $.ajax({
             url: $(this).attr('class'),
             dataType:'JSON',
             method:'POST',
             data:formData,
+            processData: false,
+            contentType: false, 
            
             success:function(data){
                     if (data.success == 1){

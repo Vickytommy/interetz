@@ -789,10 +789,9 @@ def all_collection(request):
             "price_group": collection.price_group,
             "price_two_side": collection.price_two_side,
             "price_one_side": collection.price_one_side,
-            "image": collection.knob_image,
             "color_type": collection.color_type,
             "thick": collection.thick,
-            "image": collection.knob_image.url if collection.knob_image else "",
+            "image": collection.collection_image.url if collection.collection_image else "",
 
             "formica": translations['yes'] if collection.formica == 1 else translations['no'],
             "formica_bool":collection.formica
@@ -987,6 +986,50 @@ def add_knob_color(request):
                         return JsonResponse({'msg': f'Error in reading columns, the columns must be only two and with name of ({",".join(expected_columns)})', 'success':0})
                 else:
                     return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
+            
+            if 'new_bulk_color_knob_image' in request.FILES:
+                uploaded_files = request.FILES.getlist('new_bulk_color_knob_image')  # Get all uploaded files
+                
+                if uploaded_files:  # Ensure there are files
+                    num_of_valid_uploads = 0
+                    for uploaded_file in uploaded_files:
+                        # Extract color_knob_id from the image name (e.g., "123.jpg" -> "123")
+                        file_name_without_extension = splitext(uploaded_file.name)[0]
+                        
+                        # Check if the file name is an integer
+                        if file_name_without_extension.isdigit():
+                            color_knob_id = int(file_name_without_extension)  # Convert to integer
+            
+                            try:
+                                # Check if a color_knob exists with the given color_knob_id
+                                color_knob_id = int(file_name_without_extension)  # Assuming color_knob_id is an integer
+                                color_knob = ColorKnob.objects.get(colorknob_id=color_knob_id)
+                                
+                                # Delete the existing image, if any
+                                if color_knob.colorknob_image:
+                                    color_knob.colorknob_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                                # Save the image to the color_knob
+                                color_knob.colorknob_image.save(
+                                    f"{color_knob}-{generate_random_string()}{splitext(uploaded_file.name)[1]}",
+                                    uploaded_file
+                                )
+                                color_knob.save()  # Save any changes to the color_knob object
+                                num_of_valid_uploads+=1
+                                
+                            except Collection.DoesNotExist:
+                                # Log or ignore files that don't match a valid color_knob_id
+                                print(f"No collection found for ID: {file_name_without_extension}")
+                            
+                            except ValueError:
+                                # Handle invalid file names that cannot be converted to an integer
+                                print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
+
+                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
+                else:
+                    return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
+            
+
             else: # for single insertion
                 colorknob_barcode = request.POST.get('color_knob_barcode')
                 colorknob_description = request.POST.get('description')
@@ -995,6 +1038,12 @@ def add_knob_color(request):
                     new_color_knob = ColorKnob(colorknob_barcode=colorknob_barcode,colorknob_color=color,colorknob_description=colorknob_description)
                     try:
                         new_color_knob.save()
+
+                        # If image in REQUEST exists
+                        if request.FILES.get('new_color_knob_image'):
+                            uploaded_file = request.FILES.get('new_color_knob_image')
+                            new_color_knob.colorknob_image.save(f"{new_color_knob.colorknob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
                         return JsonResponse({'msg': translations['Color Knob has been added successfully'], 'success':1})
                     except Exception as e:
                         return JsonResponse({'msg': translations['Error in adding Color Knob'], 'success':0})
@@ -1014,6 +1063,17 @@ def add_knob_color(request):
                 existing_obj.colorknob_color = request.POST.get('color')
                 try:
                     existing_obj.save()
+                    
+                    # If image in REQUEST exists
+                    if request.FILES.get('edit_color_knob_image'):
+                        uploaded_file = request.FILES.get('edit_color_knob_image')
+
+                        # Delete the existing image, if any
+                        if existing_obj.colorknob_image:
+                            existing_obj.colorknob_image.delete(save=False)  # Deletes the old image file but doesn't save the model
+                
+                        existing_obj.colorknob_image.save(f"{existing_obj.colorknob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
+                    
                     return JsonResponse({'msg': translations['Record has been deleted successfullly'], 'success':1})
                 except IntegrityError as e:
                     return JsonResponse({'msg': translations["Update failed"], 'success':0})
@@ -1028,7 +1088,14 @@ def add_knob_color(request):
 def all_knob_colors(request):
     translations = get_translation('products')
     all_knob_cls = ColorKnob.objects.all()
-    data = [{'colorknob_id': knob.colorknob_id, 'colorknob_barcode': knob.colorknob_barcode, 'colorknob_description': knob.colorknob_description,'colorknob_color':knob.colorknob_color, 'colorknob_color_word':translations['yes'] if knob.colorknob_color==1 else translations['no']} for knob in all_knob_cls]
+    data = [{
+        'colorknob_id': knob.colorknob_id, 
+        'colorknob_barcode': knob.colorknob_barcode, 
+        'colorknob_description': knob.colorknob_description,
+        'colorknob_color':knob.colorknob_color, 
+        'colorknob_color_word':translations['yes'] if knob.colorknob_color==1 else translations['no'],
+        "image": knob.colorknob_image.url if knob.colorknob_image else "",
+    } for knob in all_knob_cls]
     return JsonResponse({'data': data}, safe=False)
 
 
@@ -1041,25 +1108,102 @@ def add_drawars(request):
             if 'upload_drawer' in request.FILES and request.FILES['upload_drawer']!='':
                 df = pd.read_csv(request.FILES['upload_drawer'])
                 if len(df) > 0:
-                    expected_columns = ["drawer_type", "drawer_code"]
+                    # expected_columns = ["drawer_type", "drawer_code"]
+                    expected_columns = [
+                        "side_kant", "lower_kant", "default_side", "default_low", "diameter", 
+                        "drills_amount", "drill_1", "drill_2", "drill_3", "drill_4", 
+                        "drill_5", "drill_6", "drill_7", "height", "price", 
+                        "drawer_type", "drawer_code"
+                    ]
+
                     if set(df.columns) == set(expected_columns):
                         
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
                             Drawer.objects.create(
+                                side_kant=row_data['side_kant'],
+                                lower_kant=row_data['lower_kant'],
+                                default_side=row_data['default_side'],
+                                default_low=row_data['default_low'],
+                                diameter=row_data['diameter'],
+                                drills_amount=row_data['drills_amount'],
+                                drill_1=row_data['drill_1'],
+                                drill_2=row_data['drill_2'],
+                                drill_3=row_data['drill_3'],
+                                drill_4=row_data['drill_4'],
+                                drill_5=row_data['drill_5'],
+                                drill_6=row_data['drill_6'],
+                                drill_7=row_data['drill_7'],
+                                height=row_data['height'],
+                                price=row_data['price'],
                                 drawer_type=row_data['drawer_type'],
                                 drawer_code=row_data['drawer_code']
                             )
+
                             if index == len(df) - 1:
                                 return JsonResponse({'msg': translations['Drawers has been added successfully'], 'success':1})
                     else:
-                        return JsonResponse({'msg': f'Error in reading columns, the columns must be only two and with name of ({",".join(expected_columns)})', 'success':0})
+                        return JsonResponse({'msg': f'Error in reading columns, the columns must be only {len(expected_columns)} and with name of ({",".join(expected_columns)})', 'success':0})
                 else:
                     return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
             else: # for single insertion
                 drawers_type = request.POST.get('drawers_type')
                 drawers_code = request.POST.get('drawers_code')
-                if drawers_type!='' and drawers_code!='':
-                    new_drawer = Drawer(drawer_type=drawers_type,drawer_code=drawers_code)
+                side_kant = request.POST.get('side_kant')
+                lower_kant = request.POST.get('lower_kant')
+                default_side = request.POST.get('default_side')
+                default_low = request.POST.get('default_low')
+                diameter = request.POST.get('diameter')
+                drills_amount = request.POST.get('drills_amount')
+                drill_1 = request.POST.get('drill_1')
+                drill_2 = request.POST.get('drill_2')
+                drill_3 = request.POST.get('drill_3')
+                drill_4 = request.POST.get('drill_4')
+                drill_5 = request.POST.get('drill_5')
+                drill_6 = request.POST.get('drill_6')
+                drill_7 = request.POST.get('drill_7')
+                height = request.POST.get('height')
+                price = request.POST.get('price')
+
+                # Check all required fields
+                if (
+                    drawers_type != '' and
+                    drawers_code != '' and
+                    side_kant != '' and
+                    lower_kant != '' and
+                    default_side != '' and
+                    default_low != '' and
+                    diameter != '' and
+                    drills_amount != '' and
+                    drill_1 != '' and
+                    drill_2 != '' and
+                    drill_3 != '' and
+                    drill_4 != '' and
+                    drill_5 != '' and
+                    drill_6 != '' and
+                    drill_7 != '' and
+                    height != '' and
+                    price != ''
+                ):
+                    new_drawer = Drawer(
+                        drawer_type=drawers_type,
+                        drawer_code=drawers_code,
+                        side_kant=side_kant,
+                        lower_kant=lower_kant,
+                        default_side=default_side,
+                        default_low=default_low,
+                        diameter=diameter,
+                        drills_amount=drills_amount,
+                        drill_1=drill_1,
+                        drill_2=drill_2,
+                        drill_3=drill_3,
+                        drill_4=drill_4,
+                        drill_5=drill_5,
+                        drill_6=drill_6,
+                        drill_7=drill_7,
+                        height=height,
+                        price=price
+                    )
+
                     try:
                         new_drawer.save()
                         return JsonResponse({'msg': translations['Drawers has been added successfully'], 'success':1})
@@ -1076,8 +1220,23 @@ def add_drawars(request):
             drawer_id = int(request.POST.get('drawer_id'))
             existing_obj = Drawer.objects.get(drawer_id = drawer_id)
             if existing_obj:
-                existing_obj.drawer_type = request.POST.get('drawers_type')
-                existing_obj.drawer_code = request.POST.get('drawers_code')
+                existing_obj.drawers_type = request.POST.get('drawers_type')
+                existing_obj.drawers_code = request.POST.get('drawers_code')
+                existing_obj.side_kant = request.POST.get('side_kant')
+                existing_obj.lower_kant = request.POST.get('lower_kant')
+                existing_obj.default_side = request.POST.get('default_side')
+                existing_obj.default_low = request.POST.get('default_low')
+                existing_obj.diameter = request.POST.get('diameter')
+                existing_obj.drills_amount = request.POST.get('drills_amount')
+                existing_obj.drill_1 = request.POST.get('drill_1')
+                existing_obj.drill_2 = request.POST.get('drill_2')
+                existing_obj.drill_3 = request.POST.get('drill_3')
+                existing_obj.drill_4 = request.POST.get('drill_4')
+                existing_obj.drill_5 = request.POST.get('drill_5')
+                existing_obj.drill_6 = request.POST.get('drill_6')
+                existing_obj.drill_7 = request.POST.get('drill_7')
+                existing_obj.height = request.POST.get('height')
+                existing_obj.price = request.POST.get('price')
                 try:
                     existing_obj.save()
                     return JsonResponse({'msg': translations['Record has been updated successfully'], 'success':1})
@@ -1094,7 +1253,27 @@ def add_drawars(request):
 def all_drawer_data(request):
     
     all_drawers = Drawer.objects.all()
-    data = [{'drawer_id': drawer.drawer_id, 'drawer_type': drawer.drawer_type, 'drawer_code': drawer.drawer_code} for drawer in all_drawers]   
+    data = [{
+        'drawer_id': drawer.drawer_id,
+        'drawer_type': drawer.drawer_type,
+        'drawer_code': drawer.drawer_code,
+        'side_kant': drawer.side_kant,
+        'lower_kant': drawer.lower_kant,
+        'default_side': drawer.default_side,
+        'default_low': drawer.default_low,
+        'diameter': drawer.diameter,
+        'drills_amount': drawer.drills_amount,
+        'drill_1': drawer.drill_1,
+        'drill_2': drawer.drill_2,
+        'drill_3': drawer.drill_3,
+        'drill_4': drawer.drill_4,
+        'drill_5': drawer.drill_5,
+        'drill_6': drawer.drill_6,
+        'drill_7': drawer.drill_7,
+        'height': drawer.height,
+        'price': drawer.price
+    } for drawer in all_drawers]
+
     return JsonResponse({'data': data}, safe=False)
 
 
