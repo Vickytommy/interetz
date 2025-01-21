@@ -671,9 +671,9 @@ def add_collection(request):
                             except ValueError:
                                 # Handle invalid file names that cannot be converted to an integer
                                 print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
-
-                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
-                else:
+                                
+                        return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {'image' if len(uploaded_files) == 1 else 'images'} processed successfully.", 'success': 1})
+                    else:
                     return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
             
             else:
@@ -866,8 +866,7 @@ def add_knobs(request):
                             except ValueError:
                                 # Handle invalid file names that cannot be converted to an integer
                                 print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
-
-                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
+                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {'image' if len(uploaded_files) == 1 else 'images'} processed successfully.", 'success': 1})
                 else:
                     return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
             
@@ -1025,7 +1024,7 @@ def add_knob_color(request):
                                 # Handle invalid file names that cannot be converted to an integer
                                 print(f"Invalid file name: {uploaded_file.name}. Expected a number as the file name.")
 
-                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {"image" if len(uploaded_files) <=1 else "images"} processed successfully.", 'success': 1})
+                    return JsonResponse({'msg': f"{num_of_valid_uploads} of {len(uploaded_files)} {'image' if len(uploaded_files) == 1 else 'images'} processed successfully.", 'success': 1})
                 else:
                     return JsonResponse({'msg': 'Uploaded files list is empty.', 'success': 0})
             
