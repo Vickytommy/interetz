@@ -35,7 +35,9 @@
                  <a href="{% url 'super_admin:addAdmin' %}?entry_type=bulk" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">{{ admin_data|get:"Add Bulk Admins File" }}</a>
 
 
-                <div id="add_form_drawer">
+                <!-- Top Filter Form -->
+                 
+                <!-- <div id="add_form_drawer">
                          <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
                                 <div class="pb-0 card-body">
                                         <strong id="add_drawer_form_title">{{ admin_data|get:"Filter Table Based on Inactive Gap" }}</strong>
@@ -57,7 +59,7 @@
                                         
                                 </div>
                         </div>
-                </div>
+                </div> -->
 
 
 
@@ -77,8 +79,8 @@
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data_table|get:"company name"}}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"Phone"}}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"Registeration Date"}}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"Last Visit Date"}}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{admin_data|get:"Inactive Gap"}}</th>
+                                        <!-- <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"Last Visit Date"}}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{admin_data|get:"Inactive Gap"}}</th> -->
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"Active Status"}}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data_products|get:"actions"}}</th>
                                     </tr>
@@ -97,8 +99,8 @@
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.company_name }}</td>
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.phone_number }}</td>
                                              <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.registered_date|format_registered_date }}</td>
-                                              <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.last_login|format_registered_date }}</td>
-                                              <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.difference_in_days }}</td>
+                                              <!-- <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.last_login|format_registered_date }}</td>
+                                              <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.difference_in_days }}</td> -->
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ admin.is_active }}</td>
                                             <td class="text-center border border-gray-300 dark:border-zink-50">
 
@@ -204,11 +206,11 @@ $(document).ready(function(){
     
     var datatable = $('#basic_tables').DataTable({
         buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: mapping.export_excel,
-                        // className: 'text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn'
-                    }
+                    // {
+                    //     extend: 'excelHtml5',
+                    //     text: mapping.export_excel,
+                    //     // className: 'text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn'
+                    // }
                 ],
          dom: 'Bfrtip',
         

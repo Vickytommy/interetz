@@ -1343,7 +1343,6 @@ def add_hinges(request):
             hinge_id = int(request.POST.get('hinge_id'))
             obj_to_delete = get_object_or_404(Hinge, hinge_id=hinge_id)
             if obj_to_delete.delete():
-                print('THE TRANSLATIONS\n\n', translations, '\n\n')
                 print(translations["Record has been deleted successfully"])
                 return JsonResponse({"success": 1, "msg": translations["Record has been deleted successfully"]}, safe=False)
             else:
