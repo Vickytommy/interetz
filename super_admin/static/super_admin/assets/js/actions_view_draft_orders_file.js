@@ -23,6 +23,9 @@ $(document).ready(function(){
                     {
                         extend: 'excelHtml5',
                         text: window.page.export_excel,
+                        exportOptions: {
+                            columns: [0, 1, 2, 7, 8, 9, 10] // Specify column indexes to include in the export
+                        }
                     }
                 ],
                 
@@ -39,10 +42,10 @@ $(document).ready(function(){
                     { data: 'formatted_created_at', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'formatted_updated_at', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'order_id', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'order_status', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'type_of_reservation', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'product_type', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'past_order_id', className:'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'order_status', visible: false, className:'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'type_of_reservation', visible: false, className:'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'product_type', visible: false, className:'text-center border border-gray-300 dark:border-zink-50' },
+                    { data: 'past_order_id', visible: false, className:'text-center border border-gray-300 dark:border-zink-50' },
                       { data: 'company_name', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'employee_name', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'client_order_id', className:'text-center border border-gray-300 dark:border-zink-50' },
@@ -87,64 +90,6 @@ $(document).ready(function(){
             }
             
         },
-
-            //     columnDefs: [
-            //     {
-            //         targets: [0], // Assuming column 0 contains dates
-            //         render: function (data, type, row) {
-            //             // Parse the date using JavaScript's Date object
-            //             var date = new Date(data);
-
-            //             // Format the date as desired (e.g., "MM/DD/YYYY")
-            //             var formattedDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-
-            //             return formattedDate;
-            //         }
-            //     }
-            // ]
-                // initComplete: function(){
-
-                //      var searchableColumns = Array.from(Array(9), (_, index) => index + 1); // Adjust column indices as needed
-                   
-
-                //     this.api().columns().every(function (index) {
-                       
-                //                 let column = this;
-                //                 let title = column.header().textContent;
-                //                 let input = document.createElement('input');
-                //                 input.classList.add(
-                //                     'w-full', 
-                //                     'border', 
-                //                     'py-2', 
-                //                     'px-3', 
-                //                     'text-13', 
-                //                     'rounded', 
-                //                     'border-gray-400', 
-                //                     'placeholder:text-13', 
-                //                     'focus:border', 
-                //                     'focus:border-gray-400', 
-                //                     'focus:ring-0', 
-                //                     'focus:outline-none', 
-                //                     'text-gray-700', 
-                //                     'dark:bg-transparent', 
-                //                     'placeholder:text-gray-600', 
-                //                     'dark:border-zink-50', 
-                //                 );
-
-                //                 input.setAttribute('placeholder', title);
-                //                 column.header().replaceChildren(input);
-
-                //                 // Event listener for user input
-                //                 input.addEventListener('keyup', () => {
-                //                     if (column.search() !== input.value) {
-                //                         column.search(input.value).draw();
-                //                     }
-                //                 });
-                     
-                //     });  //end search feature here
-                    
-                //     this.api().columns.adjust();
-                // },
 
 
     });

@@ -34,6 +34,7 @@
                 <input type="hidden" value='{% url "super_admin:editDraftOrder" %}' id="link_to_edit_order_">
                 <input type="hidden" value='{% url "super_admin:exportOrderToCsv" %}' id="link_to_generate_csv_">
                 <input type="hidden" value='{% url "super_admin:downloadOrderImage" %}' id="link_to_download_image_">
+                <input type="hidden" value='{% url "super_admin:markOrderAsComplete" %}' id="link_to_order_fulfilled">
                 <input type="hidden" name="role_id" id="role_id" value="{{ request.user.role_id }}">
              
 
@@ -149,6 +150,7 @@
         edit_btn:'{{ edit_btn }}',
         delete_btn:'{{ delete_btn }}',
         download_btn: '{{ download_btn }}',
+        fulfilled_btn: '{{ fulfilled_btn }}',
     };
     window.page = mapping;
 </script>
