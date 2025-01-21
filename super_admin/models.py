@@ -94,6 +94,53 @@ class EliteNovaUser(AbstractUser):
     
    
 
+class Hinge(models.Model):
+    hinge_id = models.AutoField(primary_key=True)
+    manufacturer = models.CharField(max_length=255)
+    hinge_type = models.CharField(max_length=255)
+    hinge_sub_type = models.CharField(max_length=255)
+    main_drill_diameter = models.FloatField()
+    secondary_drill_diameter = models.FloatField()
+    drill_depth = models.FloatField()
+    lower = models.TextField()
+    side = models.TextField()
+    price = models.FloatField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.hinge_type} - {self.manufacturer}"
+
+
+class Clap(models.Model):
+    clap_id = models.AutoField(primary_key=True)
+    manufacturer = models.CharField(max_length=255)
+    clap_type = models.CharField(max_length=255)
+    clap_code = models.CharField(max_length=255)
+
+    side_kant = models.TextField()  
+    upper_kant = models.TextField() 
+    default_side = models.TextField()  
+    default_upper = models.TextField() 
+    diameter = models.FloatField()
+    drills_amount = models.FloatField()
+    drill_1 = models.TextField()
+    drill_2 = models.TextField()
+    drill_3 = models.TextField()
+    drill_4 = models.TextField()
+    drill_5 = models.TextField()
+    drill_6 = models.TextField()
+    drill_7 = models.TextField()
+    drill_direction = models.FloatField()
+    price = models.FloatField(default=0)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.clap_type} - {self.manufacturer}"
+    
+
 class Drawer(models.Model):
     drawer_id = models.AutoField(primary_key=True)
     drawer_type = models.CharField(max_length=255)

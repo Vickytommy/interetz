@@ -203,14 +203,13 @@
                             <a href="{% url 'super_admin:add_knobs' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"knobs" }}</a>
 
 
-                            
-
                             <a href="{% url 'super_admin:add_knob_color' %}"  class="text-white transition-all duration-300 ease-linear  bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn mr-4">{{ request.session|get:"knob color" }}</a>
-
-                           
 
                             <a href="{% url 'super_admin:add_drawars' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"drawers" }}</a>
 
+                            <a href="{% url 'super_admin:add_hinges' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ data|get:"hinges" }}</a>
+                            
+                            <a href="{% url 'super_admin:add_claps' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ data|get:"claps" }}</a>
 
                             <!-- <h6 class="font-semibold text-15 mb-3 dark:text-white mt-2">View Drawer List</h6> -->
                            

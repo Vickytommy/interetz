@@ -1,6 +1,6 @@
 {% load filters %}
 {% include 'super_admin/partials/main.html' %}
-{% include 'super_admin/partials/title-meta.html' with title=data|get:"drawers" %}
+{% include 'super_admin/partials/title-meta.html' with title=data|get:"claps" %}
 
 <head>
 
@@ -28,20 +28,20 @@
             <div class="container-fluid">
 
                
-                {% include 'super_admin/partials/page-title.html' with title=data|get:"products" pagetitle=data|get:"drawers" %}
+                {% include 'super_admin/partials/page-title.html' with title=data|get:"products" pagetitle=data|get:"claps" %}
                 {% include 'super_admin/partials/custom_modal.html' %}
 
-                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Drawers</a> -->
-                <input type="hidden" value='{% url "super_admin:all_drawer_data" %}' id="link_to_view_">
-                <!-- <input type="hidden" value="{% url 'super_admin:add_drawars' %}" id="link_to_add_"> -->
+                <!-- <a href="{% url 'super_admin:addClient' %}" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn">Claps</a> -->
+                <input type="hidden" value='{% url "super_admin:all_clap_data" %}' id="link_to_view_">
+                <!-- <input type="hidden" value="{% url 'super_admin:add_claps' %}" id="link_to_add_"> -->
 
 
-              <div id="add_form_drawer">
+              <div id="add_form_Clap">
                          <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
                                 <div class="pb-0 card-body">
-                                        <strong id="add_drawer_form_title">{{ data|get:"Add Drawer Form" }}</strong>
+                                        <strong id="add_clap_form_title">{{ data|get:"Add Clap Form" }}</strong>
 
-                                        <form id="add_drawer_form" class="{% url 'super_admin:add_drawars' %}" method="POST" enctype="multipart/form-data">
+                                        <form id="add_clap_form" class="{% url 'super_admin:add_claps' %}" method="POST" enctype="multipart/form-data">
                                             <div id="info_selector" class="mt-4 mb-4" ></div>
                                              {% csrf_token %}
                                             <input type="hidden" name="action" id="action" value="insert">
@@ -59,14 +59,20 @@
 
                                                     <div class=" md:col-span-3 single_entry_type" style="display:none;">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="drawers_type" name="drawers_type" placeholder='{{ data|get:"drawer type" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="manufacturer" name="manufacturer" placeholder='{{ data|get:"manufacturer" }}'>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                        <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="clap_type" name="clap_type" placeholder='{{ data|get:"clap type" }}'>
                                                         </div>
                                                     </div>
                                                 
                                                     <div class=" md:col-span-3 single_entry_type" style="display:none;">
                                                              <div>
                                                                 
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="drawers_code" name="drawers_code"  placeholder='{{ data|get:"drawer code" }}'>
+                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="clap_code" name="clap_code"  placeholder='{{ data|get:"clap code" }}'>
                                                             </div>
                                                     </div>
 
@@ -78,7 +84,7 @@
                                                     
                                                     <div class="md:col-span-3 single_entry_type" style="display:none;">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="lower_kant" name="lower_kant" placeholder='{{ data|get:"lower kant" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="upper_kant" name="upper_kant" placeholder='{{ data|get:"upper kant" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -90,7 +96,7 @@
                                                     
                                                     <div class="md:col-span-3 single_entry_type" style="display:none;">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="default_low" name="default_low" placeholder='{{ data|get:"default low" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="default_upper" name="default_upper" placeholder='{{ data|get:"default upper" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -150,7 +156,7 @@
                                                     
                                                     <div class="md:col-span-3 single_entry_type" style="display:none;">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="height" name="height" placeholder='{{ data|get:"height" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="drill_direction" name="drill_direction" placeholder='{{ data|get:"drill direction" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -167,14 +173,14 @@
                                                                 
                                                                 
 
-                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" id="formFileLg" type="file"  accept=".csv" id="upload_drawer" name="upload_drawer"  />
+                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" id="formFileLg" type="file"  accept=".csv" id="upload_clap" name="upload_clap"  />
 
-                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (drawer_type,drawer_code,side_kant,lower_kant,default_side,default_low,diameter,drills_amount,drill_1,drill_2,drill_3,drill_4,drill_5,drill_6,drill_7,height,price)</label>
+                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (manufacturer,clap_type,clap_code,side_kant,upper_kant,default_side,default_upper,diameter,drills_amount,drill_1,drill_2,drill_3,drill_4,drill_5,drill_6,drill_7,drill_direction,price)</label>
                                                             </div>
                                                     </div>
             
                                                 <div id="form_btn" style="display:none;">
-                                                    <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_drawer_submit_btn"><i class="fa fa-save"></i></button>
+                                                    <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_clap_submit_btn"><i class="fa fa-save"></i></button>
                                                 </div>
                                                 
                                             </div> 
@@ -193,30 +199,35 @@
                 </div>
 
 
-                <div id="edit_form_drawer" style="display:none;">
+                <div id="edit_form_clap" style="display:none;">
                          <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
                                 <div class="pb-0 card-body">
-                                                 <strong id="add_drawer_form_title">{{ data|get:"Edit Data" }}</strong>
+                                                 <strong id="add_clap_form_title">{{ data|get:"Edit Data" }}</strong>
 
-                                         <form id="edit_drawer_form" class="{% url 'super_admin:add_drawars' %}" method="POST" >
+                                         <form id="edit_clap_form" class="{% url 'super_admin:add_claps' %}" method="POST" >
                                             <div id="info_selector_2" class="mt-4 mb-4" ></div>
                                              {% csrf_token %}
                                             <input type="hidden" name="action" id="action" value="edit">
-                                             <input type="hidden" name="drawer_id" id="drawer_id" value="">
+                                             <input type="hidden" name="clap_id" id="clap_id" value="">
                                             <div class="grid grid-cols-12 gap-x-5 md:gap-6">
                                                   
                                                     <!-- START -->
+                                                    <div class=" md:col-span-3 " >
+                                                        <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="manufacturer_edit" name="manufacturer" required placeholder='{{ data|get:"manufacturer" }}'>
+                                                        </div>
+                                                    </div>
 
                                                     <div class=" md:col-span-3 " >
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="drawers_type_edit" name="drawers_type" required placeholder='{{ data|get:"drawer type" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="clap_type_edit" name="clap_type" required placeholder='{{ data|get:"clap type" }}'>
                                                         </div>
                                                     </div>
                                                 
                                                     <div class=" md:col-span-3 " >
                                                              <div>
                                                                 
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="drawers_code_edit" name="drawers_code" required placeholder='{{ data|get:"drawer code" }}'>
+                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="clap_code_edit" name="clap_code" required placeholder='{{ data|get:"clap code" }}'>
                                                             </div>
                                                     </div>
 
@@ -228,7 +239,7 @@
                                                     
                                                     <div class="md:col-span-3">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="lower_kant_edit" name="lower_kant" required placeholder='{{ data|get:"lower kant" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="upper_kant_edit" name="upper_kant" required placeholder='{{ data|get:"upper kant" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -240,7 +251,7 @@
                                                     
                                                     <div class="md:col-span-3">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="default_low_edit" name="default_low" required placeholder='{{ data|get:"default low" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="default_upper_edit" name="default_upper" required placeholder='{{ data|get:"default upper" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -300,7 +311,7 @@
                                                     
                                                     <div class="md:col-span-3">
                                                         <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="height_edit" name="height" required placeholder='{{ data|get:"height" }}'>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="drill_direction_edit" name="drill_direction" required placeholder='{{ data|get:"drill direction" }}'>
                                                         </div>
                                                     </div>
                                                     
@@ -314,7 +325,7 @@
                                                    <!-- END -->
             
                                                 <div id="form_btn" >
-                                                    <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_drawer_submit_btn"><i class="fa fa-save"></i></button>
+                                                    <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_clap_submit_btn"><i class="fa fa-save"></i></button>
                                                 </div>
                                                 
                                             </div> 
@@ -343,31 +354,32 @@
 
                             <a href="{% url 'super_admin:add_knobs' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"knobs" }}</a>
 
-
                             <a href="{% url 'super_admin:add_knob_color' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"knob color" }}</a>
 
-                            <a href="{% url 'super_admin:add_drawars' %}"  class="text-white transition-all duration-300 ease-linear  bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn mr-4">{{ request.session|get:"drawers" }}</a>
+                            <a href="{% url 'super_admin:add_drawars' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ request.session|get:"drawers" }}</a>
 
-                            <a href="{% url 'super_admin:add_hinges' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ data|get:"hinges" }}</a>
-                            
-                            <a href="{% url 'super_admin:add_claps' %}"  class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ data|get:"claps" }}</a>
+                            <a href="{% url 'super_admin:add_hinges' %}" class="transition-all duration-300 ease-linear bg-white text-dark-500 border-dark-500 focus:ring focus:ring-dark-500/30 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 dark:bg-transparent dark:text-white dark:border-white active:text-white focus:bg-dark-500 focus:border-dark-600 focus:text-white btn mr-4">{{ data|get:"hinges" }}</a>
+
+                            <a href="{% url 'super_admin:add_claps' %}"  class="text-white transition-all duration-300 ease-linear  bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn mr-4">{{ data|get:"claps" }}</a>
+
 
                             <div class="flex flex-wrap gap-2 mt-4  mb-4">
-                                <a href="{% static 'super_admin/assets/files_format/drawer_bulk_upload_template.csv' %}" download="drawer_bulk_upload_template.csv" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn min-w-[10px]" title='{{ data|get:"Download Bulk File Template" }}'><i class="fa fa-download"></i></a>
+                                <a href="{% static 'super_admin/assets/files_format/clap_bulk_upload_template.csv' %}" download="clap_bulk_upload_template.csv" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn min-w-[10px]" title='{{ data|get:"Download Bulk File Template" }}'><i class="fa fa-download"></i></a>
 
                                
                             </div>
 
-                            <table id="drawer_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                            <table id="clap_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
                                 <thead>
                                     <tr>
                                         
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drawer type" }}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drawer code" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"manufacturer" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"clap type" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"clap code" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"side kant" }}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"lower kant" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"upper kant" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"default side" }}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"default low" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"default upper" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"diameter" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drills amount" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drill 1" }}</th>
@@ -377,7 +389,7 @@
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drill 5" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drill 6" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drill 7" }}</th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"height" }}</th>
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drill direction" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"price" }}</th>
 
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"actions" }}</th>
@@ -418,7 +430,7 @@
 <script src="{% static 'super_admin/assets/libs/sweetalert2/sweetalert2.min.js' %}"></script>
 <!-- Datatable init js -->
 <script src="{% static 'super_admin/assets/js/app.js' %}"></script>
-<script src="{% static 'super_admin/assets/js/actions_drawer_file.js' %}"></script>
+<script src="{% static 'super_admin/assets/js/actions_clap_file.js' %}"></script>
 <script type="text/javascript">
     
     var mapping = {

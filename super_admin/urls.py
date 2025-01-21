@@ -31,6 +31,10 @@ urlpatterns = [
     path("all_knob_colors",views.all_knob_colors, name = "all_knob_colors"),
 
 
+    path("add_claps",views.add_claps, name = "add_claps"),
+    path("all_clap_data",views.all_clap_data, name = "all_clap_data"),
+    path("add_hinges",views.add_hinges, name = "add_hinges"),
+    path("all_hinge_data",views.all_hinge_data, name = "all_hinge_data"),
     path("add_drawars",views.add_drawars, name = "add_drawars"),
     path("all_drawer_data",views.all_drawer_data, name = "all_drawer_data"),
     # path("insert_drawars",views.insert_drawars, name = "insert_drawars"),

@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .decorators import role_required
-from .models import EliteNovaUser, Role, Drawer, ColorKnob, Knob, Collection, OrderTrack, helperTables, DrawarOrder, ClapOrder, HingeOrder, Cards, OrderItems, RelatedOrders, Translations
+from .models import EliteNovaUser, Role, Drawer, Hinge, Clap, ColorKnob, Knob, Collection, OrderTrack, helperTables, DrawarOrder, ClapOrder, HingeOrder, Cards, OrderItems, RelatedOrders, Translations
 import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
@@ -62,7 +62,7 @@ def get_menus_translation(request):
     }
 
     sql_query3 = """select * from super_admin_translations where translation_page_name='products'
-                    and translation_english_verion in ('collection','knob color','knobs','drawers');
+                    and translation_english_verion in ('collection','knob color','knobs','drawers','hinges','claps');
                 """
 
     with connection.cursor() as cursor:
@@ -331,7 +331,7 @@ def deleteSuperAdmin(request):  # this will help me for deleting of all kind of 
         user_id = int(request.POST.get('user_id'))
         obj_to_delete = get_object_or_404(EliteNovaUser, id=user_id)
         if obj_to_delete.delete():
-            return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+            return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
         else:
             return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
 
@@ -713,7 +713,7 @@ def add_collection(request):
             collection_id = int(request.POST.get('collection_id'))
             obj_to_delete = get_object_or_404(Collection, collection_id=collection_id)
             if obj_to_delete.delete():
-                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
         elif action == "edit":        
@@ -934,7 +934,7 @@ def add_knobs(request):
             knob_id = int(request.POST.get('knob_id'))
             obj_to_delete = get_object_or_404(Knob, knob_id=knob_id)
             if obj_to_delete.delete():
-                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
 
@@ -1051,7 +1051,7 @@ def add_knob_color(request):
             colorknob_id = int(request.POST.get('color_knob_id'))
             obj_to_delete = get_object_or_404(ColorKnob, colorknob_id=colorknob_id)
             if obj_to_delete.delete():
-                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
         elif action == "edit":
@@ -1074,7 +1074,7 @@ def add_knob_color(request):
                 
                         existing_obj.colorknob_image.save(f"{existing_obj.colorknob_id}-{generate_random_string()}{splitext(uploaded_file.name)[1]}", uploaded_file)
                     
-                    return JsonResponse({'msg': translations['Record has been deleted successfullly'], 'success':1})
+                    return JsonResponse({'msg': translations['Record has been deleted successfully'], 'success':1})
                 except IntegrityError as e:
                     return JsonResponse({'msg': translations["Update failed"], 'success':0})
             else:
@@ -1213,7 +1213,7 @@ def add_drawars(request):
             drawer_id = int(request.POST.get('drawer_id'))
             obj_to_delete = get_object_or_404(Drawer, drawer_id=drawer_id)
             if obj_to_delete.delete():
-                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
         elif action == "edit":
@@ -1273,6 +1273,305 @@ def all_drawer_data(request):
         'height': drawer.height,
         'price': drawer.price
     } for drawer in all_drawers]
+
+    return JsonResponse({'data': data}, safe=False)
+
+
+def add_hinges(request):
+    if request.method == "POST":
+        translations = get_translation('products')
+        action = request.POST.get('action')
+        if action == "insert":
+            if 'upload_hinge' in request.FILES and request.FILES['upload_hinge'] != '':
+                df = pd.read_csv(request.FILES['upload_hinge'])
+                if len(df) > 0:
+                    # Update the expected columns
+                    expected_columns = [
+                        "manufacturer", "hinge_type", "hinge_sub_type", 
+                        "main_drill_diameter", "secondary_drill_diameter", 
+                        "drill_depth", "lower_default", "side_default", "price"
+                    ]
+
+                    if set(df.columns) == set(expected_columns):
+                        for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
+                            Hinge.objects.create(
+                                manufacturer=row_data['manufacturer'],
+                                hinge_type=row_data['hinge_type'],
+                                hinge_sub_type=row_data['hinge_sub_type'],
+                                main_drill_diameter=row_data['main_drill_diameter'],
+                                secondary_drill_diameter=row_data['secondary_drill_diameter'],
+                                drill_depth=row_data['drill_depth'],
+                                lower=row_data['lower_default'],
+                                side=row_data['side_default'],
+                                price=row_data['price']
+                            )
+
+                            if index == len(df) - 1:
+                                return JsonResponse({'msg': translations['Hinges have been added successfully'], 'success': 1})
+                    else:
+                        return JsonResponse({'msg': f'Error in reading columns, the columns must be only {len(expected_columns)} and with names ({",".join(expected_columns)})', 'success': 0})
+                else:
+                    return JsonResponse({'msg': translations['Uploaded file must have some data, it seems to be an empty file'], 'success': 0})
+            else:  # For single insertion
+                manufacturer = request.POST.get('manufacturer')
+                hinge_type = request.POST.get('hinge_type')
+                hinge_sub_type = request.POST.get('hinge_sub_type')
+                main_drill_diameter = request.POST.get('main_drill_diameter')
+                secondary_drill_diameter = request.POST.get('secondary_drill_diameter')
+                drill_depth = request.POST.get('drill_depth')
+                lower_default = request.POST.get('lower_default')
+                side_default = request.POST.get('side_default')
+                price = request.POST.get('price')
+
+                new_hinge = Hinge(
+                    manufacturer=manufacturer,
+                    hinge_type=hinge_type,
+                    hinge_sub_type=hinge_sub_type,
+                    main_drill_diameter=main_drill_diameter,
+                    secondary_drill_diameter=secondary_drill_diameter,
+                    drill_depth=drill_depth,
+                    lower=lower_default,
+                    side=side_default,
+                    price=price
+                )
+
+                try:
+                    new_hinge.save()
+                    return JsonResponse({'msg': translations['Hinges have been added successfully'], 'success': 1})
+                except Exception as e:
+                    return JsonResponse({'msg': translations['Error in adding hinges'], 'success': 0})
+        elif action == "delete":
+            hinge_id = int(request.POST.get('hinge_id'))
+            obj_to_delete = get_object_or_404(Hinge, hinge_id=hinge_id)
+            if obj_to_delete.delete():
+                print('THE TRANSLATIONS\n\n', translations, '\n\n')
+                print(translations["Record has been deleted successfully"])
+                return JsonResponse({"success": 1, "msg": translations["Record has been deleted successfully"]}, safe=False)
+            else:
+                return JsonResponse({"success": 0, "msg": translations["Error in deleting"]}, safe=False)
+        elif action == "edit":
+            hinge_id = int(request.POST.get('hinge_id'))
+            existing_obj = Hinge.objects.get(hinge_id=hinge_id)
+            if existing_obj:
+                existing_obj.manufacturer = request.POST.get('manufacturer')
+                existing_obj.hinge_type = request.POST.get('hinge_type')
+                existing_obj.hinge_sub_type = request.POST.get('hinge_sub_type')
+                existing_obj.main_drill_diameter = request.POST.get('main_drill_diameter')
+                existing_obj.secondary_drill_diameter = request.POST.get('secondary_drill_diameter')
+                existing_obj.drill_depth = request.POST.get('drill_depth')
+                existing_obj.lower = request.POST.get('lower_default')
+                existing_obj.side = request.POST.get('side_default')
+                existing_obj.price = request.POST.get('price')
+                try:
+                    existing_obj.save()
+                    return JsonResponse({'msg': translations['Record has been updated successfully'], 'success': 1})
+                except IntegrityError as e:
+                    return JsonResponse({'msg': translations["Update failed"], 'success': 0})
+            else:
+                return JsonResponse({'msg': translations["The record does not exist"], 'success': 0})
+    else:
+        translations = get_translation('products')
+        context = {'data': translations, 'data_table': get_translation('Reservation')}
+        return render(request, 'super_admin/add_hinges.html', context=context)
+
+@role_required(allowed_roles=['super admin'])
+def all_hinge_data(request):
+    all_hinges = Hinge.objects.all()
+    data = [{
+        'manufacturer': hinge.manufacturer,
+        'hinge_id': hinge.hinge_id,
+        'hinge_type': hinge.hinge_type,
+        'hinge_sub_type': hinge.hinge_sub_type,
+        'main_drill_diameter': hinge.main_drill_diameter,
+        'secondary_drill_diameter': hinge.secondary_drill_diameter,
+        'drill_depth': hinge.drill_depth,
+        'lower_default': hinge.lower,
+        'side_default': hinge.side,
+        'price': hinge.price
+    } for hinge in all_hinges]
+
+    return JsonResponse({'data': data}, safe=False)
+
+
+@role_required(allowed_roles=['super admin'])
+def add_claps(request):
+    if request.method == "POST":
+        translations = get_translation('products')
+        action = request.POST.get('action')
+        if action == "insert":
+            if 'upload_clap' in request.FILES and request.FILES['upload_clap']!='':
+                df = pd.read_csv(request.FILES['upload_clap'])
+                if len(df) > 0:
+                    expected_columns = [
+                        "manufacturer", "clap_type", "clap_code", "side_kant", "upper_kant", "default_side", 
+                        "default_upper", "diameter", "drills_amount", "drill_1", "drill_2", "drill_3", 
+                        "drill_4", "drill_5", "drill_6", "drill_7", "drill_direction", "price"
+                    ]
+
+                    if set(df.columns) == set(expected_columns):
+                        
+                        for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
+                            Clap.objects.create(
+                                manufacturer=row_data['manufacturer'],
+                                clap_type=row_data['clap_type'],
+                                clap_code=row_data['clap_code'],
+                                side_kant=row_data['side_kant'],
+                                upper=row_data['upper_kant'],
+                                default_side=row_data['default_side'],
+                                default_upper=row_data['default_upper'],
+                                diameter=row_data['diameter'],
+                                drills_amount=row_data['drills_amount'],
+                                drill_1=row_data['drill_1'],
+                                drill_2=row_data['drill_2'],
+                                drill_3=row_data['drill_3'],
+                                drill_4=row_data['drill_4'],
+                                drill_5=row_data['drill_5'],
+                                drill_6=row_data['drill_6'],
+                                drill_7=row_data['drill_7'],
+                                drill_direction=row_data['drill_direction'],
+                                price=row_data['price']
+                            )
+
+                            if index == len(df) - 1:
+                                return JsonResponse({'msg': translations['Claps have been added successfully'], 'success':1})
+                    else:
+                        return JsonResponse({'msg': f'Error in reading columns, the columns must be only {len(expected_columns)} and with name of ({",".join(expected_columns)})', 'success':0})
+                else:
+                    return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
+            else: # for single insertion
+                manufacturer = request.POST.get('manufacturer')
+                clap_type = request.POST.get('clap_type'),
+                clap_code = request.POST.get('clap_code'),
+                side_kant = request.POST.get('side_kant')
+                upper_kant = request.POST.get('upper_kant')
+                default_side = request.POST.get('default_side')
+                default_upper = request.POST.get('default_upper')
+                diameter = request.POST.get('diameter')
+                drills_amount = request.POST.get('drills_amount')
+                drill_1 = request.POST.get('drill_1')
+                drill_2 = request.POST.get('drill_2')
+                drill_3 = request.POST.get('drill_3')
+                drill_4 = request.POST.get('drill_4')
+                drill_5 = request.POST.get('drill_5')
+                drill_6 = request.POST.get('drill_6')
+                drill_7 = request.POST.get('drill_7')
+                drill_direction = request.POST.get('drill_direction')
+                price = request.POST.get('price')
+
+                # Check all required fields
+                if (
+                    manufacturer != '' and
+                    clap_type != '' and 
+                    clap_code != '' and
+                    side_kant != '' and
+                    upper_kant != '' and
+                    default_side != '' and
+                    default_upper != '' and
+                    diameter != '' and
+                    drills_amount != '' and
+                    drill_1 != '' and
+                    drill_2 != '' and
+                    drill_3 != '' and
+                    drill_4 != '' and
+                    drill_5 != '' and
+                    drill_6 != '' and
+                    drill_7 != '' and
+                    drill_direction != '' and
+                    price != ''
+                ):
+                    new_clap = Clap(
+                        manufacturer=manufacturer,
+                        clap_type=clap_type,
+                        clap_code=clap_code,
+                        side_kant=side_kant,
+                        upper_kant=upper_kant,
+                        default_side=default_side,
+                        default_upper=default_upper,
+                        diameter=diameter,
+                        drills_amount=drills_amount,
+                        drill_1=drill_1,
+                        drill_2=drill_2,
+                        drill_3=drill_3,
+                        drill_4=drill_4,
+                        drill_5=drill_5,
+                        drill_6=drill_6,
+                        drill_7=drill_7,
+                        drill_direction=drill_direction,
+                        price=price
+                    )
+
+                    try:
+                        new_clap.save()
+                        return JsonResponse({'msg': translations['Claps have been added successfully'], 'success':1})
+                    except Exception as e:
+                        return JsonResponse({'msg':translations['Error in adding claps'], 'success':0})
+        elif action == "delete":
+            clap_id = int(request.POST.get('clap_id'))
+            obj_to_delete = get_object_or_404(Clap, clap_id=clap_id)
+            if obj_to_delete.delete():
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
+            else:
+                return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
+        elif action == "edit":
+            clap_id = int(request.POST.get('clap_id'))
+            existing_obj = Clap.objects.get(clap_id = clap_id)
+            if existing_obj:
+                existing_obj.manufacturer = request.POST.get('manufacturer')
+                existing_obj.clap_type = request.POST.get('clap_type')
+                existing_obj.clap_code = request.POST.get('clap_code')
+                existing_obj.side_kant = request.POST.get('side_kant')
+                existing_obj.upper_kant = request.POST.get('upper_kant')
+                existing_obj.default_side = request.POST.get('default_side')
+                existing_obj.default_upper = request.POST.get('default_upper')
+                existing_obj.diameter = request.POST.get('diameter')
+                existing_obj.drills_amount = request.POST.get('drills_amount')
+                existing_obj.drill_1 = request.POST.get('drill_1')
+                existing_obj.drill_2 = request.POST.get('drill_2')
+                existing_obj.drill_3 = request.POST.get('drill_3')
+                existing_obj.drill_4 = request.POST.get('drill_4')
+                existing_obj.drill_5 = request.POST.get('drill_5')
+                existing_obj.drill_6 = request.POST.get('drill_6')
+                existing_obj.drill_7 = request.POST.get('drill_7')
+                existing_obj.drill_direction = request.POST.get('drill_direction')
+                existing_obj.price = request.POST.get('price')
+                try:
+                    existing_obj.save()
+                    return JsonResponse({'msg': translations['Record has been updated successfully'], 'success':1})
+                except IntegrityError as e:
+                    return JsonResponse({'msg':translations["Update failed"], 'success':0})
+            else:
+                return JsonResponse({'msg': translations["The record does not found"], 'success':0})
+    else:
+        translations = get_translation('products')
+        context = {'data':translations, 'data_table':get_translation('Reservation')}
+        # print('the TRANSLATIONS - ', translations, '\n\n', get_translation('Reservation'))
+        return render(request, 'super_admin/add_claps.html', context = context)
+
+@role_required(allowed_roles=['super admin'])
+def all_clap_data(request):
+    
+    all_claps = Clap.objects.all()
+    data = [{
+        'clap_id': clap.clap_id,
+        'manufacturer': clap.manufacturer,
+        'clap_type': clap.clap_type,
+        'clap_code': clap.clap_code,
+        'side_kant': clap.side_kant,
+        'upper_kant': clap.upper_kant,
+        'default_side': clap.default_side,
+        'default_upper': clap.default_upper,
+        'diameter': clap.diameter,
+        'drills_amount': clap.drills_amount,
+        'drill_1': clap.drill_1,
+        'drill_2': clap.drill_2,
+        'drill_3': clap.drill_3,
+        'drill_4': clap.drill_4,
+        'drill_5': clap.drill_5,
+        'drill_6': clap.drill_6,
+        'drill_7': clap.drill_7,
+        'drill_direction': clap.drill_direction,
+        'price': clap.price
+    } for clap in all_claps]
 
     return JsonResponse({'data': data}, safe=False)
 
@@ -2558,7 +2857,7 @@ def delete_draft_order(request):
             order_track_id = obj_.order_track_id
             OrderItems.objects.filter(order_track_id=order_track_id).delete()
             if obj_.delete():
-                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfullly"]}, safe=False)
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
         else:
