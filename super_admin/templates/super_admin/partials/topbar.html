@@ -54,7 +54,7 @@
                         <li class="border-b border-gray-600">
                             <a href="{% url 'super_admin:add_collection' %}" class="block px-4 py-2">מוצרים</a>
 
-                            <!-- Sub-dropdown for Item 2 -->
+                            <!-- Sub-dropdown for Products (Item 2) -->
                             <ul class="sub-dropdown border-b border-l border-r border-gray-800">
                                 <li class="border-b border-gray-600"><a href="{% url 'super_admin:add_collection' %}" class="block px-4 py-2">
                                         צבעים
@@ -95,16 +95,21 @@
                         <li class="">
                             <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">ניהול משתמשים</a>
 
-                            <!-- Sub-dropdown for Item 3 -->
+                            <!-- Sub-dropdown for User Management (Item 3) -->
                             <ul class="sub-dropdown border-b border-l border-r border-gray-800">
-                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
-                                        מגירות
-                                        <!-- 3.1 Add Drawers -->
+                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewSuperAdmin' %}" class="block px-4 py-2">
+                                        מנהל ראשי
+                                        <!-- 3.1 Super Admin -->
                                     </a>
                                 </li>
-                                <li class=""><a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">
-                                        מגירות
-                                        <!-- 3.2 Add Drawers -->
+                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:viewAllAdmins' %}" class="block px-4 py-2">
+                                        מנהל
+                                        <!-- 3.2 All Admins -->
+                                    </a>
+                                </li>
+                                <li class=""><a href="{% url 'super_admin:viewClients' %}" class="block px-4 py-2">
+                                        לקוח
+                                        <!-- 3.3  Clients -->
                                     </a>
                                 </li>
                             </ul>
