@@ -1927,15 +1927,8 @@ def CreateDoorOrder(request):
                 collection_barcode_list = request.POST.getlist('collection_barcode[]', [])
                 texture_list = request.POST.getlist('texture[]', [])
 
-
-
                 knob_family =  request.POST.getlist('knob_family[]', [])
                 knob_color =   request.POST.getlist('knob_color[]', [])
-                
-                
-
-
-
 
                 order_items_to_delete = OrderItems.objects.filter(order_track=order_track_instance)
                 order_items_to_delete.delete()
@@ -1961,19 +1954,20 @@ def CreateDoorOrder(request):
                                 order_track=order_track_instance,
                         )
                         print("order_track_id=",order_items_instance.order_track_id)
+
                     for index, upload_file_tracker_iter in enumerate([have_image for have_image in upload_file_tracker if have_image=='1']): 
                         keep_flow_val = find_value_by_key (keep_flow_tracker, collection_barcode_list[index])
                         result = search_by_first_key(knobs_tracker, collection_barcode_list[index])
                         
                         print(index,"I am with image")
                         order_items_instance = OrderItems.objects.create(
-                                order_item_collection_barcode = collection_barcode_list[index],
-                                order_item_collection= '', 
-                                order_item_keepflow= keep_flow_val,
-                                order_item_texture=get_value_by_index(texture_list, index),
-                                order_item_knobfamily = result['knob_family'],
-                                order_item_knobcolor = result['knob_color'],
-                                order_track=order_track_instance,
+                            order_item_collection_barcode = collection_barcode_list[index],
+                            order_item_collection= '', 
+                            order_item_keepflow= keep_flow_val,
+                            order_item_texture=get_value_by_index(texture_list, index),
+                            order_item_knobfamily = result['knob_family'],
+                            order_item_knobcolor = result['knob_color'],
+                            order_track=order_track_instance,
                         )
                         uploaded_file = uploaded_files[index] 
                         #print(uploaded_file)
@@ -1985,13 +1979,13 @@ def CreateDoorOrder(request):
                     # print("product_type=",product_type)
                     #for index, collection_barcode in enumerate(collection_barcode_list):
                     order_items_instance = OrderItems.objects.create(
-                            order_item_collection_barcode = collection_barcode_list[0],
-                            order_item_collection= '', 
-                            order_item_keepflow= '',
-                            order_item_texture='',
-                            order_item_knobfamily='',
-                            order_item_knobcolor='',
-                            order_track=order_track_instance,
+                        order_item_collection_barcode = collection_barcode_list[0],
+                        order_item_collection= '', 
+                        order_item_keepflow= '',
+                        order_item_texture='',
+                        order_item_knobfamily='',
+                        order_item_knobcolor='',
+                        order_track=order_track_instance,
                     )
                     print("Inserted the order items")
                 
@@ -3635,7 +3629,10 @@ def orderPageAjaxCalls(request):
             "width": collection.width,
             "kant_code": collection.kant_code,
             "formica": 'Yes' if collection.formica == 1 else 'No',
-            "formica_bool":collection.formica
+            "formica_bool":collection.formica,
+            "color_type": collection.color_type,
+            "thick": collection.thick,
+            "collection_image":  collection.collection_image.url if collection.collection_image else ""
             } for collection in all_collection_cls]
             return JsonResponse({'data':data})
         elif data_requirement == "knob_family":
