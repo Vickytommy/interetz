@@ -101,31 +101,30 @@
         }
 
         .radio-label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        background-color: #f6f6f6;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        /* font-size: 1rem; */
-        /* color: #4a5568;  */
-        transition: background-color 0.3s, color 0.3s;
-    }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background-color: #f6f6f6;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            /* font-size: 1rem; */
+            /* color: #4a5568;  */
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    .peer:checked + .radio-label {
-        background-color: #6c6685; /* Purple background */
-        color: #fff; /* White text */
-    }
+        .peer:checked + .radio-label {
+            background-color: #6c6685; /* Purple background */
+            color: #fff; /* White text */
+        }
 
-    .main-label {
-        font-weight: 500;
-        color: #6c6685;
-        text-align: center;
-    }
-
+        .main-label {
+            font-weight: 500;
+            color: #6c6685;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -138,7 +137,7 @@
     <!-- ============================================================== -->
     <div class="relative min-h-screen group-data-[sidebar-size=sm]:min-h-[1500px]">
 
-        <div class="group-data-[sidebar-size=lg]:ltr:lg:ml-vertical-menu group-data-[sidebar-size=lg]:rtl:lg:mr-vertical-menu group-data-[sidebar-size=md]:ltr:ml-vertical-menu-md group-data-[sidebar-size=md]:rtl:mr-vertical-menu-md group-data-[sidebar-size=sm]:ltr:lg:ml-vertical-menu-sm group-data-[sidebar-size=sm]:lg:rtl:mr-vertical-menu-sm pt-[calc(theme('spacing.header')_*_1)] pb-[calc(theme('spacing.header')_*_1)] px-6 group-data-[layout=horizontal]:!mx-auto group-data-[layout=horizontal]:max-w-screen-2xl  group-data-[layout=horizontal]:lg:pt-[calc(theme('spacing.header')_*_1.75)] ">
+        <div class=" ">
             <div class="container-fluid">
                 {% include 'super_admin/partials/page-title.html' with title=data|get:"door" pagetitle=data|get:"create new order " %}
                 {% include 'super_admin/partials/custom_modal.html' %}
@@ -296,21 +295,8 @@
 
                             <!-- Start STEP 2 -->
                             {% if step == step_insert %}
+                                <!-- Interested in more than one color? -->
                                 <div class="grid grid-cols-12 gap-x-4 md:gap-4 mt-4" id="create_order_form_step_2" style="display:none;">
-                                    <!-- <div class="md:col-span-6">
-                                        <div class="custom-radio form-check form-check-inline">
-                                            <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">{{ data|get:"you need 2 type of colors" }} </label>
-                                            
-                                                <input class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="no" disabled>
-                                            <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">{{ data|get:"no" }}</label>
-                                            
-                                            <br/>
-                                                <input class="w-3 h-3 mt-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="color_selection" value="yes" disabled>
-                                            <label class="text-gray-600 dark:text-zink-200" for="customRadioInline1">{{ data|get:"yes" }}</label>
-                                            
-                                        </div>
-                                    </div> -->
-
                                     <div class="md:col-span-4">
                                         <div class="flex items-center gap-4 mb-4">
                                             <!-- Main Label -->
