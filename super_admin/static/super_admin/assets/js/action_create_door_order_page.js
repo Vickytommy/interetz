@@ -460,7 +460,7 @@ $(document).ready(function(){
         if (client_order_name!='' || client_order_id!=''){
             let request_status_step1 = $("#request_status_step1").val().trim();
             let request_status_step1_user_id = $("#request_status_step1_user_id").val().trim();
-            let step  = $("#step").val().trim();
+            let step  = $("#step");
             let product_type = $("#product_type").val();
             $.ajax({
                 url:$("#link_to_add_").val(), // add url for posting request
@@ -471,7 +471,7 @@ $(document).ready(function(){
                     order_id:order_id,
                     request_status_step1:request_status_step1,
                     request_status_step1_user_id:request_status_step1_user_id,
-                    step:$("#step").val(),
+                    step:step.val(),
                     action:$("#action").val(),
                     product_type:product_type,
                     have_past_order:have_past_order,
@@ -481,10 +481,12 @@ $(document).ready(function(){
                 success:function(data){
                     if (data.success == 1){
                         $("#create_order_form_step_2").show();
+                        $(".step-circle.two").addClass("completed");
+                        $(".step-line.two").addClass("completed");
 
 
-                        // $("#create_order_form_step_1").hide();
-                        $("#step").val("");
+                        $("#create_order_form_step_1").hide();
+                        step.val("step_insert");
                         // $("#client_order_name").attr('readonly',true);
                         // $("#client_order_id").attr('readonly',true);
                         // $("#create_order_form_next_btn_step_1").attr('disabled',true);
@@ -675,6 +677,7 @@ $(document).ready(function(){
                                     value: item[key],
                                     text: item[key],
                                     'data-id': item['knob_color_bool'],
+                                    'data-image': item['image'],
                                 }
                             ));
                         }); //end second each
@@ -745,7 +748,6 @@ $(document).ready(function(){
                                 <div id="collection_table_row_${target_count}" class="py-2 px-4 border border-gray-500 border-t-0">
                                 </div>
                             </div>
-
                         </div>
                     
                          <div class="flex-1">
@@ -774,7 +776,7 @@ $(document).ready(function(){
                         <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_${target_count}" value="0">
                     </div>
 
-                    <div class="md:col-span-2" style="display:none;" id="texture_div_${target_count}">
+                    <div class="md:col-span-3" style="display:none;" id="texture_div_${target_count}">
                         <div>
                             <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.texture}</label>
                             <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
@@ -787,14 +789,26 @@ $(document).ready(function(){
                     </div>
 
 
-                    <div class=" md:col-span-4"  style="display:none;" id="upload_file_div_${target_count}">
+                    <div class="md:col-span-4"  style="display:none;" id="upload_file_div_${target_count}">
                         <div>
                             <label for="upload_file" class="blink block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.uploadfile}</label>
                             <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file" accept=".jpg, .jpeg, .png, .gif"  name="upload_file[]"  id="${target_count}" placeholder="${window.page.uploadfile}"/>
                             
                         </div>
                         <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_${target_count}" value="0">
-                    </div>`];
+                    </div>
+                
+                    <div  class="md:col-span-3" style="align-content: flex-end; display:none;" id="upload_file_example_${target_count}">
+                        <button style="width: 100%;" type="button" class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-md w-full sm:w-auto px-5 py-2.5 text-center" id="upload_file_example_btn">הצג קובץ לדוגמא</button>
+                    </div>
+
+                    <div id="upload_file_example_image_modal" class="upload-example-modal" style="display:none;">
+                        <div class="upload-example-modal-content">
+                            <span id="upload_file_example_image_modal_close"><i class="fa fa-times text-3xl text-gray-500 cursor-pointer"></i></span>
+                            <img id="upload_file_example_image" src="/static/super_admin/assets/hero.png" alt="Example Image">
+                        </div>
+                    </div>
+                `];
        
         
 
@@ -817,7 +831,7 @@ $(document).ready(function(){
 
             // if (decision == "yes")
             html_.push(question_+`
-                <div class="md:col-span-6 knob_div_${target_count}" style="display:none">
+                <div class="md:col-span-4 knob_div_${target_count}" style="display:none">
                     <div>
                         <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_family}</label>
                         <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="${target_count}"  name="knob_family[]" required>
@@ -826,13 +840,28 @@ $(document).ready(function(){
                     </div>
                 </div>
 
-                <div class="md:col-span-6 knob_div_${target_count}" style="display:none">
+                <div class="md:col-span-4 knob_div_${target_count}" style="display:none">
                     <div>
                         <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_color}</label>
                         <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-record="${target_count}" data-id="${parseInt(target_count) - 2}" name="knob_color[]" required>
                         </select>
                     </div>
-                </div>`);
+                </div>
+                
+                <div class="md:col-span-4 knob_div_image_${target_count}" class="mt-6 w-full text-sm ltr:text-left rtl:text-right text-gray-500" style="width: 100%; height: 315px; display:none;">
+                    <div style="background-color: #6c6685; order-top-left-radius: 8px; border-top-right-radius: 8px;" class="mt-6 p-2 text-center text-white">Image Heading</div>
+                    <div style="height: 250px;" class="bg-white border border-gray-800">
+                        <img class="knob_div_image_el_${target_count} h-full"></div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-12 flex justify-end">
+                    <button type="button" id="knob_div_next_btn" style="display: none;" class="close_modal mr-2 px-10 py-4 text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-500 hover:border-blue-500 hover:text-white active:bg-blue-500 active:border-blue-500 active:text-white focus:bg-blue-500 focus:border-blue-500 focus:text-white focus:ring focus:ring-blue-500/30 btn">
+                        ${window.page.next}
+                    </button>
+                                                    
+                </div>
+            `);
         return html_.join('');
     }
 
@@ -869,22 +898,50 @@ $(document).ready(function(){
     }); //end input[name="color_selection"] event here
 
     ///////////////// add event on collection barcode field and collection name both fields are dependent each other
-        
-
+    
+    // Hide the 2nd step
+    $(document).on('click', '#knob_div_next_btn', function() {
+        let step_2_form = $('#create_order_form');
+        step_2_form.hide();
+        $(".step-circle.three").addClass("completed");
+        $(".step-line.three").addClass("completed");
+    })
 
     $(document).on('change','select[name="knob_color[]"]', function(){
         console.log('inside the select[name="knob_color[]"] change function___')
         let data_id = $(this).attr('data-record');
+        let data_image =  $(this).find(":selected").data('data-image');
         let decision = $("#decision").val();
         
         let updates = {
             'knob_color':$(this).val()
         };
         knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id), updates);
-        console.log("knobs_tracker=",knobs_tracker);
-        // let add_collection_btn_count = $("#add_collection_btn").attr('data-id');
+        console.log("BIG BIG =",data_image);
+        
+        $(`.knob_div_image_${data_id}`).show();
+        $('#knob_div_next_btn').show();
+      
+        $.ajax({
+            url:$("#link_to_grab_order_page_data_").val(), // add url for posting request
+            method:'POST',
+            data:{
+                data_requirement:'knob_image', 
+                desc: $(this).val()
+            },
+            dataType:'JSON',
+            success:function(data){
+                let image = data.data;
+                
+                if (image !== null && image !== undefined && image !== ""){ 
+                    $(`.knob_div_image_el_${data_id}`).attr('src', image);
+                }
+            } //end success here
+        }); //end ajax call here
+        
         if (decision === "yes")
             $("#create_order_form_add_collection_div").show();
+        
     });
 
 
@@ -974,33 +1031,40 @@ $(document).ready(function(){
                     dataType:'JSON',
                     success:function(data){
                         let data__ = data.data;
-                        // console.log("data__",data__);
+                        console.log("data__",data__);
                          selectElement.append($('<option>', {
-                                    value: '',
-                                    text: window.page.select_a_value
-                                }
+                                value: '',
+                                text: window.page.select_a_value,
+                                // 'data-image': data__['colorknob_image'],
+                            }
                             ));
                         $.each(data__, function (index, item) {
                             // console.log(item['colorknob_color'], selected_color_flag);
-                                    // if (item['colorknob_color'] === selected_color_flag){
-                                       
-                                            selectElement.append($('<option>', {
-                                                value: item[keys[0]],
-                                                text: item[keys[0]]
-                                            }
-                                        ));
-                                    // }//end if here
+                            // if (item['colorknob_color'] === selected_color_flag){
+                                selectElement.append($('<option>', {
+                                    value: item[keys[0]],
+                                    text: item[keys[0]],
+                                    'data-image': item['colorknob_image'],
+                                }
+                            ));
+                            // }//end if here
                         }); //end second each
 
                         // callback(data, step_number, element_names, keys);
                     } //end success here
             }); //end ajax call here
         }
+    });
 
-
-
-
-
+    
+    $(document).on('click','#upload_file_example_btn', function(){
+        const modal = $('#upload_file_example_image_modal');
+        modal.show();
+    });
+    
+    $(document).on('click','#upload_file_example_image_modal_close', function(){
+        const modal = $('#upload_file_example_image_modal');
+        modal.hide();
     });
 
     function extra_fields(show_flag, data_id){
@@ -1008,10 +1072,12 @@ $(document).ready(function(){
             $(`div#create_order_form_step_${data_id} #keepflow_div_${data_id}`).show();
             $(`div#create_order_form_step_${data_id} #texture_div_${data_id}`).show();
             $(`div#create_order_form_step_${data_id} #upload_file_div_${data_id}`).show();
+            $(`div#create_order_form_step_${data_id} #upload_file_example_${data_id}`).show();
         }else{
              $(`div#create_order_form_step_${data_id} #keepflow_div_${data_id}`).hide();
             $(`div#create_order_form_step_${data_id} #texture_div_${data_id}`).hide();
             $(`div#create_order_form_step_${data_id} #upload_file_div_${data_id}`).hide();
+            $(`div#create_order_form_step_${data_id} #upload_file_example_${data_id}`).hide();
         }
     }
 
@@ -1283,48 +1349,23 @@ $(document).ready(function(){
 
         var selectedValue = $(this).val();
         let data_id = $(this).attr('data-id');
-        // knobs_tracker.push({
-        //             [$(`#collection_barcode_${data_id}`).find(':selected').val()]: selectedValue,
-        //             'id': parseInt(data_id),
-        //             'knob_family':'',
-        //             'knob_color':'',
-        //             // 'knob_decision':'',
+        let image = $(this).attr('data-knob-image');
 
-        // });
         let updates = {
             [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue
         };
         if (selectedValue == "no"){
             updates = {
-                        [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue, 
-                        'knob_family':'',
-                        'knob_color':''
-
+                [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue, 
+                'knob_family':'',
+                'knob_color':''
             };
         }
         
         knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id), updates);
         console.log("knobs_tracker=",knobs_tracker);
 
-        // if (!checkIdExists(knobs_tracker, parseInt(data_id))){
-            // console.log(`${data_id} does not exists in knobs_tracker`);
-            // knobs_tracker.push(
-            //     {
-            //         [$(`#collection_barcode_${data_id}`).find(':selected').val()]: selectedValue,
-            //         'id': parseInt(data_id),
-            //         'knob_family':'',
-            //         'knob_color':'',
-            //         // 'knob_decision':'',
-
-            //     }
-            // );
-        // }else
-            // {
-            //         console.log(`${data_id} is exists in knobs_tracker`);
-            //     knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id),undefined, undefined,selectedValue);
-            // }
-
-        // console.log("knobs_tracker=",knobs_tracker);
+       
         if (selectedValue == "yes"){
             $(`.knob_div_${data_id}`).show();
             $(".use_select2").select2();   
@@ -1467,17 +1508,15 @@ $(document).ready(function(){
                             if (!selected_collection.includes(item[key])){
                                 if (item.in_stock_bool == 1){
                                     selectElement.append($('<option>', {
-                                            value: item[key],
-                                            text: item[key],
-                                            'data-flow':item['flow'],
-                                            'data-id':item['collection_id'],
-                                            'data-back':item['back'],
-                                            'data-kant':item['kant'],
-                                            'data-minorder':item['min_order'],
-                                            'data-collection':item['collection_name'],
-                                            'data-description':item['description'],
-
-
+                                        value: item[key],
+                                        text: item[key],
+                                        'data-flow':item['flow'],
+                                        'data-id':item['collection_id'],
+                                        'data-back':item['back'],
+                                        'data-kant':item['kant'],
+                                        'data-minorder':item['min_order'],
+                                        'data-collection':item['collection_name'],
+                                        'data-description':item['description'],
                                         }
                                     ));
                                 }

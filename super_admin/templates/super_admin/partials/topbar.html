@@ -4,15 +4,15 @@
     <div class="layout-width shadow-sm">
         <!-- TOP NAVBAR -->
         <div class="flex items-center justify-between py-4 p-2 border-b border-gray-800">
-            <div style="width: 180px;">
+            <div style="width: 200px;">
                 <a href="{% url 'super_admin:viewSuperAdminOrders' %}">
-                    <p class="text-md text-gray flex items-center"><i style="font-size: 20px;" class="bx bx-phone text-16 ltr:mr-2 rtl:ml-2"></i>צור קשר 050-3623006</p>
+                    <p class="text-md text-gray flex items-center gap-2">צור קשר 050-3623006<i style="font-size: 20px;" class="bx bx-phone text-16 ltr:mr-2 rtl:ml-2"></i></p>
                 </a>
             </div>
             <div>
                 <img src="{% static 'super_admin/assets/logo.png' %}" alt="" class="h-6 mx-auto">
             </div>
-            <div style="width: 180px" class="flex items-center gap-4">
+            <div style="width: 200px" class="flex items-center gap-4">
                 <a href="{% url 'super_admin:SuperAdminLogout' %}">
                     {{ request.session|get:"logout" }}
                 </a>
