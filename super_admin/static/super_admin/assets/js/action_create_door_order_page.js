@@ -68,257 +68,257 @@ $(document).ready(function(){
 
                              <button data-id="drills_${counter}" type="button" class=" close_modal btn" style="font-size: 20px;font-weight: 600;color: black;">x</button>
                         </div>
-                                                            <div class="p-4" id ="drills_${counter}_body">
-                                                                <div class="md:col-span-12 md-2 entry_selector_div" id="entry_selector_${counter}">
-                                                                    <div>
-                                                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.choose_entry_type}</label>
-                                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
-                                                                            <option value="" disabled selected>${window.page.choose_entry_type}</option>
-                                                                            <option value="drawer_sub_details_${counter}">${window.page.drawer}</option>
-                                                                            <option value="claps_sub_details_${counter}">${window.page.claps}</option>
-                                                                            <option value="hinge_sub_details_${counter}">${window.page.hinge}</option>                                
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                            <div class="p-4" id ="drills_${counter}_body">
+                                <div class="md:col-span-12 md-2 entry_selector_div" id="entry_selector_${counter}">
+                                    <div>
+                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.choose_entry_type}</label>
+                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
+                                            <option value="" disabled selected>${window.page.choose_entry_type}</option>
+                                            <option value="drawer_sub_details_${counter}">${window.page.drawer}</option>
+                                            <option value="claps_sub_details_${counter}">${window.page.claps}</option>
+                                            <option value="hinge_sub_details_${counter}">${window.page.hinge}</option>                                
+                                        </select>
+                                    </div>
+                                </div>
 
 
 
 
-                                                                                                            <form style="display:none;" method="POST" class="subform_temp" id="drawer_sub_details_${counter}">
+                            <form style="display:none;" method="POST" class="subform_temp" id="drawer_sub_details_${counter}">
 
-                                                                                                                 <input type="hidden" name="subform_type" value="drawer">
+                                    <input type="hidden" name="subform_type" value="drawer">
 
-                                                                                                                 <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
 
-                                                                                                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.DrawerDetails}</h6>
+                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.DrawerDetails}</h6>
 
-                                                                                                                <div class="grid grid-cols-12 gap-x-4 md:gap-4" id="drawer_details_${counter}">
-                                                                                                                        
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                    <div>
-                                                                                                                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DrawerType}</label>
-                                                                                                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_type" id="drawers_type_${counter}">
-                                                                                                                                            
-                                                                                                                                        </select>
-                                                                                                                                    </div>
-                                                                                                                            </div>
-                                                                                                                
+                                <div class="grid grid-cols-12 gap-x-4 md:gap-4" id="drawer_details_${counter}">
+                                        
+                                            <div class="md:col-span-2">
+                                                    <div>
+                                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DrawerType}</label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_type" id="drawers_type_${counter}">
+                                                            
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                
 
-                                                                                                                
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                    <div>
-                                                                                                                                        <label class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" for="grid-first-name">
-                                                                                                                                            ${window.page.DrawerCode}
-                                                                                                                                        </label>
-                                                                                                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_code" id="drawers_code_${counter}">
-                                                                                                                                        </select>
-                                                                                                                                    </div>
-                                                                                                                            </div>
-                                                                                                                
+                                
+                                            <div class="md:col-span-2">
+                                                    <div>
+                                                        <label class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" for="grid-first-name">
+                                                            ${window.page.DrawerCode}
+                                                        </label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_code" id="drawers_code_${counter}">
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                
 
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                </div>
+                                            </div>
 
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
-
-
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
-
-                                                                                                                            <div class="md:col-span-2  mt-7">
-                                                                                                                                <div>
-                                                                                                                                    <button type="submit" id="drawer_submit_${counter}" name="drawer_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
-
-                                                                                                                                     <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                                                                                                   
-                                                                                                                                </div>
-                                                                                                                            </div>
-
-                                                                                                                </div>
-
-                                                                                                            </form>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                </div>
+                                            </div>
 
 
-                                                                                                            <form style="display:none;" method="POST" class="subform_temp" id="claps_sub_details_${counter}">
-                                                                                                                <input type="hidden" name="subform_type" value="claps">
-                                                                                                                <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
-                                                                                                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.ClapsDetails}</h6>
-                                                                                                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4 mt-4" id="claps_${counter}_details">
-                                                                                                                        
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                    <div>
-                                                                                                                                        <label for="clap_pr" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ClapsPr}</label>
-                                                                                                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="clap_pr" id="clap_pr_${counter}">
-                                                                                                                                        </select>
-                                                                                                                                    </div>
-                                                                                                                            </div>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
+                                                </div>
+                                            </div>
 
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="lo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                            <div class="md:col-span-2  mt-7">
+                                                <div>
+                                                    <button type="submit" id="drawer_submit_${counter}" name="drawer_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
 
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="ro" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                                        <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                                    
+                                                </div>
+                                            </div>
+
+                                </div>
+
+                            </form>
 
 
-                                                                                                                            <div class="md:col-span-2">
-                                                                                                                                <div>
-                                                                                                                                    <label for="bo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
-                                                                                                                                </div>
-                                                                                                                            </div>
+                            <form style="display:none;" method="POST" class="subform_temp" id="claps_sub_details_${counter}">
+                                <input type="hidden" name="subform_type" value="claps">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.ClapsDetails}</h6>
+                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4 mt-4" id="claps_${counter}_details">
+                                        
+                                            <div class="md:col-span-2">
+                                                    <div>
+                                                        <label for="clap_pr" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ClapsPr}</label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="clap_pr" id="clap_pr_${counter}">
+                                                        </select>
+                                                    </div>
+                                            </div>
 
-                                                                                                                            <div class="md:col-span-2  mt-7">
-                                                                                                                                <div>
-                                                                                                                                    <button type="submit" id="claps_submit_${counter}" name="claps_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="lo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                </div>
+                                            </div>
 
-                                                                                                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                                                                                                   
-                                                                                                                                </div>
-                                                                                                                            </div>
-                                                                                                                    </div>
-                                                                                                            </form>
-
-
-                                                                                                            <form style="display:none;" method="POST" class="subform_temp" id="hinge_sub_details_${counter}">
-                                                                                                            <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
-                                                                                                                <input type="hidden" name="subform_type" value="hinge">
-
-                                                                                                                <h6 class="text-15 font-semibold dark:text-white mb-4">${window.page.HingeDetails}</h6>
-                                                                                                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}">
-                                                                                                                         
-                                                                                                                        <div class="md:col-span-4">
-                                                                                                                                <div>
-                                                                                                                                    <label for="hinge_provider" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.HingeProvider}</label>
-                                                                                                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="hinge_provider" id="hinge_provider_${counter}">
-                                                                                                                                    </select>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="md:col-span-4">
-                                                                                                                                <div>
-                                                                                                                                    <label for="door_operning_side" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DoorOpeningSide}</label>
-                                                                                                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="door_operning_side" id="door_operning_side_${counter}">
-                                                                                                                                       
-                                                                                                                                        
-                                                                                                                                        
-                                                                                                                                    </select>
-                                                                                                                                </div>
-                                                                                                                        </div>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="ro" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                </div>
+                                            </div>
 
 
-                                                                                                                        <div class="md:col-span-4">
-                                                                                                                            <div>
-                                                                                                                                <label for="dty" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.dty}</label>
-                                                                                                                                <select class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="dty" id="dty_${counter}">
-                                                                                                                                    <option value="${window.page.dty_option1}">${window.page.dty_option1}</option>
-                                                                                                                                    <option value="${window.page.dty_option2}">${window.page.dty_option2}</option>
-                                                                                                                                </select>
+                                            <div class="md:col-span-2">
+                                                <div>
+                                                    <label for="bo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
+                                                </div>
+                                            </div>
+
+                                            <div class="md:col-span-2  mt-7">
+                                                <div>
+                                                    <button type="submit" id="claps_submit_${counter}" name="claps_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+
+                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                                    
+                                                </div>
+                                            </div>
+                                    </div>
+                            </form>
 
 
+                            <form style="display:none;" method="POST" class="subform_temp" id="hinge_sub_details_${counter}">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                                <input type="hidden" name="subform_type" value="hinge">
 
-                                                                                                                            </div>
-                                                                                                                        </div>
+                                <h6 class="text-15 font-semibold dark:text-white mb-4">${window.page.HingeDetails}</h6>
+                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}">
+                                            
+                                        <div class="md:col-span-4">
+                                                <div>
+                                                    <label for="hinge_provider" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.HingeProvider}</label>
+                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="hinge_provider" id="hinge_provider_${counter}">
+                                                    </select>
+                                                </div>
+                                        </div>
 
-                                                                                                                        <div class="md:col-span-4 mt-4">
-                                                                                                                            <div>
-                                                                                                                                <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="md:col-span-4 mt-4">
-                                                                                                                            <div>
-                                                                                                                                <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-
-
-                                                                                                                        <div class="md:col-span-4 xp1_div_${counter} mt-4" style="display:none;">
-                                                                                                                                <div>
-                                                                                                                                    <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
-                                                                                                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="md:col-span-4 xp2_div_${counter} mt-4" style="display:none;">
-                                                                                                                            <div>
-                                                                                                                                <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
-                                                                                                                            <div>
-                                                                                                                                <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                         <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
-                                                                                                                            <div>
-                                                                                                                                <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                        <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
-                                                                                                                            <div>
-                                                                                                                                <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                         
-                                                                                                                        <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
-                                                                                                                            <div>
-                                                                                                                                <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
-                                                                                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
-                                                                                                                            </div>
-                                                                                                                        </div>
+                                        <div class="md:col-span-4">
+                                                <div>
+                                                    <label for="door_operning_side" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DoorOpeningSide}</label>
+                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="door_operning_side" id="door_operning_side_${counter}">
+                                                        
+                                                        
+                                                        
+                                                    </select>
+                                                </div>
+                                        </div>
 
 
-                                                                                                                        <div class="md:col-span-2 mt-10">
-                                                                                                                            <div>
-                                                                                                                                <button type="submit" id="hinge_submit_${counter}" name="hinge_submit_${counter}"  class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
-
-                                                                                                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                                                                                                   
-                                                                                                                               
-                                                                                                                            </div>
+                                        <div class="md:col-span-4">
+                                            <div>
+                                                <label for="dty" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.dty}</label>
+                                                <select class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="dty" id="dty_${counter}">
+                                                    <option value="${window.page.dty_option1}">${window.page.dty_option1}</option>
+                                                    <option value="${window.page.dty_option2}">${window.page.dty_option2}</option>
+                                                </select>
 
 
 
-                                                                                                                        </div>
+                                            </div>
+                                        </div>
 
-                                                                                                                </div>
-                                                                                                            </form>
+                                        <div class="md:col-span-4 mt-4">
+                                            <div>
+                                                <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
+                                            </div>
+                                        </div>
+
+                                        <div class="md:col-span-4 mt-4">
+                                            <div>
+                                                <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}">
+                                            </div>
+                                        </div>
 
 
-                                                                                                </div>
+                                        <div class="md:col-span-4 xp1_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
+                                                </div>
+                                        </div>
+
+                                        <div class="md:col-span-4 xp2_div_${counter} mt-4" style="display:none;">
+                                            <div>
+                                                <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
+                                            </div>
+                                        </div>
+
+                                        <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
+                                            <div>
+                                                <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
+                                            </div>
+                                        </div>
+                                            <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
+                                            <div>
+                                                <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
+                                            <div>
+                                                <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
+                                            </div>
+                                        </div>
+                                            
+                                        <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
+                                            <div>
+                                                <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="md:col-span-2 mt-10">
+                                            <div>
+                                                <button type="submit" id="hinge_submit_${counter}" name="hinge_submit_${counter}"  class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+
+                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                                    
+                                                
+                                            </div>
 
 
 
-                                                                                            </div>
-                                                                                    </div>`;
+                                        </div>
+
+                                </div>
+                            </form>
+
+
+                </div>
+
+
+
+            </div>
+    </div>`;
 
 
     }//ends subform_generation here
@@ -357,48 +357,40 @@ $(document).ready(function(){
                         </div>
                                                                                                 
 
-                                                                                                <div class="p-4" id ="drills_${row_count}_notes_body">
+                <div class="p-4" id ="drills_${row_count}_notes_body">
 
-                                                                                                            <form method="POST" id="notes_details_${row_count}" class="subform_temp">
-                                                                                                                 <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
-                                                                                                                <h6 class="text-15 font-semibold dark:text-white mb-4">
-                                                                                                                        ${window.page.notes}
-                                                                                                                </h6>
+                    <form method="POST" id="notes_details_${row_count}" class="subform_temp">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                        <h6 class="text-15 font-semibold dark:text-white mb-4">
+                                ${window.page.notes}
+                        </h6>
 
-                                                                                                                <div class="grid grid-cols-12" id="notes_details_${row_count}">
-                                                                                                                        
-                                                                                                                        
-                                                                                                                <input type="hidden" name="subform_type" value="notes">
-                                                                                                                                
-                                                                                                                        <div class="md:col-span-12">
-                                                                                                                                       
-                                                                                                                                        <textarea class="px-3 w-full border p-2 border-gray-400 rounded placeholder:text-13 focus:border focus:border-gray-400 placeholder:text-gray-600 focus:ring-0 focus:outline-none text-gray-700 text-13 dark:bg-transparent dark:border-zink-50 dark:text-zink-200 dark:placeholder:text-zink-200" rows="3" id="notes_${row_count}" name="notes" required></textarea>
-                                                                                                                        </div>
+                        <div class="grid grid-cols-12" id="notes_details_${row_count}">
+                                
+                                
+                        <input type="hidden" name="subform_type" value="notes">
+                                        
+                                <div class="md:col-span-12">
+                                                
+                                                <textarea class="px-3 w-full border p-2 border-gray-400 rounded placeholder:text-13 focus:border focus:border-gray-400 placeholder:text-gray-600 focus:ring-0 focus:outline-none text-gray-700 text-13 dark:bg-transparent dark:border-zink-50 dark:text-zink-200 dark:placeholder:text-zink-200" rows="3" id="notes_${row_count}" name="notes" required></textarea>
+                                </div>
 
-                                                                                                                          
+                                    
 
-                                                                                                                            <div class="md:col-span-4 mt-7">
-                                                                                                                                <div>
-                                                                                                                                        <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
-                                                                                                                                        
-                                                                                                                                        <button type="button" data-id="drills_${row_count}_notes" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                                                                                                </div>
-                                                                                                                            </div>
+                                    <div class="md:col-span-4 mt-7">
+                                        <div>
+                                                <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+                                                
+                                                <button type="button" data-id="drills_${row_count}_notes" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                        </div>
+                                    </div>
 
-                                                                                                                </div>
+                                </div>
 
-                                                                                                            </form>
-
-
-                                                                                                            
-
-
-                                                                                                </div>
-
-
-
-                                                                                            </div>
-                                                                                    </div>`;
+                            </form>
+                        </div>
+                    </div>
+                </div>`;
 
     }
 
@@ -468,7 +460,7 @@ $(document).ready(function(){
         if (client_order_name!='' || client_order_id!=''){
             let request_status_step1 = $("#request_status_step1").val().trim();
             let request_status_step1_user_id = $("#request_status_step1_user_id").val().trim();
-            let step  = $("#step").val().trim();
+            let step  = $("#step");
             let product_type = $("#product_type").val();
             $.ajax({
                 url:$("#link_to_add_").val(), // add url for posting request
@@ -479,7 +471,7 @@ $(document).ready(function(){
                     order_id:order_id,
                     request_status_step1:request_status_step1,
                     request_status_step1_user_id:request_status_step1_user_id,
-                    step:$("#step").val(),
+                    step:step.val(),
                     action:$("#action").val(),
                     product_type:product_type,
                     have_past_order:have_past_order,
@@ -489,10 +481,12 @@ $(document).ready(function(){
                 success:function(data){
                     if (data.success == 1){
                         $("#create_order_form_step_2").show();
+                        $(".step-circle.two").addClass("completed");
+                        $(".step-line.two").addClass("completed");
 
 
-                        // $("#create_order_form_step_1").hide();
-                        $("#step").val("");
+                        $("#create_order_form_step_1").hide();
+                        step.val("step_insert");
                         // $("#client_order_name").attr('readonly',true);
                         // $("#client_order_id").attr('readonly',true);
                         // $("#create_order_form_next_btn_step_1").attr('disabled',true);
@@ -618,48 +612,44 @@ $(document).ready(function(){
 
 
     function handleCollectionData(collectionData, step_number, element_names, keys) {
-            if (collectionData !== null) {
-                $.each(keys, function(index,key){
-                    // console.log(index, key);
-                    let elem_name = `div#create_order_form_step_${step_number} select[name='${element_names[index]}']`;
-                    // console.log(elem_name);
-                    var selectElement =  $(elem_name).empty();
+        if (collectionData !== null) {
+            $.each(keys, function(index,key){
+                // console.log(index, key);
+                let elem_name = `div#create_order_form_step_${step_number} select[name='${element_names[index]}']`;
+                // console.log(elem_name);
+                var selectElement =  $(elem_name).empty();
 
-                    selectElement.append($('<option>', {
-                            value: '',
-                            text: window.page.select_a_value
-                        }
-                    ));
-
-                    // console.log(selectElement);
-                    if (selectElement){
-                        // console.log("selectElement found",selectElement);
-                            $.each(collectionData.data, function (index, item) {
-                                    // console.log(item);
-                                    if (item.in_stock_bool == 1){
-                                        selectElement.append($('<option>', {
-                                                value: item[key],
-                                                text: item[key],
-                                                'data-id':item['collection_id'],
-                                                'data-flow':item['flow'],
-                                                'data-back':item['back'],
-                                                'data-kant':item['kant'],
-                                                'data-minorder':item['min_order'],
-                                                'data-collection':item['collection_name'],
-                                                 'data-description':item['description'],
-
-
-                                            }
-                                         ));
-                                    }
-
-
-                        }); //end second each
+                selectElement.append($('<option>', {
+                        value: '',
+                        text: window.page.select_a_value
                     }
-                }); // end first each
-            } else{
-                console.log("Error at handleCollectionData func");
-            }
+                ));
+                
+                if (selectElement){
+                    $.each(collectionData.data, function (index, item) {
+                        if (item.in_stock_bool == 1){
+                            selectElement.append($('<option>', {
+                                value: item[key],
+                                text: item[key],
+                                'data-id':item['collection_id'],
+                                'data-flow':item['flow'],
+                                'data-back':item['back'],
+                                'data-kant':item['kant'],
+                                'data-minorder':item['min_order'],
+                                'data-collection':item['collection_name'],
+                                'data-description':item['description'],
+                                'data-image':item['collection_image'],
+                                'data-thick':item['thick'],
+                                'data-color-type':item['color_type'],
+                            }
+                            ));
+                        }
+                    }); //end second each
+                }
+            }); // end first each
+        } else{
+            console.log("Error at handleCollectionData func");
+        }
     } //end handleCollectionData here
 
 
@@ -687,6 +677,7 @@ $(document).ready(function(){
                                     value: item[key],
                                     text: item[key],
                                     'data-id': item['knob_color_bool'],
+                                    'data-image': item['image'],
                                 }
                             ));
                         }); //end second each
@@ -738,133 +729,139 @@ $(document).ready(function(){
         if (d == "yes")
             text_mapper = window.page.collection_barcode1;
 
-        let html_ = [`<div class="md:col-span-6">
-                                                        <div>
-                                                            <label for="collection_barcode" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${text_mapper}</label>
-                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="collection_barcode[]" data-id="${target_count}"  id="collection_barcode_${target_count}" required>
-                                                               
-                                                                
-                                                            </select>
-                                                        </div>
-                                                </div>
+        let html_ = [`
+                    <div class="flex gap-4 col-span-12">
+                        <div class="flex-1">
+                            <div>
+                                <label 
+                                    style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px; margin-bottom: -.25rem;" 
+                                    for="collection_barcode" 
+                                    class="block bg-gray-700 text-white text-center py-2 pb-3 w-full">${text_mapper}</label>
+                                <select class="use_select2 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 rounded-b-lg" name="collection_barcode[]" data-id="${target_count}" id="collection_barcode_${target_count}" required>
+                                </select>
+                            </div>
+                        </div>
 
-                                                <div class="md:col-span-6">
-                                                        
+                        <div class="flex-1">
+                            <div id="collection_table_${target_count}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" style="display:none;">
+                                <div style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">Heading</div>
+                                <div id="collection_table_row_${target_count}" class="py-2 px-4 border border-gray-500 border-t-0">
+                                </div>
+                            </div>
+                        </div>
+                    
+                         <div class="flex-1">
+                            <div id="collection_table_image_${target_count}" style=" height: 100%; overflow: hidden; display: none;" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500">
+                                <div style="background-color: #6c6685;border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">Image Heading</div>
+                                <img id="collection_table_image_el_${target_count}" class="h-full flex gap-4 py-2 px-4 bg-gray-500 border border-gray-500 border-t-0"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                                                        <table id="collection_table_${target_count}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" style="display:none;">
-                                                                
-                                                            <thead class="text-sm text-gray-700 dark:text-zink-200">
-                                                                    <tr class="border border-gray-300 dark:border-zink-50">
-                                                                        <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                            ${window.page.collection_barcode}
-                                                                        </th>
-                                                                        <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                            ${window.page.collection}
-                                                                        </th>
-                                                                        <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                            ${window.page.back}
-                                                                        </th>
-                                                                        <th scope="col" class="p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                             ${window.page.kant}
-                                                                        </th>
-                                                                        
-                                                                    </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="bg-white border border-gray-300 dark:border-zink-50 dark:bg-zink-700" id="collection_table_row_${target_count}">
-                                                                   
-                                                                </tr>
-                                                                
-                                                            </tbody>
-                               
-                                                        </table>
+                    <div class="md:col-span-2"  style="display:none;" id="keepflow_div_${target_count}">
+                        <div>
+                            <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.keep_flow}</label>
+                            <div class="flex space-x-4">
+                                <input type="radio" id="keepflow_yes_${target_count}" data-id="${target_count}" name="keepflow[]"  class="hidden">
+                                <label for="keepflow_yes_${target_count}" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn" data-label="yes" data-id="${target_count}">${window.page.yes}</label>
 
-                                                </div>
-
+                                <input type="radio" id="keepflow_no_${target_count}" data-id="${target_count}" name="keepflow[]" value="0" class="hidden">
+                                <label for="keepflow_no" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn" data-label="no" data-id="${target_count}">${window.page.no}</label>
+                            </div>
+                        </div>
+                    </div>
 
 
-                                           
+                    <div id="keep_flow_tracker_step_${target_count}" style="display:none;" >
+                        <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_${target_count}" value="0">
+                    </div>
+
+                    <div class="md:col-span-3" style="display:none;" id="texture_div_${target_count}">
+                        <div>
+                            <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.texture}</label>
+                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
+                                
+                                <option value="${window.page.keep_flow_height}">${window.page.keep_flow_height}</option>
+                                <option value="${window.page.keep_flow_width}">${window.page.keep_flow_width}</option>
+                                
+                            </select>
+                        </div>
+                    </div>
 
 
-                                                <div class="md:col-span-2"  style="display:none;" id="keepflow_div_${target_count}">
-                                                        
-                                                            <div>
-                                                                <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.keep_flow}</label>
-                                                                <div class="flex space-x-4">
-                                                                    <input type="radio" id="keepflow_yes_${target_count}" data-id="${target_count}" name="keepflow[]"  class="hidden">
-                                                                    <label for="keepflow_yes_${target_count}" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn" data-label="yes" data-id="${target_count}">${window.page.yes}</label>
+                    <div class="md:col-span-4"  style="display:none;" id="upload_file_div_${target_count}">
+                        <div>
+                            <label for="upload_file" class="blink block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.uploadfile}</label>
+                            <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file" accept=".jpg, .jpeg, .png, .gif"  name="upload_file[]"  id="${target_count}" placeholder="${window.page.uploadfile}"/>
+                            
+                        </div>
+                        <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_${target_count}" value="0">
+                    </div>
+                
+                    <div  class="md:col-span-3" style="align-content: flex-end; display:none;" id="upload_file_example_${target_count}">
+                        <button style="width: 100%;" type="button" class="text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-md w-full sm:w-auto px-5 py-2.5 text-center" id="upload_file_example_btn">הצג קובץ לדוגמא</button>
+                    </div>
 
-                                                                    <input type="radio" id="keepflow_no_${target_count}" data-id="${target_count}" name="keepflow[]" value="0" class="hidden">
-                                                                    <label for="keepflow_no" class="text-gray-600 transition-all duration-300 ease-linear dark:bg-zink-50 dark:border-transparent border-gray-50 bg-gray-50 hover:bg-gray-600 hover:border-gray-600 hover:text-white active:bg-gray-600 active:border-gray-600 active:text-white focus:bg-gray-600 focus:ring focus:ring-gray-600/30 focus:border-gray-600 focus:text-white btn keep_flow_decision_btn" data-label="no" data-id="${target_count}">${window.page.no}</label>
-                                                                </div>
-                                                            </div>
-                                                        
-                                                </div>
-
-
-                                                <div id="keep_flow_tracker_step_${target_count}" style="display:none;" >
-                                                    <input type="hidden" name="keepflow[]" class="keepflow_counter" id="keepflow_${target_count}" value="0">
-                                                </div>
-
-                                                <div class="md:col-span-2" style="display:none;" id="texture_div_${target_count}">
-                                                        <div>
-                                                            <label for="texture" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.texture}</label>
-                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  name="texture[]" required>
-                                                               
-                                                                <option value="${window.page.keep_flow_height}">${window.page.keep_flow_height}</option>
-                                                                <option value="${window.page.keep_flow_width}">${window.page.keep_flow_width}</option>
-                                                                
-                                                            </select>
-                                                        </div>
-                                                </div>
-
-
-                                                <div class=" md:col-span-4"  style="display:none;" id="upload_file_div_${target_count}">
-                                                            <div>
-                                                                <label for="upload_file" class="blink block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.uploadfile}</label>
-                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary"  type="file" accept=".jpg, .jpeg, .png, .gif"  name="upload_file[]"  id="${target_count}" placeholder="${window.page.uploadfile}"/>
-                                                                
-                                                            </div>
-                                                            <input type="hidden" name="upload_file_tracker[]" class="upload_file_tracker" id="upload_file_tracker_${target_count}" value="0">
-                                                </div>`];
+                    <div id="upload_file_example_image_modal" class="upload-example-modal" style="display:none;">
+                        <div class="upload-example-modal-content">
+                            <span id="upload_file_example_image_modal_close"><i class="fa fa-times text-3xl text-gray-500 cursor-pointer"></i></span>
+                            <img id="upload_file_example_image" src="/static/super_admin/assets/hero.png" alt="Example Image">
+                        </div>
+                    </div>
+                `];
        
         
 
-        let question_ = ` <div class="md:col-span-12" id="keepflow_question_${target_count}" style="display:none;">
-                                                        
-                                                                    <div class="custom-radio form-check form-check-inline">
-                                                                        <label class="block font-medium text-gray-700 mb-2 dark:text-zink-200">${window.page.keepflow_question} </label>
-                                                                       
-                                                                         <input   data-id="${target_count}" class="w-3 h-3 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="keep_flow_question" value="no">
-                                                                        <label class="text-gray-600 dark:text-zink-200 " for="customRadioInline2">${window.page.no}</label>
-                                                                       
-                                                                        <br/>
-                                                                         <input  data-id="${target_count}"  class="w-3 h-3 mt-2 text-blue-600 bg-gray-300 border border-gray-400 rounded-full appearance-none checked:bg-blue-500 checked:border-blue-500 dark:bg-transparent dark:border-zink-300" type="radio" name="keep_flow_question" value="yes">
-                                                                        <label class="text-gray-600 dark:text-zink-200" for="customRadioInline1">${window.page.yes}</label>
-                                                                       
-                                                                    </div>
-                                                        
-                                                </div>`;
-        // if (decision == "yes")
-            html_.push(question_+`<div class="md:col-span-6 knob_div_${target_count}" style="display:none">
-                                                        <div>
-                                                            <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_family}</label>
-                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="${target_count}"  name="knob_family[]" required>
-                                                                
-                                                                
-                                                                
-                                                            </select>
-                                                        </div>
-                                                </div>
+        let question_ = ` 
+            <!-- Want to add a handle? -->
 
-                                                <div class="md:col-span-6 knob_div_${target_count}" style="display:none">
-                                                        <div>
-                                                            <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_color}</label>
-                                                            <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-record="${target_count}" data-id="${parseInt(target_count) - 2}" name="knob_color[]" required>
-                                                                
-                                                            </select>
-                                                        </div>
-                                                </div>`);
+            <div class="md:col-span-12" id="keepflow_question_${target_count}" style="display:none;">
+                <div class="flex items-center gap-4 custom-radio form-check form-check-inline">
+                    <label class="block font-medium text-gray-700 dark:text-zink-200">${window.page.keepflow_question} </label>
+                            
+                    <div class="flex items-center gap-2">
+                        <input id="WantAnHandle"  data-id="${target_count}" class="hidden peer" type="radio" name="keep_flow_question" value="no">
+                        <label class="radio-label" for="WantAnHandle">${window.page.no}</label>
+                        
+                        <input id="NotWantAnHandle" data-id="${target_count}"  class="hidden peer" type="radio" name="keep_flow_question" value="yes">
+                        <label class="radio-label" for="NotWantAnHandle">${window.page.yes}</label>
+                    </div>
+                </div>
+            </div>`;
+
+            // if (decision == "yes")
+            html_.push(question_+`
+                <div class="md:col-span-4 knob_div_${target_count}" style="display:none">
+                    <div>
+                        <label for="knob_family" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_family}</label>
+                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" data-id="${target_count}"  name="knob_family[]" required>
+                         
+                        </select>
+                    </div>
+                </div>
+
+                <div class="md:col-span-4 knob_div_${target_count}" style="display:none">
+                    <div>
+                        <label for="knob_color" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.knob_color}</label>
+                        <select class="use_select2 col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_color_selection" data-record="${target_count}" data-id="${parseInt(target_count) - 2}" name="knob_color[]" required>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-4 knob_div_image_${target_count}" class="mt-6 w-full text-sm ltr:text-left rtl:text-right text-gray-500" style="width: 100%; height: 315px; display:none;">
+                    <div style="background-color: #6c6685; order-top-left-radius: 8px; border-top-right-radius: 8px;" class="mt-6 p-2 text-center text-white">Image Heading</div>
+                    <div style="height: 250px;" class="bg-white border border-gray-800">
+                        <img class="knob_div_image_el_${target_count} h-full"></div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-12 flex justify-end">
+                    <button type="button" id="knob_div_next_btn" style="display: none;" class="close_modal mr-2 px-10 py-4 text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-500 hover:border-blue-500 hover:text-white active:bg-blue-500 active:border-blue-500 active:text-white focus:bg-blue-500 focus:border-blue-500 focus:text-white focus:ring focus:ring-blue-500/30 btn">
+                        ${window.page.next}
+                    </button>
+                                                    
+                </div>
+            `);
         return html_.join('');
     }
 
@@ -901,22 +898,50 @@ $(document).ready(function(){
     }); //end input[name="color_selection"] event here
 
     ///////////////// add event on collection barcode field and collection name both fields are dependent each other
-        
-
+    
+    // Hide the 2nd step
+    $(document).on('click', '#knob_div_next_btn', function() {
+        let step_2_form = $('#create_order_form');
+        step_2_form.hide();
+        $(".step-circle.three").addClass("completed");
+        $(".step-line.three").addClass("completed");
+    })
 
     $(document).on('change','select[name="knob_color[]"]', function(){
         console.log('inside the select[name="knob_color[]"] change function___')
         let data_id = $(this).attr('data-record');
+        let data_image =  $(this).find(":selected").data('data-image');
         let decision = $("#decision").val();
         
         let updates = {
             'knob_color':$(this).val()
         };
         knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id), updates);
-        console.log("knobs_tracker=",knobs_tracker);
-        // let add_collection_btn_count = $("#add_collection_btn").attr('data-id');
+        console.log("BIG BIG =",data_image);
+        
+        $(`.knob_div_image_${data_id}`).show();
+        $('#knob_div_next_btn').show();
+      
+        $.ajax({
+            url:$("#link_to_grab_order_page_data_").val(), // add url for posting request
+            method:'POST',
+            data:{
+                data_requirement:'knob_image', 
+                desc: $(this).val()
+            },
+            dataType:'JSON',
+            success:function(data){
+                let image = data.data;
+                
+                if (image !== null && image !== undefined && image !== ""){ 
+                    $(`.knob_div_image_el_${data_id}`).attr('src', image);
+                }
+            } //end success here
+        }); //end ajax call here
+        
         if (decision === "yes")
             $("#create_order_form_add_collection_div").show();
+        
     });
 
 
@@ -1006,33 +1031,40 @@ $(document).ready(function(){
                     dataType:'JSON',
                     success:function(data){
                         let data__ = data.data;
-                        // console.log("data__",data__);
+                        console.log("data__",data__);
                          selectElement.append($('<option>', {
-                                    value: '',
-                                    text: window.page.select_a_value
-                                }
+                                value: '',
+                                text: window.page.select_a_value,
+                                // 'data-image': data__['colorknob_image'],
+                            }
                             ));
                         $.each(data__, function (index, item) {
                             // console.log(item['colorknob_color'], selected_color_flag);
-                                    // if (item['colorknob_color'] === selected_color_flag){
-                                       
-                                            selectElement.append($('<option>', {
-                                                value: item[keys[0]],
-                                                text: item[keys[0]]
-                                            }
-                                        ));
-                                    // }//end if here
+                            // if (item['colorknob_color'] === selected_color_flag){
+                                selectElement.append($('<option>', {
+                                    value: item[keys[0]],
+                                    text: item[keys[0]],
+                                    'data-image': item['colorknob_image'],
+                                }
+                            ));
+                            // }//end if here
                         }); //end second each
 
                         // callback(data, step_number, element_names, keys);
                     } //end success here
             }); //end ajax call here
         }
+    });
 
-
-
-
-
+    
+    $(document).on('click','#upload_file_example_btn', function(){
+        const modal = $('#upload_file_example_image_modal');
+        modal.show();
+    });
+    
+    $(document).on('click','#upload_file_example_image_modal_close', function(){
+        const modal = $('#upload_file_example_image_modal');
+        modal.hide();
     });
 
     function extra_fields(show_flag, data_id){
@@ -1040,10 +1072,12 @@ $(document).ready(function(){
             $(`div#create_order_form_step_${data_id} #keepflow_div_${data_id}`).show();
             $(`div#create_order_form_step_${data_id} #texture_div_${data_id}`).show();
             $(`div#create_order_form_step_${data_id} #upload_file_div_${data_id}`).show();
+            $(`div#create_order_form_step_${data_id} #upload_file_example_${data_id}`).show();
         }else{
              $(`div#create_order_form_step_${data_id} #keepflow_div_${data_id}`).hide();
             $(`div#create_order_form_step_${data_id} #texture_div_${data_id}`).hide();
             $(`div#create_order_form_step_${data_id} #upload_file_div_${data_id}`).hide();
+            $(`div#create_order_form_step_${data_id} #upload_file_example_${data_id}`).hide();
         }
     }
 
@@ -1164,22 +1198,22 @@ $(document).ready(function(){
             // console.log("knobs_tracker at line 1123",knobs_tracker); 
             knobs_tracker = deleteById(knobs_tracker, parseInt(data_id));
             knobs_tracker.push(
-                    {
-                        [collectionbarcode]: '',
-                        'id': parseInt(data_id),
-                        'knob_family':'',
-                        'knob_color':'',
-                    }
+                {
+                    [collectionbarcode]: '',
+                    'id': parseInt(data_id),
+                    'knob_family':'',
+                    'knob_color':'',
+                }
             );
 
         }else{
-             knobs_tracker.push(
-                    {
-                        [collectionbarcode]: '',
-                        'id': parseInt(data_id),
-                        'knob_family':'',
-                        'knob_color':'',
-                    }
+            knobs_tracker.push(
+                {
+                    [collectionbarcode]: '',
+                    'id': parseInt(data_id),
+                    'knob_family':'',
+                    'knob_color':'',
+                }
             ); 
             // knobs_tracker.push(
         }
@@ -1191,23 +1225,69 @@ $(document).ready(function(){
         let description = $(this).find(":selected").data('description');
 
 
+        let color_type = $(this).find(":selected").data('color-type');
+        let flow = $(this).find(":selected").data('flow');
+        let thick = $(this).find(":selected").data('thick');
+        let minorder = $(this).find(":selected").data('minorder');
+        let image = $(this).find(":selected").data('image');
+        
+        
+        let row =`
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.color_type}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+            ${color_type}
+            </p>
+        </div>
 
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.collection_barcode}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+            ${collectionbarcode}
+            </p>
+        </div> 
 
-        let row =`<td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-           ${collectionbarcode}
-        </td>
-        <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-            ${description}
-        </td>
-        <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-            ${back}
-        </td>
-        <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-            ${kant}
-        </td>
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.collection}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+                ${description}
+            </p>
+        </div>    
+            
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.flow}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+                ${flow === "Yes" ? "גובה" : "רוחב"}
+            </p>
+        </div>    
+            
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.kant}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+                ${kant}
+            </p>
+        </div>    
+            
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.thick}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+            ${thick}
+            </p>
+        </div>    
+            
+        <div class="flex">
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap">${window.page.minorder}</p>
+            <p class="flex-1 p-2 text-gray-700 font-normal whitespace-nowrap-50">
+            ${minorder}
+            </p>
+        </div>
+
          `;
         $(`#collection_table_row_${data_id}`).empty().append(row);
         $(`#collection_table_${data_id}`).show();
+        $(`#collection_table_image_${data_id}`).show();
+        $(`#collection_table_image_el_${data_id}`).attr('src', image);
+
         // $(`#keepflow_question_${data_id}`).show();
 
 
@@ -1269,48 +1349,23 @@ $(document).ready(function(){
 
         var selectedValue = $(this).val();
         let data_id = $(this).attr('data-id');
-        // knobs_tracker.push({
-        //             [$(`#collection_barcode_${data_id}`).find(':selected').val()]: selectedValue,
-        //             'id': parseInt(data_id),
-        //             'knob_family':'',
-        //             'knob_color':'',
-        //             // 'knob_decision':'',
+        let image = $(this).attr('data-knob-image');
 
-        // });
         let updates = {
             [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue
         };
         if (selectedValue == "no"){
             updates = {
-                        [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue, 
-                        'knob_family':'',
-                        'knob_color':''
-
+                [$(`#collection_barcode_${data_id}`).find(':selected').val()]:selectedValue, 
+                'knob_family':'',
+                'knob_color':''
             };
         }
         
         knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id), updates);
         console.log("knobs_tracker=",knobs_tracker);
 
-        // if (!checkIdExists(knobs_tracker, parseInt(data_id))){
-            // console.log(`${data_id} does not exists in knobs_tracker`);
-            // knobs_tracker.push(
-            //     {
-            //         [$(`#collection_barcode_${data_id}`).find(':selected').val()]: selectedValue,
-            //         'id': parseInt(data_id),
-            //         'knob_family':'',
-            //         'knob_color':'',
-            //         // 'knob_decision':'',
-
-            //     }
-            // );
-        // }else
-            // {
-            //         console.log(`${data_id} is exists in knobs_tracker`);
-            //     knobs_tracker = updateKnobInfo(knobs_tracker, parseInt(data_id),undefined, undefined,selectedValue);
-            // }
-
-        // console.log("knobs_tracker=",knobs_tracker);
+       
         if (selectedValue == "yes"){
             $(`.knob_div_${data_id}`).show();
             $(".use_select2").select2();   
@@ -1437,45 +1492,40 @@ $(document).ready(function(){
                 },
                 dataType:'JSON',
                 success:function(data){
-                        $.each(keys, function(index,key){
-                                // console.log(index, key);
-                        let elem_name = `div#create_order_form_step_${step_number} select[name='${element_names[index]}']`;
-                        // console.log(elem_name);
-                        var selectElement =  $(elem_name).empty();
-                        selectElement.append($('<option>', {
-                                value: '',
-                                text: window.page.select_a_value
-                            }
-                        ));
+                    $.each(keys, function(index,key){
+                            // console.log(index, key);
+                    let elem_name = `div#create_order_form_step_${step_number} select[name='${element_names[index]}']`;
+                    // console.log(elem_name);
+                    var selectElement =  $(elem_name).empty();
+                    selectElement.append($('<option>', {
+                            value: '',
+                            text: window.page.select_a_value
+                        }
+                    ));
 
-                        if (selectElement){
-                                        $.each(data.data, function (index, item) {
-                                            
-                                            if (!selected_collection.includes(item[key])){
-                                                    if (item.in_stock_bool == 1){
-                                                        selectElement.append($('<option>', {
-                                                                value: item[key],
-                                                                text: item[key],
-                                                                'data-flow':item['flow'],
-                                                                'data-id':item['collection_id'],
-                                                                'data-back':item['back'],
-                                                                'data-kant':item['kant'],
-                                                                'data-minorder':item['min_order'],
-                                                                'data-collection':item['collection_name'],
-                                                                'data-description':item['description'],
-
-
-                                                            }
-                                                         ));
-                                                    }
-                                            }
-
-
-                                    }); //end second each
+                    if (selectElement){
+                        $.each(data.data, function (index, item) {
+                            if (!selected_collection.includes(item[key])){
+                                if (item.in_stock_bool == 1){
+                                    selectElement.append($('<option>', {
+                                        value: item[key],
+                                        text: item[key],
+                                        'data-flow':item['flow'],
+                                        'data-id':item['collection_id'],
+                                        'data-back':item['back'],
+                                        'data-kant':item['kant'],
+                                        'data-minorder':item['min_order'],
+                                        'data-collection':item['collection_name'],
+                                        'data-description':item['description'],
+                                        }
+                                    ));
                                 }
-                        }); // end  each loop
+                            }
+                        }); //end second each
+                    }
+                }); // end  each loop
 
-                } //end success here
+            } //end success here
         }); //end ajax call here
 
         // let all_collection_barcodes = []; // Initialize an empty array to store the values

@@ -1927,15 +1927,8 @@ def CreateDoorOrder(request):
                 collection_barcode_list = request.POST.getlist('collection_barcode[]', [])
                 texture_list = request.POST.getlist('texture[]', [])
 
-
-
                 knob_family =  request.POST.getlist('knob_family[]', [])
                 knob_color =   request.POST.getlist('knob_color[]', [])
-                
-                
-
-
-
 
                 order_items_to_delete = OrderItems.objects.filter(order_track=order_track_instance)
                 order_items_to_delete.delete()
@@ -1961,19 +1954,20 @@ def CreateDoorOrder(request):
                                 order_track=order_track_instance,
                         )
                         print("order_track_id=",order_items_instance.order_track_id)
+
                     for index, upload_file_tracker_iter in enumerate([have_image for have_image in upload_file_tracker if have_image=='1']): 
                         keep_flow_val = find_value_by_key (keep_flow_tracker, collection_barcode_list[index])
                         result = search_by_first_key(knobs_tracker, collection_barcode_list[index])
                         
                         print(index,"I am with image")
                         order_items_instance = OrderItems.objects.create(
-                                order_item_collection_barcode = collection_barcode_list[index],
-                                order_item_collection= '', 
-                                order_item_keepflow= keep_flow_val,
-                                order_item_texture=get_value_by_index(texture_list, index),
-                                order_item_knobfamily = result['knob_family'],
-                                order_item_knobcolor = result['knob_color'],
-                                order_track=order_track_instance,
+                            order_item_collection_barcode = collection_barcode_list[index],
+                            order_item_collection= '', 
+                            order_item_keepflow= keep_flow_val,
+                            order_item_texture=get_value_by_index(texture_list, index),
+                            order_item_knobfamily = result['knob_family'],
+                            order_item_knobcolor = result['knob_color'],
+                            order_track=order_track_instance,
                         )
                         uploaded_file = uploaded_files[index] 
                         #print(uploaded_file)
@@ -1985,13 +1979,13 @@ def CreateDoorOrder(request):
                     # print("product_type=",product_type)
                     #for index, collection_barcode in enumerate(collection_barcode_list):
                     order_items_instance = OrderItems.objects.create(
-                            order_item_collection_barcode = collection_barcode_list[0],
-                            order_item_collection= '', 
-                            order_item_keepflow= '',
-                            order_item_texture='',
-                            order_item_knobfamily='',
-                            order_item_knobcolor='',
-                            order_track=order_track_instance,
+                        order_item_collection_barcode = collection_barcode_list[0],
+                        order_item_collection= '', 
+                        order_item_keepflow= '',
+                        order_item_texture='',
+                        order_item_knobfamily='',
+                        order_item_knobcolor='',
+                        order_track=order_track_instance,
                     )
                     print("Inserted the order items")
                 
@@ -3635,14 +3629,17 @@ def orderPageAjaxCalls(request):
             "width": collection.width,
             "kant_code": collection.kant_code,
             "formica": 'Yes' if collection.formica == 1 else 'No',
-            "formica_bool":collection.formica
+            "formica_bool":collection.formica,
+            "color_type": collection.color_type,
+            "thick": collection.thick,
+            "collection_image":  collection.collection_image.url if collection.collection_image else ""
             } for collection in all_collection_cls]
             return JsonResponse({'data':data})
         elif data_requirement == "knob_family":
             # all_knob_cls = Knob.objects.all()
             # data = [{'knob_id': knob.knob_id, 'knob_family': knob.knob_family, 'knob_model': knob.knob_model, 'two_parts_knob': 'Yes' if knob.two_parts_knob == 1 else 'No', 'knob_color': 'Yes' if knob.color == 1 else 'No','knob_color_bool': knob.color, 'knob_size': knob.knob_size, 'button_height': knob.button_height} for knob in all_knob_cls]
             # return JsonResponse({'data': data}, safe=False)
-            all_knob_cls = Knob.objects.all().values('knob_id', 'knob_family', 'knob_model', 'two_parts_knob', 'color', 'knob_size', 'button_height').distinct('knob_family')
+            all_knob_cls = Knob.objects.all().values('knob_id', 'knob_family', 'knob_model', 'two_parts_knob', 'color', 'knob_size', 'knob_image', 'button_height').distinct('knob_family')
             data = [{'knob_id': knob['knob_id'], 
                     'knob_family': knob['knob_family'], 
                     'knob_model': knob['knob_model'], 
@@ -3650,8 +3647,9 @@ def orderPageAjaxCalls(request):
                     'knob_color': 'Yes' if knob['color'] == 1 else 'No',
                     'knob_color_bool': knob['color'], 
                     'knob_size': knob['knob_size'], 
-                    'button_height': knob['button_height']} 
-                    for knob in all_knob_cls]
+                    'button_height': knob['button_height'],
+                    'image': knob['knob_image'] if knob['knob_image'] else "",
+                    } for knob in all_knob_cls]
             return JsonResponse({'data': data}, safe=False)
         elif data_requirement == "specific_knob_family":
             knob_family_dict = {}
@@ -3717,8 +3715,22 @@ def orderPageAjaxCalls(request):
 
         elif data_requirement == "knob_color":
             all_knob_cls = ColorKnob.objects.all()
-            data = [{'colorknob_id': knob.colorknob_id, 'colorknob_barcode': knob.colorknob_barcode, 'colorknob_description': knob.colorknob_description,'colorknob_color':knob.colorknob_color} for knob in all_knob_cls if knob.colorknob_color==1]   
+            data = [{
+                'colorknob_id': knob.colorknob_id, 
+                'colorknob_barcode': knob.colorknob_barcode, 
+                'colorknob_description': knob.colorknob_description,
+                'colorknob_color':knob.colorknob_color,
+                'colorknob_image': knob.colorknob_image.url if knob.colorknob_image else ""
+            } for knob in all_knob_cls if knob.colorknob_color==1]   
             return JsonResponse({'data': data}, safe=False)
+        
+        elif data_requirement == "knob_image":
+            print('the desc - ', request.POST.get('desc'))
+            knob = ColorKnob.objects.get(colorknob_description=request.POST.get('desc'))
+            data = knob.colorknob_image.url if knob and knob.colorknob_image else ""
+            print('THE SCRIPT - ', data)
+            return JsonResponse({'data': data}, safe=False)
+        
         elif data_requirement == "get_specific_drawer_codes":
             drawer_type = request.POST.get('drawer_type')
             all_drawers = Drawer.objects.filter(drawer_type =drawer_type )
