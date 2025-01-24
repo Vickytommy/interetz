@@ -85,11 +85,11 @@
         .step-line {
             position: absolute;
             top: 25px;
-            left: 55px;
-            width: 100px;
+            right: 55px;
+            width: 150px;
             height: 2px;
-            background-color: #c7c7ca;
-            z-index: -1;
+            background-color: transparent;
+            /* z-index: -1; */
             transition: background-color 0.3s;
         }
         .step-line.completed {
@@ -189,31 +189,31 @@
                         <div class="wizard-section">
                             <div class="wizard-container">
                                 <div class="step">
-                                    <div class="step-circle {% if step >= 1 %}completed{% elif step == step_1 %}active{% endif %}">1</div>
+                                    <div class="step-circle completed">1</div>
                                     <div class="step-title">
                                         פרטי הזמנה
                                         <!-- Step 1 -->
                                     </div>
-                                    <div class="step-line {% if step > 1 %}completed{% endif %}"></div>
+                                    <div class="step-line completed"></div>
                                 </div>
                                 <div class="step">
-                                    <div class="step-circle {% if step >= 2 %}completed{% elif step == 2 %}active{% endif %}">2</div>
+                                    <div class="step-circle two">2</div>
                                     <div class="step-title">
                                         בחירת מוצרים
                                         <!-- Step 2 -->
                                     </div>
-                                    <div class="step-line {% if step > 2 %}completed{% endif %}"></div>
+                                    <div class="step-line two"></div>
                                 </div>
                                 <div class="step">
-                                    <div class="step-circle {% if step >= 3 %}completed{% elif step == 3 %}active{% endif %}">3</div>
+                                    <div class="step-circle three">3</div>
                                     <div class="step-title">
                                         בחירת חזיתות
                                         <!-- Step 3 -->
                                     </div>
-                                    <div class="step-line {% if step > 3 %}completed{% endif %}"></div>
+                                    <div class="step-line three"></div>
                                 </div>
                                 <div class="step">
-                                    <div class="step-circle {% if step == 4 %}active{% endif %}">4</div>
+                                    <div class="step-circle four">4</div>
                                     <div class="step-title">
                                         סיכום הזמנה
                                         <!-- Step 4 -->
