@@ -3639,7 +3639,7 @@ def orderPageAjaxCalls(request):
             # all_knob_cls = Knob.objects.all()
             # data = [{'knob_id': knob.knob_id, 'knob_family': knob.knob_family, 'knob_model': knob.knob_model, 'two_parts_knob': 'Yes' if knob.two_parts_knob == 1 else 'No', 'knob_color': 'Yes' if knob.color == 1 else 'No','knob_color_bool': knob.color, 'knob_size': knob.knob_size, 'button_height': knob.button_height} for knob in all_knob_cls]
             # return JsonResponse({'data': data}, safe=False)
-            all_knob_cls = Knob.objects.all().values('knob_id', 'knob_family', 'knob_model', 'two_parts_knob', 'color', 'knob_size', 'button_height').distinct('knob_family')
+            all_knob_cls = Knob.objects.all().values('knob_id', 'knob_family', 'knob_model', 'two_parts_knob', 'color', 'knob_size', 'knob_image', 'button_height').distinct('knob_family')
             data = [{'knob_id': knob['knob_id'], 
                     'knob_family': knob['knob_family'], 
                     'knob_model': knob['knob_model'], 
@@ -3647,8 +3647,9 @@ def orderPageAjaxCalls(request):
                     'knob_color': 'Yes' if knob['color'] == 1 else 'No',
                     'knob_color_bool': knob['color'], 
                     'knob_size': knob['knob_size'], 
-                    'button_height': knob['button_height']} 
-                    for knob in all_knob_cls]
+                    'button_height': knob['button_height'],
+                    'image': knob['knob_image'] if knob['knob_image'] else "",
+                    } for knob in all_knob_cls]
             return JsonResponse({'data': data}, safe=False)
         elif data_requirement == "specific_knob_family":
             knob_family_dict = {}
@@ -3714,8 +3715,22 @@ def orderPageAjaxCalls(request):
 
         elif data_requirement == "knob_color":
             all_knob_cls = ColorKnob.objects.all()
-            data = [{'colorknob_id': knob.colorknob_id, 'colorknob_barcode': knob.colorknob_barcode, 'colorknob_description': knob.colorknob_description,'colorknob_color':knob.colorknob_color} for knob in all_knob_cls if knob.colorknob_color==1]   
+            data = [{
+                'colorknob_id': knob.colorknob_id, 
+                'colorknob_barcode': knob.colorknob_barcode, 
+                'colorknob_description': knob.colorknob_description,
+                'colorknob_color':knob.colorknob_color,
+                'colorknob_image': knob.colorknob_image.url if knob.colorknob_image else ""
+            } for knob in all_knob_cls if knob.colorknob_color==1]   
             return JsonResponse({'data': data}, safe=False)
+        
+        elif data_requirement == "knob_image":
+            print('the desc - ', request.POST.get('desc'))
+            knob = ColorKnob.objects.get(colorknob_description=request.POST.get('desc'))
+            data = knob.colorknob_image.url if knob and knob.colorknob_image else ""
+            print('THE SCRIPT - ', data)
+            return JsonResponse({'data': data}, safe=False)
+        
         elif data_requirement == "get_specific_drawer_codes":
             drawer_type = request.POST.get('drawer_type')
             all_drawers = Drawer.objects.filter(drawer_type =drawer_type )
