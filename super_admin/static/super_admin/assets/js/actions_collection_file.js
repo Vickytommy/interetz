@@ -36,7 +36,7 @@ $(document).ready(function(){
                     { data: 'height' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'width' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'kant_code' , className:'text-center border border-gray-300 dark:border-zink-50'},
-                    { data: 'formica' , className:'text-center border border-gray-300 dark:border-zink-50'},
+                    // { data: 'formica' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     
                     { data: 'price_group' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'price_two_side' , className:'text-center border border-gray-300 dark:border-zink-50'},
@@ -358,7 +358,7 @@ $(document).ready(function(){
         $("form#edit_collection_form #width").val(rowData.width);
         $("form#edit_collection_form #kant_code").val(rowData.kant_code);
         // $("#formica").val(rowData.formica);
-        $("form#edit_collection_form #formica").val(rowData.formica_bool);
+        // $("form#edit_collection_form #formica").val(rowData.formica_bool);
         
         $("form#edit_collection_form #price_group").val(rowData.price_group);
         $("form#edit_collection_form #price_two_side").val(rowData.price_two_side);
