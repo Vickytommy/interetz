@@ -90,6 +90,8 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
+        $("#form_btn").show();
 
         if(type=="single"){
             $('.single_entry_type').show();
@@ -129,29 +131,28 @@ $(document).ready(function(){
             $('.single_entry_type').hide();
             $('.bulk_entry_type').hide();
             $('.bulk_image_entry_type').hide();
+            $("#form_btn").hide();
         }
-        $("#form_btn").show();
 
     });
 
     $(document).on('change','#upload_drawer',function(event){
-
-                const selectedFile = event.target.files[0];
-                const fileName = selectedFile.name.toLowerCase();
-                if (fileName.endsWith('.csv')) {
-                    console.log('Valid CSV file selected:', fileName);
-                    // Handle the file or perform further actions
-                } else {
-                    Swal.fire({
-                            position: 'center',
-                            icon: 'danger',
-                            title: window.page.csv_error_msg,
-                            showConfirmButton: false,
-                            timer: 1500
-                    });
-                    // Clear the file input
-                    $('#upload_drawer').val('');
-                }
+        const selectedFile = event.target.files[0];
+        const fileName = selectedFile.name.toLowerCase();
+        if (fileName.endsWith('.csv')) {
+            console.log('Valid CSV file selected:', fileName);
+            // Handle the file or perform further actions
+        } else {
+            Swal.fire({
+                    position: 'center',
+                    icon: 'danger',
+                    title: window.page.csv_error_msg,
+                    showConfirmButton: false,
+                    timer: 1500
+            });
+            // Clear the file input
+            $('#upload_drawer').val('');
+        }
         
     });
 
@@ -232,32 +233,7 @@ $(document).ready(function(){
             }
         }
     });
-
-    // $(document).on('change','input[type="file"]',function(event){
-    //     const selectedFile = event.target.files[0];
-    //     const fileName = selectedFile.name.toLowerCase();
-    //     let all_exts = ['.png','.jpg','jpeg','.gif']
-    //     if (all_exts.some(ext => fileName.endsWith(ext))) {
-    //         let id_ = $(this).attr('id');
-    //         console.log('Valid file selected:', fileName);
-    //         console.log('id_:', id_);
-    //         $(`#upload_file_tracker_${id_}`).val(1);
-    //         // Handle the file or perform further actions
-    //     } else {
-    //         let error_msg = window.page.image_error_msg;
-    //         Swal.fire({
-    //                 position: 'center',
-    //                 icon: 'warning',
-    //                 title: error_msg,
-    //                 showConfirmButton: false,
-    //                 timer: 3000
-    //         });
-    //         // Clear the file input
-    //         $('#upload_file').val('');
-    //     }
-    // });
     
-
 
     $(document).on('submit','#add_collection_form',function(e){
         e.preventDefault()
@@ -390,6 +366,7 @@ $(document).ready(function(){
         $("form#edit_collection_form #color_type").val(rowData.color_type);
         $("form#edit_collection_form #thick").val(rowData.thick);
 
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
 

@@ -79,6 +79,8 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
+        $("#form_btn").show();
 
         if(type=="single"){
             $('.single_entry_type').show();
@@ -124,8 +126,6 @@ $(document).ready(function(){
             $("#price").attr('required', false);
 
             $("#upload_drawer").attr('required',true);
-            
-            $("#form_btn").show();
 
         } else {
             $('.single_entry_type').hide();
@@ -286,12 +286,10 @@ $(document).ready(function(){
         $("#price_edit").val(rowData.price);
         
         $("#drawer_id").val(rowData.drawer_id);
+        
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
-
-
-
-
 
 
     $(document).on('submit','#edit_drawer_form',function(e){

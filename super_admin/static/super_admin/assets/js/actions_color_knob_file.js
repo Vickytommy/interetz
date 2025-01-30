@@ -73,6 +73,7 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
 
         if(type=="single"){
             $('.single_entry_type').show();
@@ -336,6 +337,8 @@ $(document).ready(function(){
         $("#description_edit").val(rowData.colorknob_description);
         $("#color_knob_id").val(rowData.colorknob_id);
          $("#color_edit").val(rowData.colorknob_color);
+         
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
 

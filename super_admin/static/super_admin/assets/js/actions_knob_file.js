@@ -121,6 +121,8 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
+        $("#form_btn").show();
 
         if(type=="single"){
             $('.single_entry_type').show();
@@ -169,9 +171,9 @@ $(document).ready(function(){
         }else{
             $('.single_entry_type').hide();
             $('.bulk_entry_type').hide();
-            $("#new_bulk_knob_image").hide();
+            $(".bulk_image_entry_type").hide();
+            $("#form_btn").hide();
         }
-        $("#form_btn").show();
 
     });
 
@@ -395,6 +397,8 @@ $(document).ready(function(){
         $("#button_height_edit").val(rowData.button_height);
         $("#knob_id").val(rowData.knob_id);
         $("#price_edit").val(rowData.price);
+        
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
 
