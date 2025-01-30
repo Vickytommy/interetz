@@ -28,19 +28,19 @@
                     <a href="{% url 'super_admin:CreateDoorOrder' %}" class="text-gray py-4">הזמנה חדשה</a>
                 </li>
 
-                <!-- Not Shipped -->
+                <!-- Load Draft Orders -->
                 <li class="py-4">
-                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">טיוטות</a>
+                    <a href="{% url 'super_admin:load_draft_orders' %}" class="text-gray py-4">טיוטות</a>
                 </li>
 
-                <!-- Pending fulfilment -->
+                <!-- Order that sent to factory -->
                 <li class="py-4">
-                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנות בתהליך</a>
+                    <a href="{% url 'super_admin:order_that_sent_to_factory' %}" class="text-gray py-4">הזמנות בתהליך</a>
                 </li>
 
-                <!-- Delivered orders -->
+                <!-- Track Delivered orders -->
                 <li class="py-4">
-                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">הזמנות סגורות</a>
+                    <a href="{% url 'super_admin:track_order_delivers_to_clients' %}" class="text-gray py-4">הזמנות סגורות</a>
                 </li>
 
                 <!-- Product -->

@@ -79,6 +79,8 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
+        $("#form_btn").show();
 
         if(type=="single"){
             $('.single_entry_type').show();
@@ -103,8 +105,6 @@ $(document).ready(function(){
             $("#price").attr('required', true);
             $("#upload_clap").attr('required',false);
             $("#upload_clap").val('');
-            
-            $("#form_btn").show();
         }else if (type=="bulk") {
             $('.single_entry_type').hide();
             $('.bulk_entry_type').show();
@@ -128,8 +128,6 @@ $(document).ready(function(){
             $("#price").attr('required', false);
 
             $("#upload_clap").attr('required',true);
-            
-            $("#form_btn").show();
 
         } else {
             $('.single_entry_type').hide();
@@ -289,6 +287,8 @@ $(document).ready(function(){
         $("#price_edit").val(rowData.price);
         
         $("#clap_id").val(rowData.clap_id);
+        
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_clap").show();
     });
 

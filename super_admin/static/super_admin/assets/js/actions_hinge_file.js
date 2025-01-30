@@ -72,7 +72,8 @@ $(document).ready(function(){
 
 $(document).on('change','#entry_type_select',function(){
    let type = $(this).find(':selected').val();
-
+   $('#edit_form_drawer').hide();
+   $("#form_btn").show();
  
     if(type=="single"){
         
@@ -89,8 +90,6 @@ $(document).on('change','#entry_type_select',function(){
         $("#price").attr('required', true);
         $("#upload_hinge").attr('required',false);
         $("#upload_hinge").val('');
-
-        $("#form_btn").show();
     }else if (type=="bulk") {
         $('.single_entry_type').hide();
         $('.bulk_entry_type').show();
@@ -105,8 +104,6 @@ $(document).on('change','#entry_type_select',function(){
         $("#price").attr('required', false);
 
         $("#upload_hinge").attr('required',true);
-        
-        $("#form_btn").show();
     } else {
         $('.single_entry_type').hide();
         $('.bulk_entry_type').hide();
@@ -256,6 +253,8 @@ $('#hinge_table tbody').on('click', '.edit_record', function(e) {
     $("#price_edit").val(rowData.price);
     
     $("#hinge_id").val(rowData.hinge_id);
+    
+    $("#entry_type_select").val('').trigger('change');
     $("#edit_form_hinge").show();
 });
 

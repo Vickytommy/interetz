@@ -59,6 +59,12 @@
 
                                                     <div class=" md:col-span-3 single_entry_type" style="display:none;">
                                                         <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="manufacturer" name="manufacturer" placeholder='{{ data|get:"manufacturer" }}'>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                        <div>
                                                             <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="drawers_type" name="drawers_type" placeholder='{{ data|get:"drawer type" }}'>
                                                         </div>
                                                     </div>
@@ -169,7 +175,7 @@
 
                                                                 <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" id="formFileLg" type="file"  accept=".csv" id="upload_drawer" name="upload_drawer"  />
 
-                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (drawer_type,drawer_code,side_kant,lower_kant,default_side,default_low,diameter,drills_amount,drill_1,drill_2,drill_3,drill_4,drill_5,drill_6,drill_7,height,price)</label>
+                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (manufacturer, drawer_type,drawer_code,side_kant,lower_kant,default_side,default_low,diameter,drills_amount,drill_1,drill_2,drill_3,drill_4,drill_5,drill_6,drill_7,height,price)</label>
                                                             </div>
                                                     </div>
             
@@ -206,6 +212,12 @@
                                             <div class="grid grid-cols-12 gap-x-5 md:gap-6">
                                                   
                                                     <!-- START -->
+
+                                                    <div class=" md:col-span-3 " >
+                                                        <div>
+                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="manufacturer_edit" name="manufacturer" required placeholder='{{ data|get:"manufacturer" }}'>
+                                                        </div>
+                                                    </div>
 
                                                     <div class=" md:col-span-3 " >
                                                         <div>
@@ -361,7 +373,7 @@
                             <table id="drawer_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
                                 <thead>
                                     <tr>
-                                        
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"manufacturer" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drawer type" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"drawer code" }}</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"side kant" }}</th>

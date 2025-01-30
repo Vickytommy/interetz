@@ -22,7 +22,7 @@ $(document).ready(function(){
                     search: 'Search'
                 },
                 columns: [
-                    
+                    { data: 'manufacturer', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'drawer_type', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'drawer_code', className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'side_kant', className: 'text-center border border-gray-300 dark:border-zink-50' },
@@ -79,10 +79,13 @@ $(document).ready(function(){
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
+        $('#edit_form_drawer').hide();
+        $("#form_btn").show();
 
         if(type=="single"){
             $('.single_entry_type').show();
             $('.bulk_entry_type').hide();
+            $("#manufacturer").attr('required',true);
             $("#drawers_type").attr('required',true);
             $("#drawers_code").attr('required',true);
             $("#side_kant").attr('required', true);
@@ -105,6 +108,7 @@ $(document).ready(function(){
         }else if (type=="bulk") {
             $('.single_entry_type').hide();
             $('.bulk_entry_type').show();
+            $("#manufacturer").attr('required',false);
              $("#drawers_type").attr('required',false);
             $("#drawers_code").attr('required',false);
             $("#side_kant").attr('required', false);
@@ -124,8 +128,6 @@ $(document).ready(function(){
             $("#price").attr('required', false);
 
             $("#upload_drawer").attr('required',true);
-            
-            $("#form_btn").show();
 
         } else {
             $('.single_entry_type').hide();
@@ -267,6 +269,7 @@ $(document).ready(function(){
         // Get data from the clicked row
         //$("#custom_modal").show('modal');
         var rowData = drawer_table.row($(this).closest('tr')).data();
+        $("#manufacturer_edit").val(rowData.manufacturer);
         $("#drawers_type_edit").val(rowData.drawer_type);
         $("#drawers_code_edit").val(rowData.drawer_code);
         $("#side_kant_edit").val(rowData.side_kant);
@@ -286,12 +289,10 @@ $(document).ready(function(){
         $("#price_edit").val(rowData.price);
         
         $("#drawer_id").val(rowData.drawer_id);
+        
+        $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
-
-
-
-
 
 
     $(document).on('submit','#edit_drawer_form',function(e){
