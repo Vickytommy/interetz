@@ -24,17 +24,17 @@ $(document).ready(function(){
                 columns: [
                     { data: 'colorknob_barcode',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'colorknob_description',  className:'text-center border border-gray-300 dark:border-zink-50' },
-                    {data:'colorknob_color_word',  className:'text-center border border-gray-300 dark:border-zink-50'},
-                    {
-                        data: 'image',
-                        render: function(data, type, row) {
-                            if (data) {
-                                return `<img src="${data}" alt="${row.colorknob_barcode}" class="w-full aspect-[1/1] object-cover"/>`;
-                            }
-                            return ''; // Return empty string if no image exists
-                        },
-                        className: 'text-center border border-gray-300 dark:border-zink-50',
-                    },
+                    { data:'colorknob_color_word',  className:'text-center border border-gray-300 dark:border-zink-50'},
+                    // {
+                    //     data: 'image',
+                    //     render: function(data, type, row) {
+                    //         if (data) {
+                    //             return `<img src="${data}" alt="${row.colorknob_barcode}" class="w-6 aspect-[1/1] object-cover"/>`;
+                    //         }
+                    //         return ''; // Return empty string if no image exists
+                    //     },
+                    //     className: 'text-center border border-gray-300 dark:border-zink-50',
+                    // },
                     {
                         // New column for buttons
                         data: null,
