@@ -25,10 +25,10 @@ $(document).ready(function(){
                     
                     { data: 'knob_family',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'knob_model',  className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'two_parts_knob',  className:'text-center border border-gray-300 dark:border-zink-50' },
+                    // { data: 'two_parts_knob',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'color',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'knob_size',  className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'button_height',  className:'text-center border border-gray-300 dark:border-zink-50' },
+                    // { data: 'button_height',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'price',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     {
                         data: 'image',
@@ -132,10 +132,10 @@ $(document).ready(function(){
             // $("#drawers_code").attr('required',true);
             $("#knob_family").attr('required',true);
             $("#knob_model").attr('required',true);
-            $("#two_partsknob").attr('required',true);
+            // $("#two_partsknob").attr('required',true);
             $("#knob_color").attr('required',true);
             $("#knob_size").attr('required',true);
-            $("#button_height").attr('required',true);
+            // $("#button_height").attr('required',true);
 
             $("#upload_drawer").attr('required',false);
             $("#new_bulk_knob_image").attr('required',false);
@@ -146,10 +146,10 @@ $(document).ready(function(){
             $('.bulk_image_entry_type').hide();
              $("#knob_family").attr('required',false);
             $("#knob_model").attr('required',false);
-            $("#two_partsknob").attr('required',false);
+            // $("#two_partsknob").attr('required',false);
             $("#knob_color").attr('required',false);
             $("#knob_size").attr('required',false);
-            $("#button_height").attr('required',false);
+            // $("#button_height").attr('required',false);
 
             $("#upload_drawer").attr('required',true);
             $("#new_bulk_knob_image").attr('required',false);
@@ -160,10 +160,10 @@ $(document).ready(function(){
             $('.bulk_image_entry_type').show();
              $("#knob_family").attr('required',false);
             $("#knob_model").attr('required',false);
-            $("#two_partsknob").attr('required',false);
+            // $("#two_partsknob").attr('required',false);
             $("#knob_color").attr('required',false);
             $("#knob_size").attr('required',false);
-            $("#button_height").attr('required',false);
+            // $("#button_height").attr('required',false);
 
             $("#upload_drawer").attr('required',false);
             $("#new_bulk_knob_image").attr('required',true);
@@ -382,19 +382,19 @@ $(document).ready(function(){
         // Get data from the clicked row
         //$("#custom_modal").show('modal');
         var rowData = drawer_table.row($(this).closest('tr')).data();
-        let two_parts_knob = 0;
-        if (rowData.two_parts_knob == "yes")
-            two_parts_knob = 1
+        // let two_parts_knob = 0;
+        // if (rowData.two_parts_knob == "yes")
+        //     two_parts_knob = 1
         let color = 0;
         if (rowData.color == "yes")
             color = 1
         
         $("#knob_family_edit").val(rowData.knob_family);
         $("#knob_model_edit").val(rowData.knob_model);
-        $("#two_partsknob_edit").val(two_parts_knob).trigger('change');
+        // $("#two_partsknob_edit").val(two_parts_knob).trigger('change');
         $("#knob_color_edit").val(color).trigger('change');
         $("#knob_size_edit").val(rowData.knob_size);
-        $("#button_height_edit").val(rowData.button_height);
+        // $("#button_height_edit").val(rowData.button_height);
         $("#knob_id").val(rowData.knob_id);
         $("#price_edit").val(rowData.price);
         
