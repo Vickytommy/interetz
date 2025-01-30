@@ -1109,16 +1109,19 @@ def add_drawars(request):
                 if len(df) > 0:
                     # expected_columns = ["drawer_type", "drawer_code"]
                     expected_columns = [
-                        "side_kant", "lower_kant", "default_side", "default_low", "diameter", 
-                        "drills_amount", "drill_1", "drill_2", "drill_3", "drill_4", 
-                        "drill_5", "drill_6", "drill_7", "height", "price", 
-                        "drawer_type", "drawer_code"
+                        "manufacturer", "drawer_type", "drawer_code", "side_kant", "lower_kant",
+                        "default_side","default_low", "diameter", "drills_amount", "drill_1", 
+                        "drill_2", "drill_3", "drill_4", "drill_5", "drill_6", "drill_7", 
+                        "height", "price"
                     ]
 
                     if set(df.columns) == set(expected_columns):
                         
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
                             Drawer.objects.create(
+                                manufacturer=row_data['manufacturer'],
+                                drawer_type=row_data['drawer_type'],
+                                drawer_code=row_data['drawer_code'],
                                 side_kant=row_data['side_kant'],
                                 lower_kant=row_data['lower_kant'],
                                 default_side=row_data['default_side'],
@@ -1133,9 +1136,7 @@ def add_drawars(request):
                                 drill_6=row_data['drill_6'],
                                 drill_7=row_data['drill_7'],
                                 height=row_data['height'],
-                                price=row_data['price'],
-                                drawer_type=row_data['drawer_type'],
-                                drawer_code=row_data['drawer_code']
+                                price=row_data['price']
                             )
 
                             if index == len(df) - 1:
@@ -1145,6 +1146,7 @@ def add_drawars(request):
                 else:
                     return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
             else: # for single insertion
+                manufacturer = request.POST.get('manufacturer')
                 drawers_type = request.POST.get('drawers_type')
                 drawers_code = request.POST.get('drawers_code')
                 side_kant = request.POST.get('side_kant')
@@ -1165,6 +1167,7 @@ def add_drawars(request):
 
                 # Check all required fields
                 if (
+                    manufacturer != '' and
                     drawers_type != '' and
                     drawers_code != '' and
                     side_kant != '' and
@@ -1184,6 +1187,7 @@ def add_drawars(request):
                     price != ''
                 ):
                     new_drawer = Drawer(
+                        manufacturer=manufacturer,
                         drawer_type=drawers_type,
                         drawer_code=drawers_code,
                         side_kant=side_kant,
@@ -1219,6 +1223,7 @@ def add_drawars(request):
             drawer_id = int(request.POST.get('drawer_id'))
             existing_obj = Drawer.objects.get(drawer_id = drawer_id)
             if existing_obj:
+                existing_obj.manufacturer = request.POST.get('manufacturer')
                 existing_obj.drawers_type = request.POST.get('drawers_type')
                 existing_obj.drawers_code = request.POST.get('drawers_code')
                 existing_obj.side_kant = request.POST.get('side_kant')
@@ -1254,6 +1259,7 @@ def all_drawer_data(request):
     all_drawers = Drawer.objects.all()
     data = [{
         'drawer_id': drawer.drawer_id,
+        'manufacturer': drawer.manufacturer,
         'drawer_type': drawer.drawer_type,
         'drawer_code': drawer.drawer_code,
         'side_kant': drawer.side_kant,
