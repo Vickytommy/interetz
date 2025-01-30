@@ -30,7 +30,7 @@
                 {% include 'super_admin/partials/page-title.html' with title=request.session|get:"Admins" pagetitle=admin_data|get:"view all admin" %}
                  {% include 'super_admin/partials/custom_modal.html' %}
 
-                 <a href="{% url 'super_admin:addAdmin' %}?entry_type=single" class="mb-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn"> {{ admin_data|get:"add an admin"}}</a>
+                 <a href="{% url 'super_admin:addAdmin' %}?entry_type=single" class="mb-4 ml-2 mr-4 text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn"> {{ admin_data|get:"add an admin"}}</a>
 
                  <a href="{% url 'super_admin:addAdmin' %}?entry_type=bulk" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">{{ admin_data|get:"Add Bulk Admins File" }}</a>
 
