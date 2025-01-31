@@ -146,7 +146,7 @@ def loginSuperAdmin(request):
 @role_required(allowed_roles=['super admin','client','admin'])
 def home(request):
     get_menus_translation(request)
-    translations = get_translation('welcome to elite nova')
+    translations = get_translation('welcome to interetz')
     return render(request, 'super_admin/index.html', context={'data':translations})
 
 # For managing super admin and super admin & admin password/change password
