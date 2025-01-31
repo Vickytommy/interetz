@@ -18,7 +18,8 @@
     white-space: nowrap;
 }
 
-.nav-list > li::after {
+.nav-list > li::after,
+.nav-list > li.nav-active::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -28,6 +29,10 @@
     background-color: #ba6a24;
     transition: all 0.2s ease-in-out;
     transform: translateX(-50%);
+}
+
+.nav-list > li.nav-active::after {
+    width: 100%;
 }
 
 .nav-list li:hover::after {

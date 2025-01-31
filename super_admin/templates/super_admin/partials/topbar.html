@@ -1,6 +1,6 @@
 {% load static %}
 {% load filters %}
-<header style="position: sticky; top: 0; z-index: 9999;" class="bg-white" id="page-topbar">
+<header style="position: sticky; top: 0; z-index: 999;" class="bg-white" id="page-topbar">
     <div class="layout-width shadow-sm">
         <!-- TOP NAVBAR -->
         <div class="flex items-center justify-between py-4 p-2 border-b border-gray-800">
@@ -24,41 +24,49 @@
         <div class="flex items-center justify-center px-2">
             <ul class="nav-list">
                 <!-- Door Ordering -->
-                <li class="py-4">
+                <li class="py-4 {% if request.path == '/super_admin/CreateDoorOrder' %}nav-active{% endif %}">
                     <a href="{% url 'super_admin:CreateDoorOrder' %}" class="text-gray py-4">הזמנה חדשה</a>
                 </li>
 
                 <!-- Load Draft Orders -->
-                <li class="py-4">
+                <li class="py-4 {% if request.path == '/super_admin/load_draft_orders' %}nav-active{% endif %}">
                     <a href="{% url 'super_admin:load_draft_orders' %}" class="text-gray py-4">טיוטות</a>
                 </li>
 
                 <!-- Order that sent to factory -->
-                <li class="py-4">
+                <li class="py-4 {% if request.path == '/super_admin/order_that_sent_to_factory' %}nav-active{% endif %}">
                     <a href="{% url 'super_admin:order_that_sent_to_factory' %}" class="text-gray py-4">הזמנות בתהליך</a>
                 </li>
 
                 <!-- Track Delivered orders -->
-                <li class="py-4">
+                <li class="py-4 {% if request.path == '/super_admin/track_order_delivers_to_clients' %}nav-active{% endif %}">
                     <a href="{% url 'super_admin:track_order_delivers_to_clients' %}" class="text-gray py-4">הזמנות סגורות</a>
                 </li>
 
                 <!-- Product -->
-                <li class="py-4">
+                <li class="py-4 {% if request.path == '/super_admin/add_collection' or request.path == '/super_admin/add_pricing' or request.path == '/super_admin/add_knobs' or request.path == '/super_admin/add_knob_color' or request.path == '/super_admin/add_drawars' or request.path == '/super_admin/add_hinges' or request.path == '/super_admin/add_claps' or request.path == '/super_admin/viewSuperAdmin' or request.path == '/super_admin/viewAllAdmins' or request.path == '/super_admin/viewClients' %}nav-active{% endif %}">
                     <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">תמחור</a>
                     <ul class="dropdown border-b border-l border-r border-gray-800">
                         <li class="border-b border-gray-600">
                             <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תמחור</a>
                         </li>
                         <li class="border-b border-gray-600">
-                            <a href="{% url 'super_admin:add_collection' %}" class="block px-4 py-2">מוצרים</a>
+                            <a href="" class="block px-4 py-2">מוצרים</a>
 
                             <!-- Sub-dropdown for Products (Item 2) -->
                             <ul class="sub-dropdown border-b border-l border-r border-gray-800">
-                                <li class="border-b border-gray-600"><a href="{% url 'super_admin:add_collection' %}" class="block px-4 py-2">
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:add_pricing' %}" class="block px-4 py-2">
+                                        תמחור
+                                        <!-- 2.0 Add Pricing -->
+                                    </a>
+                                </li>
+                                <li class="border-b border-gray-600">
+                                    <a href="{% url 'super_admin:add_collection' %}" class="block px-4 py-2">
                                         צבעים
                                         <!-- 2.1 Add Collection -->
-                                </a></li>
+                                    </a>
+                                </li>
                                 <li class="border-b border-gray-600">
                                     <a href="{% url 'super_admin:add_knobs' %}" class="block px-4 py-2">
                                         ידיות
@@ -92,7 +100,7 @@
                             </ul>
                         </li>
                         <li class="">
-                            <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">ניהול משתמשים</a>
+                            <a href="" class="block px-4 py-2">ניהול משתמשים</a>
 
                             <!-- Sub-dropdown for User Management (Item 3) -->
                             <ul class="sub-dropdown border-b border-l border-r border-gray-800">
