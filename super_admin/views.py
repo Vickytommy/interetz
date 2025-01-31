@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .decorators import role_required
-from .models import EliteNovaUser, Role, Drawer, Hinge, Clap, ColorKnob, Knob, Collection, OrderTrack, helperTables, DrawarOrder, ClapOrder, HingeOrder, Cards, OrderItems, RelatedOrders, Translations
+from .models import EliteNovaUser, Pricing, Role, Drawer, Hinge, Clap, ColorKnob, Knob, Collection, OrderTrack, helperTables, DrawarOrder, ClapOrder, HingeOrder, Cards, OrderItems, RelatedOrders, Translations
 import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
@@ -1095,6 +1095,90 @@ def all_knob_colors(request):
         'colorknob_color_word':translations['yes'] if knob.colorknob_color==1 else translations['no'],
         "image": knob.colorknob_image.url if knob.colorknob_image else "",
     } for knob in all_knob_cls]
+    return JsonResponse({'data': data}, safe=False)
+
+
+@role_required(allowed_roles=['super admin'])
+def add_pricing(request):
+    if request.method == "POST":
+        translations = get_translation('products')
+        action = request.POST.get('action')
+        if action == "insert":
+            if 'upload_drawer' in request.FILES and request.FILES['upload_drawer']!='':
+                df = pd.read_csv(request.FILES['upload_drawer'])
+                # print("sss",df)
+                if len(df) > 0:
+                    expected_columns = ["group", "price_two_side", "price_one_side"]
+                    if set(df.columns) == set(expected_columns):
+                        for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
+                            
+                            ColorKnob.objects.create(
+                                group=row_data['group'],
+                                price_two_side=row_data['price_two_side'],
+                                price_one_side =  row_data['price_one_side']
+                            )
+                            if index == len(df):
+                                return JsonResponse({'msg': translations['Pricing has been added successfully'], 'success':1})
+                        
+                    else:
+                        return JsonResponse({'msg': f'Error in reading columns, the columns must be only three and with name of ({",".join(expected_columns)})', 'success':0})
+                else:
+                    return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
+
+            else: # for single insertion
+                group = request.POST.get('group')
+                price_two_side = request.POST.get('price_two_side')
+                price_one_side = request.POST.get('price_one_side')
+                if group!='' and price_two_side!='' and price_one_side!='':
+                    new_pricing = Pricing(
+                        group=group,
+                        price_two_side=price_two_side,
+                        price_one_side=price_one_side
+                    )
+                    try:
+                        new_pricing.save()
+
+                        return JsonResponse({'msg': translations['Pricing has been added successfully'], 'success':1})
+                    except Exception as e:
+                        return JsonResponse({'msg': translations['Error in adding pricing'], 'success':0})
+        elif action == "delete":
+            pricing_id = int(request.POST.get('pricing_id'))
+            obj_to_delete = get_object_or_404(Pricing, pricing_id=pricing_id)
+            if obj_to_delete.delete():
+                return JsonResponse({"success":1, "msg":translations["Record has been deleted successfully"]}, safe=False)
+            else:
+                return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
+        elif action == "edit":
+            color_knob_id = int(request.POST.get('color_knob_id'))
+            existing_obj = ColorKnob.objects.get(colorknob_id = color_knob_id)
+            if existing_obj: #
+                existing_obj.group = request.POST.get('group')
+                existing_obj.price_two_side = request.POST.get('price_two_side')
+                existing_obj.price_one_side = request.POST.get('price_one_side')
+                try:
+                    existing_obj.save()
+                   
+                    return JsonResponse({'msg': translations['Record has been deleted successfully'], 'success':1})
+                except IntegrityError as e:
+                    return JsonResponse({'msg': translations["Update failed"], 'success':0})
+            else:
+                return JsonResponse({'msg': translations["The record does not found"], 'success':0})
+    else:
+        translations = get_translation('products')
+        context = {'data':translations, 'data_table':get_translation('Reservation')}
+        return render(request, 'super_admin/add_pricing.html', context = context)
+
+
+@role_required(allowed_roles=['super admin'])
+def all_pricing(request):
+    translations = get_translation('products')
+    all_pricing_cls = Pricing.objects.all()
+    data = [{
+        'pricing_id': pricing.pricing_id, 
+        'group': pricing.group, 
+        'price_two_side': pricing.price_two_side,
+        'price_one_side': pricing.price_one_side
+    } for pricing in all_pricing_cls]
     return JsonResponse({'data': data}, safe=False)
 
 
