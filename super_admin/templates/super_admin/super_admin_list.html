@@ -255,6 +255,7 @@ $(document).ready(function(){
 
     $(".view_complete_details").click(function(e){
         let user_id = $(this).data('id');
+        console.log('GOT TO THE VIEW')
         $.ajax({
                 method:'POST',
                 url:"{% url 'super_admin:getSuperAdmininfo' %}",
