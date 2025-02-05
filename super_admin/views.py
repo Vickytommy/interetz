@@ -595,7 +595,7 @@ def changeRole(request):
 @role_required(allowed_roles=['super admin'])
 def add_collection(request):
 
-    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica","price_group","price_two_sid","price_one_side","color_type","thick"]
+    expected_columns = ["collection_name","collection_barcode","description","back","kant","min_order","in_stock","flow","height","width","kant_code","formica","price_group","color_type","thick"]
     
     if request.method=='POST':
         translations = get_translation('products')
@@ -620,9 +620,7 @@ def add_collection(request):
                                 kant_code = row_data["kant_code"],
                                 formica = row_data["formica"],
 
-                                price_group = row_data["price_group"], 
-                                price_two_side = row_data["price_two_side"], 
-                                price_one_side = row_data["price_one_side"], 
+                                price_group = row_data["price_group"],
                                 color_type = row_data["color_type"],
                                 thick = row_data["thick"],
                             )
@@ -691,8 +689,6 @@ def add_collection(request):
                     formica = request.POST.get('formica'),
                     
                     price_group = request.POST.get('price_group'),
-                    price_two_side = request.POST.get('price_two_side'),
-                    price_one_side = request.POST.get('price_one_side'),
                     color_type = request.POST.get('color_type'),
                     thick = request.POST.get('thick'),
                 )
@@ -735,8 +731,6 @@ def add_collection(request):
                     existing_obj.formica = request.POST.get('formica')
                     
                     existing_obj.price_group = request.POST.get('price_group')
-                    existing_obj.price_two_side = request.POST.get('price_two_side')
-                    existing_obj.price_one_side = request.POST.get('price_one_side')
                     # existing_obj.image = request.POST.get('image')
                     existing_obj.color_type = request.POST.get('color_type')
                     existing_obj.thick = request.POST.get('thick')

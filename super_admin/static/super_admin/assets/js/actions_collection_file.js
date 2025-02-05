@@ -361,8 +361,6 @@ $(document).ready(function(){
         // $("form#edit_collection_form #formica").val(rowData.formica_bool);
         
         $("form#edit_collection_form #price_group").val(rowData.price_group);
-        $("form#edit_collection_form #price_two_side").val(rowData.price_two_side);
-        $("form#edit_collection_form #price_one_side").val(rowData.price_one_side);
         $("form#edit_collection_form #color_type").val(rowData.color_type);
         $("form#edit_collection_form #thick").val(rowData.thick);
 
