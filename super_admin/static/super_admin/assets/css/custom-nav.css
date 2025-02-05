@@ -1,4 +1,7 @@
-
+#collection_table_wrapper {
+    overflow-x: scroll;
+    scrollbar-width: thin !important;
+}
 
 .nav-list {
     display: flex;
