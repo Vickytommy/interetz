@@ -632,8 +632,7 @@ def add_collection(request):
                         return JsonResponse({'msg': f'Error in reading columns, the columns must be only twelve and with name of ({",".join(expected_columns)})', 'success':0})
                 else:
                     return JsonResponse({'msg': translations['Uploaded file must have some data, its seems empty file'], 'success':0})
-            
-            
+             
             if 'new_bulk_collection_image' in request.FILES:
                 uploaded_files = request.FILES.getlist('new_bulk_collection_image')  # Get all uploaded files
                 
@@ -786,9 +785,9 @@ def all_collection(request):
             "width": collection.width,
             "kant_code": collection.kant_code,
             
-            "price_group": collection.price_group,
-            "price_two_side": collection.price_two_side,
-            "price_one_side": collection.price_one_side,
+            "price_group": collection.price_group.group,
+            "price_two_side": collection.price_group.price_two_side,
+            "price_one_side": collection.price_group.price_one_side,
             "color_type": collection.color_type,
             "thick": collection.thick,
             "image": collection.collection_image.url if collection.collection_image else "",

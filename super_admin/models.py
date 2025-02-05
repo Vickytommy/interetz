@@ -200,6 +200,12 @@ class Knob(models.Model):
 
     def __str__(self):
         return f"{self.knob_family} - {self.knob_model}"
+
+class Pricing(models.Model):
+    pricing_id = models.AutoField(primary_key=True)
+    group = models.CharField(max_length=255)
+    price_two_side = models.CharField(max_length=255)
+    price_one_side = models.CharField(max_length=255)
     
 
 class Collection(models.Model):
@@ -217,7 +223,8 @@ class Collection(models.Model):
     kant_code = models.TextField()
     formica = models.IntegerField()
 
-    price_group = models.CharField(max_length=255, default='')
+    # price_group = models.CharField(max_length=255, default='')
+    price_group = models.ForeignKey(Pricing, on_delete=models.CASCADE)
     price_two_side = models.CharField(max_length=255, default='')
     price_one_side = models.CharField(max_length=255, default='')
     color_type = models.CharField(max_length=255, default='')
@@ -229,12 +236,6 @@ class Collection(models.Model):
     
     def __str__(self):
         return self.collection_name
-
-class Pricing(models.Model):
-    pricing_id = models.AutoField(primary_key=True)
-    group = models.CharField(max_length=255)
-    price_two_side = models.CharField(max_length=255)
-    price_one_side = models.CharField(max_length=255)
 
 class OrderTrack(models.Model):
     order_track_id = models.AutoField(primary_key=True)
