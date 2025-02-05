@@ -78,7 +78,7 @@
                                             {{data|get:"Registeration Date"}}
 
                                         </th>
-                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
+                                        <!-- <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
 
                                             {{data|get:"Last Visit Date"}}
 
@@ -87,7 +87,7 @@
 
                                             {{data|get:"Active Status"}}
 
-                                        </th>
+                                        </th> -->
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">
 
                                             {{data_products|get:"actions"}}
@@ -109,7 +109,7 @@
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.company_name }}</td>
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.phone_number }}</td>
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.registered_date|format_registered_date }}</td>
-                                            <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.last_login|format_registered_date }}</td>
+                                            <!-- <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.last_login|format_registered_date }}</td> -->
                                             <td class="text-center border border-gray-300 dark:border-zink-50">{{ super_admin.is_active }}</td>
                                             <td class="text-center border border-gray-300 dark:border-zink-50">
                                                 <a href="{%  url 'super_admin:editSuperAdmin' super_admin.id %}" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn"  data-id="{{ super_admin.id }}" tilte="Edit Info"><i class="bx bx-pencil "></i></a>
@@ -198,11 +198,11 @@ $(document).ready(function(){
                     search: 'Search'
                 },
        buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: mapping.export_excel,
-                        // className: 'text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn'
-                    }
+                    // {
+                    //     extend: 'excelHtml5',
+                    //     text: mapping.export_excel,
+                    //     // className: 'text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn'
+                    // }
                 ],
          dom: 'Bfrtip',
          
