@@ -33,17 +33,14 @@ $(document).ready(function(){
                     { data: 'translation_hebrew_verion',  className:'text-center border border-gray-300 dark:border-zink-50' },
                     { data: 'created_at',  className:'text-center border border-gray-300 dark:border-zink-50' },
                    
-                    // {
-                    //     // New column for buttons
-                    //     data: null,
-                    //     render: function(data, type, row) {
-                           
-
-                    //         // return `<button class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.translation_id}" tilte="Edit Info"><i class="bx bx-pencil "></i></button>
-                    //         //     <button class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn remove_record"  data-id="${row.translation_id}" id="id_${row.colorknob_id}"><i class="fa fa-trash"></i></button>`;
-                    //         return ``;
-                    //     },  className:'text-center border border-gray-300 dark:border-zink-50'
-                    // }
+                    {
+                        // New column for buttons
+                        data: null,
+                        render: function(data, type, row) {
+                            return `<button class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.translation_id}" tilte="Edit Info"><i class="bx bx-pencil "></i></button>`;
+                            // return ``;
+                        },  className:'text-center border border-gray-300 dark:border-zink-50'
+                    }
                 ],
 
                 initComplete: function () {
@@ -213,32 +210,38 @@ $(document).ready(function(){
 
     });
 
-    // $('#color_knob_table tbody').on('click', '.edit_record', function(e) {
-    //     // Get data from the clicked row
-    //     //$("#custom_modal").show('modal');
-    //     var rowData = drawer_table.row($(this).closest('tr')).data();
-    //     // console.log(rowData);
-    //     // $("#color_knob_barcode_edit").val(rowData.colorknob_barcode);
-    //     // $("#description_edit").val(rowData.colorknob_description);
-    //     // $("#color_knob_id").val(rowData.colorknob_id);
-    //     //  $("#color_edit").val(rowData.colorknob_color);
+    $('#color_knob_table tbody').on('click', '.edit_record', function(e) {
+        // Get data from the clicked row
+        //$("#custom_modal").show('modal');
+        var rowData = drawer_table.row($(this).closest('tr')).data();
+        console.log(rowData);
 
-    //     $("#edit_form_drawer").show();
-    // });
+        $("#page_name_edit").val(rowData.translation_page_name);
+        $("#english_version_edit").val(rowData.translation_english_verion);
+        $("#hebrew_version_edit").val(rowData.translation_hebrew_verion);
+        $("#translation_id").val(rowData.translation_id);
 
+        $("#add_form_drawer").hide();
+        $("#edit_form_drawer").show();
+    });
+    
+    $(document).on('click','#edit_drawer_cancel_btn',function(e){
+        e.preventDefault();
+        $("#add_form_drawer").show();
+        $("#edit_form_drawer").hide();
 
-
-
-
+    });
 
     $(document).on('submit','#edit_drawer_form',function(e){
         e.preventDefault();
-        var formData = $(this).serialize();
+        var formData = new FormData(this);
         $.ajax({
             url: $(this).attr('class'),
             dataType:'JSON',
             method:'POST',
             data:formData,
+            processData: false, // Prevent jQuery from processing data
+            contentType: false, // Prev
            
             success:function(data){
                     if (data.success == 1){
@@ -254,6 +257,7 @@ $(document).ready(function(){
                     setTimeout(() => {
                         $("#info_selector_2").empty();
                         $("#edit_form_drawer").hide();
+                        $("#add_form_drawer").show();
                         
                     }, 5000);
             },

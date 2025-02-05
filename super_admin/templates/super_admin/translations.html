@@ -27,75 +27,95 @@
                 <input type="hidden" value="{% url 'super_admin:manageTranslations' %}" id="link_to_add_">
 
 
-              <div id="add_form_drawer">
-                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
-                                <div class="pb-0 card-body">
-                                        <strong id="add_drawer_form_title">Add Translations</strong>
+                <div id="add_form_drawer">
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                            <strong id="add_drawer_form_title">Add Translations</strong>
 
-                                        <form id="add_drawer_form" class="{% url 'super_admin:manageTranslations' %}" method="POST">
-                                            <div id="info_selector" class="mt-4 mb-4" ></div>
-                                             {% csrf_token %}
-                                            <input type="hidden" name="action" id="action" value="insert">
-                                            <div class="grid grid-cols-12 gap-x-5 md:gap-6">
-                                                 
-
-                                                    <div class=" md:col-span-3">
-                                                        <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"   name="page_name" placeholder="page_name" required>
-                                                        </div>
-                                                    </div>
+                            <form id="add_drawer_form" class="{% url 'super_admin:manageTranslations' %}" method="POST">
+                                <div id="info_selector" class="mt-4 mb-4" ></div>
+                                    {% csrf_token %}
+                                <input type="hidden" name="action" id="action" value="insert">
+                                <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                    <div class=" md:col-span-3">
+                                        <div>
+                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"   name="page_name" placeholder="page_name" required>
+                                        </div>
+                                    </div>
+                                
+                                    <div class=" md:col-span-3">
+                                                <div>
                                                 
-                                                    <div class=" md:col-span-3">
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  name="english_version" placeholder="english_version" required>
-                                                            </div>
-                                                    </div>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  name="english_version" placeholder="english_version" required>
+                                            </div>
+                                    </div>
 
-                                                    <div class=" md:col-span-3">
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  name="hebrew_version" placeholder="hebrew_version" required>
-                                                            </div>
-                                                    </div>
-
-
-                                                 
-
-
-
-                                                  
-                                                <div id="form_btn">
-                                                    <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_drawer_submit_btn" title="Save Drawer"><i class="fa fa-save"></i></button>
-                                                </div>
+                                    <div class=" md:col-span-3">
+                                                <div>
                                                 
-                                            </div> 
-                                        </form>
-
-
-                                       
-
-
-                                </div>
-
-
-
-
-                         </div>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  name="hebrew_version" placeholder="hebrew_version" required>
+                                            </div>
+                                    </div>
+                                    <div id="form_btn">
+                                        <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_drawer_submit_btn" title="Save Drawer"><i class="fa fa-save"></i></button>
+                                    </div>
+                                    
+                                </div> 
+                            </form>
+                        </div>
+                    </div>
                 </div>
+                
+                <div id="edit_form_drawer" style="display: none;">
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                                <strong id="add_drawer_form_title">Edit Translations</strong>
 
+                                <form id="edit_drawer_form" class="{% url 'super_admin:manageTranslations' %}" method="POST" onkeydown="return event.key != 'Enter';">
+                                    <div id="info_selector_2" class="mt-4 mb-4" ></div>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" id="action" value="edit">
+                                    <input type="hidden" name="translation_id" id="translation_id" value="">
+                                    <div class="grid grid-cols-12 gap-x-5 md:gap-6 mb-2">
+                                        <div class=" md:col-span-9">
+                                            <div class="flex">
+                                                <label class="font-semibold py-2 text-13 text-gray-700">Page name: </label>
+                                                <input class="py-2 px-3 text-13 font-semibold placeholder:text-13 text-gray-700 placeholder:text-gray-600 bg-white" id="page_name_edit" name="page_name" placeholder="page_name" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-12 gap-x-5 md:gap-6 mb-2">
+                                        <div class=" md:col-span-9">
+                                            <div class="flex">
+                                                <label class="font-semibold py-2 text-13 text-gray-700">English version: </label>
+                                                <input class="py-2 px-3 text-13 font-semibold placeholder:text-13 text-gray-700 placeholder:text-gray-600 bg-white" id="english_version_edit" name="english_version" placeholder="english_version" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="grid grid-cols-12 gap-x-5 md:gap-6 mb-2">
+                                        <div class=" md:col-span-9">
+                                            <div>
+                                                <textarea rows="5" class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" id="hebrew_version_edit" name="hebrew_version" placeholder="hebrew_version" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
 
-             
-
-
+                                    <div id="form_btn">
+                                        <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_drawer_submit_btn" title="Save Drawer"><i class="fa fa-save"></i></button>
+                                        <button type="button" class=" text-white bg-red-500 hover:bg-red-700 focus:ring-2 focus:ring-red-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2" id="edit_drawer_cancel_btn" title="Cancel"><i class="fa fa-times"></i></button>
+                                    </div>
+                                        
+                                    </div> 
+                                </form>
+                        </div>
+                    </div>
+                </div>
 
                 <div>
                     <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
                         <div class="pb-0 card-body">
-                            
-
-
-
                             <table id="color_knob_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
                                 <thead>
                                     <tr>
@@ -104,7 +124,7 @@
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">translation_english_verion</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">translation_hebrew_verion</th>
                                         <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">created_at</th>
-                                        <!-- <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">Actions</th> -->
+                                        <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">Actions</th>
                                     </tr>
                                 </thead>
 

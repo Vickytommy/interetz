@@ -3892,6 +3892,18 @@ def manageTranslations(request):
                 return JsonResponse({'msg': 'New Translation has been added successfully', 'success':1})
             else:
                 return JsonResponse({'msg': 'This record is already exists', 'success':0})
+        elif action == "edit":
+            translation_id = int(request.POST.get('translation_id'))
+            hebrew_version = request.POST.get('hebrew_version')
+            existing_trans = Translations.objects.get(translation_id=translation_id)
+            if existing_trans: 
+                try:
+                    existing_trans.translation_hebrew_verion = hebrew_version
+                    existing_trans.save()
+                    return JsonResponse({'msg': 'Translation has been updated successfully', 'success':1})
+                except IntegrityError as e:
+                    return JsonResponse({'msg': "Update failed", 'success':0})
+
 
     else:
         return render (request, 'super_admin/translations.html')

@@ -373,7 +373,6 @@ $(document).ready(function(){
     $(document).on('submit','#edit_collection_form',function(e){
         e.preventDefault();
         var formData = new FormData(this);
-        console.log('the form data - ', formData)
         $.ajax({
             url: $(this).attr('class'),
             dataType:'JSON',
