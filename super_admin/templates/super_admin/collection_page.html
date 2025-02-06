@@ -24,7 +24,7 @@
     <!-- ============================================================== -->
     <div class="relative group-data-[sidebar-size=sm]:min-h-[1500px]">
 
-        <div class=" ">
+        <div class="container-top-fluid">
             <div class="container-fluid">
                 {% include 'super_admin/partials/page-title.html' with title=data|get:"products" pagetitle=data|get:"collection" %}
                 {% include 'super_admin/partials/custom_modal.html' %}
@@ -151,8 +151,11 @@
 
 
                                                 <div class=" md:col-span-3 single_entry_type" style="display:none;">
-                                                    <div>
-                                                        <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_group" name="price_group"  placeholder='{{ data|get:"price group" }}'>
+                                                    <div id="get_price_group"  class="{% url 'super_admin:all_pricing' %}" >
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="price_group" name="price_group" placeholder='{{ data|get:"price group" }}'>
+                                                            <option selected value="" disabled>{{ data|get:"price group" }}</option>
+                                                        </select>
+                                                        <!-- <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_group" name="price_group"  placeholder='{{ data|get:"price group" }}'> -->
                                                     </div>
                                                 </div>
 
@@ -389,7 +392,7 @@
                                
                             </div>
 
-                            <table id="collection_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                            <table id="collection_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:auto; min-width: unset;">
                                 <thead>
                                     <tr>
                                         

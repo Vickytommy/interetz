@@ -87,7 +87,6 @@ $(document).ready(function(){
     });
 
 
-
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
         $('#edit_form_drawer').hide();
@@ -367,6 +366,29 @@ $(document).ready(function(){
         $("#entry_type_select").val('').trigger('change');
         $("#edit_form_drawer").show();
     });
+
+    // $(document).ready(function() {
+    //     const priceGroupSelectDiv = $('#get_price_group');
+    //     console.log('got here', priceGroupSelectDiv.attr('class'));
+    //     $.ajax({
+    //         url: priceGroupSelectDiv.attr('class'),
+    //         method: 'GET',
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             const priceGroupSelect = $('#price_group');
+    //             const results = data.data;
+    //             console.log('the listings ', results);
+    //             results.forEach(item => {
+    //                 console.log('the listings ', item);
+    //                 const option = $('<option></option>').val(item.pricing_id).text(item.group);
+    //                 priceGroupSelect.append(option);
+    //             });
+    //         },
+    //         error: function(error) {
+    //             console.error('Error fetching price groups:', error);
+    //         }
+    //     });
+    // });
 
     $(document).on('submit','#edit_collection_form',function(e){
         e.preventDefault();
