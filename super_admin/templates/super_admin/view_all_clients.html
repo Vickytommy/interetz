@@ -13,6 +13,13 @@
     
     {% include 'super_admin/partials/head-css.html' %}
 
+    <style>
+        .dataTables_paginate > div {
+            text-align: unset;
+            padding: 30px 0px;
+        }
+    </style>
+
 </head>
 
 {% include 'super_admin/partials/body.html' %}
@@ -64,7 +71,7 @@
                         <div class="pb-0 card-body">
                             <h6 class="font-semibold text-15 mb-3 dark:text-white">{{  client_data|get:"List of Clients" }}</h6>
                             {% csrf_token %}
-                            <table id="basic_tables" class="display group border-collapse border border-gray-300 dark:border-zink-50" style="width:100%">
+                            <table id="basic_tables" class="display group border-collapse border border-gray-300 dark:border-zink-50"  style="width:auto; min-width: unset;">
                                 <thead>
                                     <tr>
                                          <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{data|get:"ID"}}</th>
