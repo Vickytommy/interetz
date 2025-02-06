@@ -92,6 +92,10 @@
 .container-top-fluid {
     max-width: 1000px;
     margin: auto;
-    overflow-x: scroll;
+    overflow-x: auto;
     scrollbar-width: thin;
+    /* padding: 1.25rem; */
+}
+.container-top-fluid .card-body {
+    padding: 0 !important;
 }
