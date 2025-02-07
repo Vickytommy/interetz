@@ -359,7 +359,7 @@ $(document).ready(function(){
         // $("#formica").val(rowData.formica);
         // $("form#edit_collection_form #formica").val(rowData.formica_bool);
         
-        $("form#edit_collection_form #price_group").val(rowData.price_group);
+        $("form#edit_collection_form #price_group_edit").val(rowData.price_group);
         $("form#edit_collection_form #color_type").val(rowData.color_type);
         $("form#edit_collection_form #thick").val(rowData.thick);
 
@@ -367,28 +367,28 @@ $(document).ready(function(){
         $("#edit_form_drawer").show();
     });
 
-    // $(document).ready(function() {
-    //     const priceGroupSelectDiv = $('#get_price_group');
-    //     console.log('got here', priceGroupSelectDiv.attr('class'));
-    //     $.ajax({
-    //         url: priceGroupSelectDiv.attr('class'),
-    //         method: 'GET',
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             const priceGroupSelect = $('#price_group');
-    //             const results = data.data;
-    //             console.log('the listings ', results);
-    //             results.forEach(item => {
-    //                 console.log('the listings ', item);
-    //                 const option = $('<option></option>').val(item.pricing_id).text(item.group);
-    //                 priceGroupSelect.append(option);
-    //             });
-    //         },
-    //         error: function(error) {
-    //             console.error('Error fetching price groups:', error);
-    //         }
-    //     });
-    // });
+    function getPricing() {
+        const priceGroupSelectDiv = $('#get_price_group');
+        $.ajax({
+            url: priceGroupSelectDiv.attr('class'),
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const priceGroupSelect = $('#price_group');
+                const priceGroupSelectEdit = $('#price_group_edit');
+                const results = data.data;
+                results.forEach(item => {
+                    const option = $('<option></option>').val(item.pricing_id).text(item.group);
+                    priceGroupSelectEdit.append(option);
+                    priceGroupSelect.append(option);
+                });
+            },
+            error: function(error) {
+                console.error('Error fetching price groups:', error);
+            }
+        });
+    };
+    getPricing();
 
     $(document).on('submit','#edit_collection_form',function(e){
         e.preventDefault();
