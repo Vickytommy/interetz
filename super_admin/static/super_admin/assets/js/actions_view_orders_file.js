@@ -1,23 +1,23 @@
 $(document).ready(function(){
-         $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
-                }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
             }
-        });
-      
+        }
+    });
+    
 
-        let create_door_order_page_link = $("#create_door_order_page_link").val();
-        let create_formica_order_page_link = $("#create_formica_order_page_link").val();
-        let create_plates_order_page_link = $("#create_plates_order_page_link").val();
-        let link_to_edit_order_ = $("#link_to_edit_order_").val();
-        let link = $("#link_to_view_order_").val();
-        let user_id = $("#user_id").val();
-        var role_id = parseInt($("#role_id").val());
+    let create_door_order_page_link = $("#create_door_order_page_link").val();
+    let create_formica_order_page_link = $("#create_formica_order_page_link").val();
+    let create_plates_order_page_link = $("#create_plates_order_page_link").val();
+    let link_to_edit_order_ = $("#link_to_edit_order_").val();
+    let link = $("#link_to_view_order_").val();
+    let user_id = $("#user_id").val();
+    var role_id = parseInt($("#role_id").val());
 
-        // console.log(role_id);
-        var drawer_table =    $('#reservation_table').DataTable({
+    // console.log(role_id);
+    var drawer_table =    $('#reservation_table').DataTable({
            
                 dom: 'Bfrtip',
                 pagingType: 'full_numbers',

@@ -1827,11 +1827,9 @@ def viewSuperAdminOrders(request):
                 # })
             return JsonResponse({'data':data},safe=False)
     elif request.method == "POST":
-        
         order_id = int(request.POST.get('order_id'))
         object_to_update = OrderTrack.objects.get(order_id=order_id)
         if object_to_update:
-            
             translations = get_translation('Reservation')
             object_to_update.order_status = translations['complete']
             # object_to_update.order_status = 'complete'
@@ -3747,8 +3745,6 @@ def orderPageAjaxCalls(request):
             # for knob in all_knob_cls:
             #     label_list.append(knob.knob_family)
             #     model_list.append()
-
-
 
         elif data_requirement == "drawer":
             all_drawers = Drawer.objects.all()

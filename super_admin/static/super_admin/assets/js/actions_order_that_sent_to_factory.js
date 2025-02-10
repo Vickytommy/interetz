@@ -10,6 +10,8 @@ $(document).ready(function(){
         let link_to_generate_csv_ = $("#link_to_generate_csv_").val();
         let link_to_download_image_ = $("#link_to_download_image_").val();
         let link_to_order_fulfilled_ = $("#link_to_order_fulfilled_").val();
+
+        let link_to_change_order_status_ = $("#link_to_change_order_status_").val();
         
         var role_id = parseInt($("#role_id").val());
         console.log(role_id);
@@ -55,11 +57,12 @@ $(document).ready(function(){
                         // New column for buttons
                         data: null,
                         render: function(data, type, row) {
-                           
+                        //    console.log('the console - ', row)
                             let button_edit  ='';
                             let button_csv = '';
                             let button_download = '';
                             let button_fulfilled = '';
+                            let order_status_btn = '';
                             // console.log('\n\nTHE ROW - \n\n', row.order_item_uploaded_img, '\n\n', data, type, '\n\n')
                             if ([1,2].includes(role_id)){ // if the person is admin
                                 button_edit = `<a href="${link_to_edit_order_}?order_id=${row.order_id}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn edit_record" title="${window.page.edit_btn}" data-id="${row.order_id}"><i class="bx bx-pencil "></i></a>`;
@@ -68,9 +71,19 @@ $(document).ready(function(){
                                 
                                 if (row.order_item_uploaded_img !== "") {
                                     button_download = `<a href="${link_to_download_image_}?order_track_id=${row.order_track_id}" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn download_image" data-id="${row.order_id}" title="${window.page.download_btn}"><i class="bx bx-download"></i></a>`;
-            
+                                }
+
+                                if (row.order_status != 'סופק' ){
+                                    // If status is completed, disable the button
+                                    if (row.order_status == 'טיוטה')
+                                        // If status is draft, disable the button
+                                        order_status_btn=''; 
+                                    else
+                                        order_status_btn = `<button class="text-white transition-all duration-300 ease-linear bg-dark-500 border-dark-500 hover:bg-dark-600 hover:border-dark-600 hover:text-white active:bg-dark-600 active:border-dark-600 active:text-white focus:bg-dark-600 focus:border-dark-600 focus:text-white focus:ring focus:ring-dark-500/30 btn change_status" title="${window.page.check_btn}" data-id="${row.order_id}"><i class="bx bx-check"></i></button>`;
+                                    // button_edit = `<a title="${window.page.edit_btn}" href="${link_to_edit_order_}?order_id=${row.order_id}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn edit_record" data-id="${row.order_id}"><i class="bx bx-pencil "></i></a>`;
                                 }
                             }
+
                             let button_view = '';
                             if (window.page.door != row.product_type){
                                 button_csv = "";
@@ -82,7 +95,7 @@ $(document).ready(function(){
 
 
 
-                            return button_view +" "+ button_edit+" "+button_csv+" "+button_download+" "+button_fulfilled;
+                            return button_view +" "+ button_edit+" "+button_csv+" "+button_download+" "+button_fulfilled+" "+order_status_btn;
                         }, className:'border border-gray-300 dark:border-zink-50'
                     }
                 ],
@@ -118,6 +131,72 @@ $(document).ready(function(){
     });
 
 
+
+    $(document).on('click','.change_status',function(){
+        let order_id = $(this).attr('data-id');
+        
+        Swal.fire({
+                title: window.page.sure_msg,
+                text: window.page.revert_msg,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: window.page.complete_order_msg,
+                cancelButtonText: window.page.no_cancel,
+                confirmButtonClass: 'btn btn-success mt-2',
+                cancelButtonClass: 'btn btn-danger ms-2 mt-2',
+                buttonsStyling: true
+            }).then(function (result) {
+                if (result.value) {
+                     $.ajax({
+                        method:'POST',
+                        url:$("#link_to_change_order_status_").val(),
+                        dataType:'JSON',
+                        data:{
+                            order_id:order_id
+                        },
+                        headers: {
+                            'X-CSRFToken': $("input[name='csrfmiddlewaretoken']").val(),
+                        },
+                        success:function(data){
+                            if (data.success  == 1){
+                                Swal.fire({
+                                  // title: 'Success',
+                                  text: data.msg,
+                                  icon: 'success',
+                                  confirmButtonColor: "#34c38f",
+                                  showConfirmButton: false,
+                                });
+                                drawer_table.ajax.reload();
+                            }else{
+                                Swal.fire({
+                                  title: window.page.error,
+                                  text: data.msg,
+                                  icon: 'error',
+                                  confirmButtonColor: "#34c38f",
+                                  showConfirmButton: false,
+                                });
+                            }
+                            
+                        },
+
+                        error: function (data){
+                            console.log(data);
+                        }
+                    });
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                  ){
+                    Swal.fire({
+                      title: window.page.cancelled,
+                      text:window.page.action_msg,
+                      icon: 'error',
+                      showConfirmButton: false,
+                    });
+                  }
+        });
+
+    });  //end change_status here
 
    
     

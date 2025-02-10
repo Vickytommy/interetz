@@ -35,7 +35,10 @@
                 <input type="hidden" value='{% url "super_admin:exportOrderToCsv" %}' id="link_to_generate_csv_">
                 <input type="hidden" value='{% url "super_admin:downloadOrderImage" %}' id="link_to_download_image_">
                 <input type="hidden" value='{% url "super_admin:markOrderAsComplete" %}' id="link_to_order_fulfilled">
+                <input type="hidden" value='{% url "super_admin:viewSuperAdminOrders" %}' id="link_to_change_order_status_">
                 <input type="hidden" name="role_id" id="role_id" value="{{ request.user.role_id }}">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
              
 
                 <!-- <input type="hidden" value="{% url 'super_admin:add_drawars' %}" id="link_to_add_"> -->
@@ -151,6 +154,9 @@
         delete_btn:'{{ delete_btn }}',
         download_btn: '{{ download_btn }}',
         fulfilled_btn: '{{ fulfilled_btn }}',
+        
+        complete_order_msg: '{{ data|get:"Yes, change order status to complete" }}',
+        no_cancel: '{{ data|get:"No, cancel" }}',
     };
     window.page = mapping;
 </script>
