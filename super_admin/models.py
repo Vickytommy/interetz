@@ -206,6 +206,7 @@ class Pricing(models.Model):
     group = models.CharField(max_length=255)
     price_two_side = models.CharField(max_length=255)
     price_one_side = models.CharField(max_length=255)
+    value = models.FloatField(default=0)
     
 
 class Collection(models.Model):

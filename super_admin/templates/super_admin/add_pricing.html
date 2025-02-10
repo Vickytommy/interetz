@@ -34,122 +34,113 @@
                 <!-- <input type="hidden" value="{% url 'super_admin:add_drawars' %}" id="link_to_add_"> -->
 
 
-              <div id="add_form_pricing">
-                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
-                                <div class="pb-0 card-body">
-                                        <strong id="add_pricing_form_title">{{ data|get:"Add Pricing" }}</strong>
+                <div id="add_form_pricing">
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                                <strong id="add_pricing_form_title">{{ data|get:"Add Pricing" }}</strong>
 
-                                        <form id="add_pricing_form" class="{% url 'super_admin:add_pricing' %}" method="POST" enctype="multipart/form-data">
-                                            <div id="info_selector" class="mt-4 mb-4" ></div>
-                                             {% csrf_token %}
-                                            <input type="hidden" name="action" id="action" value="insert">
-                                            <div class="grid grid-cols-12 gap-x-5 md:gap-6">
-                                                  <div class="md:col-span-3" id="entry_type">
-                                                        <div>
-                                                            
-                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
-                                                               <option selected disabled value="">{{ data|get:"choose entry type" }}</option>
-                                                                <option value="single">{{ data|get:"single " }}</option>
-                                                                <option value="bulk">{{ data|get:"bulk" }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
-                                                        <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="group" name="group"   placeholder='{{ data|get:"group" }}'>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_two_side" name="price_two_side"   placeholder='{{ data|get:"price two side" }}'>
-                                                            </div>
-                                                    </div>
-                                                
-                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_one_side" name="price_one_side"   placeholder='{{ data|get:"price one side" }}'>
-                                                            </div>
-                                                    </div>
-
-                                                    <div class=" md:col-span-3 bulk_entry_type" style="display:none;">
-                                                             <div>
-                                                                <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" id="formFileLg" type="file"  accept=".csv" id="upload_pricing" name="upload_pricing" />
-
-                                                                <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (group, price_two_side, price_one_side)</label>
-                                                            </div>
-                                                    </div>
-            
-                                                <div id="form_btn" style="display:none;">
-                                                    <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_pricing_submit_btn"><i class="fa fa-save"></i></button>
+                                <form id="add_pricing_form" class="{% url 'super_admin:add_pricing' %}" method="POST" enctype="multipart/form-data">
+                                    <div id="info_selector" class="mt-4 mb-4" ></div>
+                                        {% csrf_token %}
+                                    <input type="hidden" name="action" id="action" value="insert">
+                                    <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                            <div class="md:col-span-3" id="entry_type">
+                                                <div>
+                                                    
+                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
+                                                        <option selected disabled value="">{{ data|get:"choose entry type" }}</option>
+                                                        <option value="single">{{ data|get:"single " }}</option>
+                                                        <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                    </select>
                                                 </div>
-                                                
-                                            </div> 
-                                        </form>
-                                </div>
+                                            </div>
 
+                                            <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                <div>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="group" name="group"   placeholder='{{ data|get:"group" }}'>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                        <div>
+                                                        
+                                                        <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_two_side" name="price_two_side"   placeholder='{{ data|get:"price two side" }}'>
+                                                    </div>
+                                            </div>
+                                        
+                                            <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                        <div>
+                                                        
+                                                        <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_one_side" name="price_one_side"   placeholder='{{ data|get:"price one side" }}'>
+                                                    </div>
+                                            </div>
 
+                                            <div class=" md:col-span-3 bulk_entry_type" style="display:none;">
+                                                        <div>
+                                                        <input class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-zink-50 dark:text-zink-200 dark:file:bg-zink-50 dark:file:text-zink-200 dark:focus:border-primary" id="formFileLg" type="file"  accept=".csv" id="upload_pricing" name="upload_pricing" />
 
-
-                         </div>
+                                                        <label class="ltr:ml-2 rtl:mr-2 text-13 text-gray-600 font-medium dark:text-zink-200" for="formrow-customCheck">{{ data|get:"Note: Only CSV files are allowed with header"}} (group, price_two_side, price_one_side)</label>
+                                                    </div>
+                                            </div>
+    
+                                        <div id="form_btn" style="display:none;">
+                                            <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="add_pricing_submit_btn"><i class="fa fa-save"></i></button>
+                                        </div>
+                                        
+                                    </div> 
+                                </form>
+                        </div>
+                    </div>
                 </div>
 
 
                 <div id="edit_form_pricing" style="display:none;">
-                         <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
-                                <div class="pb-0 card-body">
-                                        <strong id="add_pricing_form_title">{{ data|get:"Edit Data" }}</strong>
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                            <strong id="add_pricing_form_title">{{ data|get:"Edit Data" }}</strong>
 
-                                         <form id="edit_pricing_form" class="{% url 'super_admin:add_pricing' %}" method="POST" >
-                                            <div id="info_selector_2" class="mt-4 mb-4" ></div>
-                                             {% csrf_token %}
-                                            <input type="hidden" name="action" id="action" value="edit">
-                                             <input type="hidden" name="price_id" id="price_id" value="">
-                                            <div class="grid grid-cols-12 gap-x-5 md:gap-6">
-                                                  
+                            <form id="edit_pricing_form" class="{% url 'super_admin:add_pricing' %}" method="POST" >
+                                <div id="info_selector_2" class="mt-4 mb-4" ></div>
+                                    {% csrf_token %}
+                                <input type="hidden" name="action" id="action" value="edit">
+                                    <input type="hidden" name="price_id" id="price_id" value="">
+                                <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                        
 
-                                                     <div class=" md:col-span-3">
-                                                        <div>
-                                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="group_edit" name="group" placeholder='{{ data|get:"group" }}' required>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <div class=" md:col-span-3" >
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_two_side_edit" name="price_two_side" placeholder='{{ data|get:"price two side" }}' required>
-                                                            </div>
-                                                    </div>
-                                                
-                                                    <div class=" md:col-span-3" >
-                                                             <div>
-                                                                
-                                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_one_side_edit" name="price_one_side" placeholder='{{ data|get:"price one side" }}' required>
-                                                            </div>
-                                                    </div>
+                                            <div class=" md:col-span-3">
+                                            <div>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="group_edit" name="group" placeholder='{{ data|get:"group" }}' required>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class=" md:col-span-3" >
+                                                    <div>
                                                     
-            
-                                                <div id="form_btn" >
-                                                    <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_pricing_submit_btn"><i class="fa fa-save"></i></button>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_two_side_edit" name="price_two_side" placeholder='{{ data|get:"price two side" }}' required>
                                                 </div>
-                                                
-                                            </div> 
-                                        </form>
+                                        </div>
+                                    
+                                        <div class=" md:col-span-3" >
+                                                    <div>
+                                                    
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_one_side_edit" name="price_one_side" placeholder='{{ data|get:"price one side" }}' required>
+                                                </div>
+                                        </div>
+                                        
 
-                                       
+                                    <div id="form_btn" >
+                                        <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_pricing_submit_btn"><i class="fa fa-save"></i></button>
+                                    </div>
+                                    
+                                </div> 
+                            </form>
+                        </div>
 
 
-                                </div>
+                        
 
-
-                                
-
-                         </div>
+                    </div>
                 </div>
-
 
 
                 <div>
@@ -191,6 +182,52 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <div id="edit_form_set_pricing" style="display:none;">
+                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
+                        <div class="pb-0 card-body">
+                            <strong id="add_set_pricing_form_title">{{ data|get:"Edit Data" }}</strong>
+
+                            <form id="edit_set_pricing_form" class="{% url 'super_admin:add_pricing_value' %}" method="POST" >
+                                <div id="info_selector_2" class="mt-4 mb-4" ></div>
+                                    {% csrf_token %}
+                                <input type="hidden" name="action" id="action" value="edit">
+                                    <input type="hidden" name="price_id" id="price_id" value="">
+                                <div class="grid grid-cols-12 gap-x-5 md:gap-6">
+                                    <div class=" md:col-span-3">
+                                        <div>
+                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="value_edit" name="value" placeholder='{{ data|get:"price" }}' required>
+                                        </div>
+                                    </div>
+
+                                    <div id="form_btn" >
+                                        <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_set_pricing_submit_btn"><i class="fa fa-save"></i></button>
+                                    </div>
+                                    
+                                </div> 
+                            </form>
+                        </div>
+
+
+                        
+
+                    </div>
+                </div>
+
+                <table id="pricing_set_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:auto; min-width: unset;">
+                    <thead>
+                        <tr>
+                            <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"group" }} </th>
+                            <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"price" }}</th>
+                            <th class="text-center border border-gray-300 dark:border-zink-50 bg-transparent">{{ data|get:"actions" }}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                            
+                    </tbody>
+                </table>
             </div>
             <!-- container-fluid -->
         </div>

@@ -1103,12 +1103,15 @@ def add_pricing(request):
                 if len(df) > 0:
                     expected_columns = ["group", "price_two_side", "price_one_side"]
                     if set(df.columns) == set(expected_columns):
+                        current_value = Pricing.objects.filter(~Q(value=0), value__isnull=False).first()
+
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
                             
-                            ColorKnob.objects.create(
+                            Pricing.objects.create(
                                 group=row_data['group'],
                                 price_two_side=row_data['price_two_side'],
-                                price_one_side =  row_data['price_one_side']
+                                price_one_side =  row_data['price_one_side'],
+                                value = current_value if current_value else 0
                             )
                             if index == len(df):
                                 return JsonResponse({'msg': translations['Pricing has been added successfully'], 'success':1})
@@ -1142,8 +1145,8 @@ def add_pricing(request):
             else:
                 return JsonResponse({"success":0, "msg":translations["Error in deleting"]}, safe=False)
         elif action == "edit":
-            color_knob_id = int(request.POST.get('color_knob_id'))
-            existing_obj = ColorKnob.objects.get(colorknob_id = color_knob_id)
+            pricing_id = int(request.POST.get('pricing_id'))
+            existing_obj = Pricing.objects.get(pricing_id = pricing_id)
             if existing_obj: #
                 existing_obj.group = request.POST.get('group')
                 existing_obj.price_two_side = request.POST.get('price_two_side')
@@ -1163,6 +1166,19 @@ def add_pricing(request):
 
 
 @role_required(allowed_roles=['super admin'])
+def add_pricing_value(request):
+    if request.method == "POST":
+        translations = get_translation('products')
+        try:
+            new_value = request.POST.get('value')
+            Pricing.objects.all().update(value=new_value)
+            
+            return JsonResponse({'msg': translations['Record has been deleted successfully'], 'success':1})
+        except IntegrityError as e:
+            return JsonResponse({'msg': translations["Update failed"], 'success':0})
+        
+        
+@role_required(allowed_roles=['super admin'])
 def all_pricing(request):
     translations = get_translation('products')
     all_pricing_cls = Pricing.objects.all()
@@ -1170,7 +1186,8 @@ def all_pricing(request):
         'pricing_id': pricing.pricing_id, 
         'group': pricing.group, 
         'price_two_side': pricing.price_two_side,
-        'price_one_side': pricing.price_one_side
+        'price_one_side': pricing.price_one_side,
+        'value': pricing.value
     } for pricing in all_pricing_cls]
     return JsonResponse({'data': data}, safe=False)
 

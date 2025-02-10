@@ -1,53 +1,53 @@
 $(document).ready(function(){
-         $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
-                }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
             }
-        });
-        var pricing_table =  $('#pricing_table').DataTable({
-                dom: 'Bfrtip',
-                 buttons: [
-                    // {
-                    //     extend: 'excelHtml5',
-                    //     text: window.page.export_excel,
-                    // }
-                ],
-                ajax: {
-                    url: $("#link_to_view_").val(),
-                    dataSrc: 'data'
-                },
-                language: {
-                    search: 'Search'
-                },
-                columns: [
-                    { data: 'group', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'price_two_side', className:'text-center border border-gray-300 dark:border-zink-50' },
-                    { data: 'price_one_side', className:'text-center border border-gray-300 dark:border-zink-50'},
-                    // {
-                    //     data: 'image',
-                    //     render: function(data, type, row) {
-                    //         if (data) {
-                    //             return `<img src="${data}" alt="${row.colorknob_barcode}" class="w-6 aspect-[1/1] object-cover"/>`;
-                    //         }
-                    //         return ''; // Return empty string if no image exists
-                    //     },
-                    //     className: 'text-center border border-gray-300 dark:border-zink-50',
-                    // },
-                    {
-                        // New column for buttons
-                        data: null,
-                        render: function(data, type, row) {
-                           
+        }
+    });
+    var pricing_table =  $('#pricing_table').DataTable({
+        dom: 'Bfrtip',
+            buttons: [
+            // {
+            //     extend: 'excelHtml5',
+            //     text: window.page.export_excel,
+            // }
+        ],
+        ajax: {
+            url: $("#link_to_view_").val(),
+            dataSrc: 'data'
+        },
+        language: {
+            search: 'Search'
+        },
+        columns: [
+            { data: 'group', className:'text-center border border-gray-300 dark:border-zink-50' },
+            { data: 'price_two_side', className:'text-center border border-gray-300 dark:border-zink-50' },
+            { data: 'price_one_side', className:'text-center border border-gray-300 dark:border-zink-50'},
+            // {
+            //     data: 'image',
+            //     render: function(data, type, row) {
+            //         if (data) {
+            //             return `<img src="${data}" alt="${row.colorknob_barcode}" class="w-6 aspect-[1/1] object-cover"/>`;
+            //         }
+            //         return ''; // Return empty string if no image exists
+            //     },
+            //     className: 'text-center border border-gray-300 dark:border-zink-50',
+            // },
+            {
+                // New column for buttons
+                data: null,
+                render: function(data, type, row) {
+                    
 
-                            return `<button class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.pricing_id}" tilte="Edit Info">עדכן</button>
+                    return `<button class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.pricing_id}" tilte="Edit Info">עדכן</button>
 
-                                <button class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn remove_record"  data-id="${row.pricing_id}" id="id_${row.pricing_id}"><i class="fa fa-trash"></i></button>`;
-                        },  className:'text-center border border-gray-300 dark:border-zink-50'
-                    }
-                ],
-                language: {
+                        <button class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn remove_record"  data-id="${row.pricing_id}" id="id_${row.pricing_id}"><i class="fa fa-trash"></i></button>`;
+                },  className:'text-center border border-gray-300 dark:border-zink-50'
+            }
+        ],
+        language: {
             "sEmptyTable":     " ",
             "sInfo":           "",
             "sInfoEmpty":      "",
@@ -66,10 +66,103 @@ $(document).ready(function(){
                     "sPrevious": window.page.sPrevious,
             }
             
+        }
+    });
+        
+    var pricing_set_table = $('#pricing_set_table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [],
+        ajax: {
+            url: $("#link_to_view_").val(),
+            dataSrc: function(json) {
+                return json.data.slice(0, 1); // Only return the first data entry
+            }
         },
+        language: {
+            search: 'Search'
+        },
+        paging: false, // Disable pagination
+        columns: [
+            { 
+                data: 'group',
+                render: function(data, type, row) {
+                    return `<td>שמירת רצף</td>`;
+                },
+                className: 'text-center border border-gray-300 dark:border-zink-50' 
+            },
+            { data: 'value', className: 'text-center border border-gray-300 dark:border-zink-50' },
+            {
+                // New column for buttons
+                data: null,
+                render: function(data, type, row) {
+                    return `<button class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn change_price" data-id="${row.pricing_id}" title="Edit Info">עדכן</button>
+                            <button class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn remove_price" data-id="${row.pricing_id}" id="id_${row.pricing_id}"><i class="fa fa-trash"></i></button>`;
+                },
+                className: 'text-center border border-gray-300 dark:border-zink-50'
+            }
+        ],
+        language: {
+            "sEmptyTable": " ",
+            "sInfo": "",
+            "sInfoEmpty": "",
+            "sInfoFiltered": "",
+            "sInfoPostFix": "",
+            "sInfoThousands": ",",
+            "sLengthMenu": "",
+            "sLoadingRecords": "",
+            "sProcessing": "",
+            "sSearch": window.page.search,
+            "sZeroRecords": "",
+            oPaginate: {
+                "sFirst": window.page.sFirst,
+                "sLast": window.page.sLast,
+                "sNext": window.page.sNext,
+                "sPrevious": window.page.sPrevious,
+            }
+        }
+    });
+    
+    $('#pricing_set_table tbody').on('click', '.change_price', function(e) {
+        var rowData = pricing_set_table.row($(this).closest('tr')).data();
+        // console.log(rowData);
+        $("#value_edit").val(rowData.value);
+        $("#price_id").val(rowData.price_id);
+        $("#edit_form_set_pricing").show();
     });
 
+    $(document).on('submit','#edit_set_pricing_form',function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: $(this).attr('class'),
+            dataType:'JSON',
+            method:'POST',
+            data:formData,
+            processData: false,
+            contentType: false, 
+           
+            success:function(data){
+                    if (data.success == 1){
+                        $("#edit_set_pricing_form")[0].reset();
+                        $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
+                        pricing_table.ajax.reload();
+                        pricing_set_table.ajax.reload();
 
+                    }else{
+                        $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);
+                    }
+                    
+                    setTimeout(() => {
+                        $("#info_selector_2").empty();
+                        $("#edit_set_pricing_form").hide();
+                        
+                    }, 5000);
+            },
+            error:function(data) {
+                console.log(data);
+            }
+        }); 
+    });
 
     $(document).on('change','#entry_type_select',function(){
         let type = $(this).find(':selected').val();
@@ -101,8 +194,6 @@ $(document).ready(function(){
             
             $("#form_btn").hide();
         }
-       
-
     });
 
     $(document).on('change','#upload_pricing',function(event){
@@ -125,31 +216,6 @@ $(document).ready(function(){
                 }
         
     });
-    
-    
-    // $(document).on('change','#edit_color_knob_image',function(event){
-    //     const selectedFile = event.target.files[0];
-    //     if (selectedFile) {
-    //         const fileName = selectedFile.name.toLowerCase();
-    //         const all_exts = ['.png', '.jpg', '.jpeg', '.gif'];
-    
-    //         if (all_exts.some(ext => fileName.endsWith(ext))) {
-    //             console.log('Valid image selected:', selectedFile);
-    //             // Handle the file or perform further actions here
-    //         } else {
-    //             Swal.fire({
-    //                 position: 'center',
-    //                 icon: 'error', // Changed from 'danger' to 'error'
-    //                 title: 'Invalid file type. Please select an image file.',
-    //                 showConfirmButton: false,
-    //                 timer: 1500
-    //             });
-    //             // Clear the file input
-    //             $('#edit_color_knob_image').val(''); // Clears the selected file
-    //         }
-    //     }
-    // });
-
 
     $(document).on('submit','#add_pricing_form',function(e){
         e.preventDefault();
@@ -170,6 +236,7 @@ $(document).ready(function(){
                         $("#add_pricing_form")[0].reset();
                         $("#info_selector").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
                         pricing_table.ajax.reload();
+                        pricing_set_table.ajax.reload();
                         $("#entry_type_select").val('').trigger('change');
                     }else{
                         $("#info_selector").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);
@@ -221,6 +288,7 @@ $(document).ready(function(){
                                         
                                         });
                                         pricing_table.ajax.reload();
+                                        pricing_set_table.ajax.reload();
 
                                     }else{
                                         Swal.fire({
@@ -270,10 +338,6 @@ $(document).ready(function(){
     });
 
 
-
-
-
-
     $(document).on('submit','#edit_pricing_form',function(e){
         e.preventDefault();
         var formData = new FormData(this);
@@ -287,10 +351,10 @@ $(document).ready(function(){
            
             success:function(data){
                     if (data.success == 1){
-
                         $("#edit_pricing_form")[0].reset();
                         $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
                         pricing_table.ajax.reload();
+                        pricing_set_table.ajax.reload();
 
                     }else{
                         $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);

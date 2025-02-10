@@ -31,6 +31,7 @@ urlpatterns = [
     path("all_knob_colors",views.all_knob_colors, name = "all_knob_colors"),
     path("add_pricing",views.add_pricing, name = "add_pricing"),
     path("all_pricing",views.all_pricing, name = "all_pricing"),
+    path("add_pricing_value",views.add_pricing_value, name = "add_pricing_value"),
 
 
     path("add_claps",views.add_claps, name = "add_claps"),
