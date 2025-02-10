@@ -757,8 +757,22 @@ $(document).ready(function(){
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="collection_checkbox_${target_count}" class="md:col-span-12 flex items-center gap-2" style="display: none;">
+                        <input 
+                            style="width: 1.25rem; height: 1.25rem; accent-color: #6c6685;"
+                            id="not_sure" type="checkbox" 
+                            checked 
+                        />
+                        <label 
+                            for="not_sure 
+                            style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px; margin-bottom: -.25rem;" 
+                            class="text-gray-700 text-center py-2 pb-3"
+                        >דו צדדי</label>
+                    </div>
+                    
 
-                    <div class="md:col-span-2"  style="display:none;" id="keepflow_div_${target_count}">
+                    <div class="md:col-span-2" style="display:none;" id="keepflow_div_${target_count}">
                         <div>
                             <label for="keepflow" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.keep_flow}</label>
                             <div class="flex space-x-4">
@@ -1288,6 +1302,8 @@ $(document).ready(function(){
         $(`#collection_table_image_${data_id}`).show();
         $(`#collection_table_image_el_${data_id}`).attr('src', image);
 
+
+
         // $(`#keepflow_question_${data_id}`).show();
 
 
@@ -1295,6 +1311,8 @@ $(document).ready(function(){
         let selected_flow_flag  = $(this).find(':selected').attr('data-flow');
         extra_fields(selected_flow_flag, data_id);
 
+        
+        $(`#collection_checkbox_${data_id}`).show();
         $(`#keepflow_question_${data_id}`).show();
 
         
