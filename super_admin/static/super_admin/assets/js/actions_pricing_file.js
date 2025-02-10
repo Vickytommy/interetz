@@ -79,7 +79,7 @@ $(document).ready(function(){
             }
         },
         language: {
-            search: 'Search'
+            search: ''
         },
         paging: false, // Disable pagination
         columns: [
@@ -90,7 +90,19 @@ $(document).ready(function(){
                 },
                 className: 'text-center border border-gray-300 dark:border-zink-50' 
             },
-            { data: 'value', className: 'text-center border border-gray-300 dark:border-zink-50' },
+            { 
+                data: 'value',
+                render: function(data, type, row) {
+                    return `<form id="edit_set_pricing_form" class="{% url 'super_admin:add_pricing_value' %}" method="POST" >
+                                <input type="hidden" name="action" id="action" value="edit">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <input type="hidden" name="price_id" id="price_id" value="">
+                                <input class="border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" value=${row.value} id="value_edit" name="value" placeholder='0' required>
+                            </form>`;
+                },
+                className: 'text-center border border-gray-300 dark:border-zink-50' 
+            },
+            // { data: 'value', className: 'text-center border border-gray-300 dark:border-zink-50' },
             {
                 // New column for buttons
                 data: null,
@@ -111,7 +123,6 @@ $(document).ready(function(){
             "sLengthMenu": "",
             "sLoadingRecords": "",
             "sProcessing": "",
-            "sSearch": window.page.search,
             "sZeroRecords": "",
             oPaginate: {
                 "sFirst": window.page.sFirst,
@@ -119,15 +130,47 @@ $(document).ready(function(){
                 "sNext": window.page.sNext,
                 "sPrevious": window.page.sPrevious,
             }
-        }
+        },
+        searching: false // Disable the search bar
     });
     
     $('#pricing_set_table tbody').on('click', '.change_price', function(e) {
         var rowData = pricing_set_table.row($(this).closest('tr')).data();
         // console.log(rowData);
-        $("#value_edit").val(rowData.value);
-        $("#price_id").val(rowData.price_id);
-        $("#edit_form_set_pricing").show();
+        var data = {
+            value: $("#value_edit").val(),
+            price_id: $("#price_id").val(),
+            action: 'edit'
+        };
+
+        console.log('the data', data,  $("#edit_set_pricing_form").attr('class'));
+
+        $.ajax({
+            url: $("#edit_set_pricing_form").attr('class'),
+            dataType: 'JSON',
+            method: 'POST',
+            data: data,
+            success: function(data) {
+                if (data.success == 1){
+                    $("#edit_set_pricing_form")[0].reset();
+                    $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-green-800 bg-green-100 border border-green-200 rounded-md dark:text-green-200 dark:bg-green-500/20 dark:border-green-500/20">${data.msg}</div>`);
+                    pricing_table.ajax.reload();
+                    pricing_set_table.ajax.reload();
+
+                }else{
+                    $("#info_selector_2").empty().append(`<div class="px-5 py-3 text-red-800 bg-red-100 border border-red-200 rounded-md dark:border-red-500/20 dark:text-red-200 dark:bg-red-500/20" role="alert" id="error">${data.msg}</div>`);
+                }
+                
+                setTimeout(() => {
+                    $("#info_selector_2").empty();
+                    // $("#edit_set_pricing_form").hide();
+                    
+                }, 5000);
+            },
+            error:function(data) {
+                console.log(data);
+            }
+        }); 
     });
 
     $(document).on('submit','#edit_set_pricing_form',function(e){
