@@ -96,8 +96,8 @@ $(document).ready(function(){
                     return `<form id="edit_set_pricing_form" class="{% url 'super_admin:add_pricing_value' %}" method="POST" >
                                 <input type="hidden" name="action" id="action" value="edit">
                                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                <input type="hidden" name="price_id" id="price_id" value="">
-                                <input class="border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" value=${row.value} id="value_edit" name="value" placeholder='0' required>
+                                <input type="hidden" name="price_id" id="price_id" value="${row.id}">
+                                <input type="number" class="border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" value=${row.value} id="value_edit" name="value" placeholder='0' required>
                             </form>`;
                 },
                 className: 'text-center border border-gray-300 dark:border-zink-50' 
@@ -136,17 +136,14 @@ $(document).ready(function(){
     
     $('#pricing_set_table tbody').on('click', '.change_price', function(e) {
         var rowData = pricing_set_table.row($(this).closest('tr')).data();
-        // console.log(rowData);
+        console.log(rowData);
         var data = {
-            value: $("#value_edit").val(),
-            price_id: $("#price_id").val(),
-            action: 'edit'
+            value: Number($("#value_edit").val()),
+            price_id: rowData.pricing_id,
         };
-
-        console.log('the data', data,  $("#edit_set_pricing_form").attr('class'));
-
+        
         $.ajax({
-            url: $("#edit_set_pricing_form").attr('class'),
+            url: "add_pricing_value",
             dataType: 'JSON',
             method: 'POST',
             data: data,

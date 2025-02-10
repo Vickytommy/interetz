@@ -182,39 +182,7 @@
                         </div>
                     </div>
                 </div>
-
                 
-                <div id="edit_form_set_pricing" style="display:none;">
-                    <div class="shadow-md card shadow-gray-400/10 dark:bg-zink-700 dark:border-zink-50">
-                        <div class="pb-0 card-body">
-                            <strong id="add_set_pricing_form_title">{{ data|get:"Edit Data" }}</strong>
-
-                            <form id="edit_set_pricing_form" class="{% url 'super_admin:add_pricing_value' %}" method="POST" >
-                                <div id="info_selector_2" class="mt-4 mb-4" ></div>
-                                    {% csrf_token %}
-                                <input type="hidden" name="action" id="action" value="edit">
-                                    <input type="hidden" name="price_id" id="price_id" value="">
-                                <div class="grid grid-cols-12 gap-x-5 md:gap-6">
-                                    <div class=" md:col-span-3">
-                                        <div>
-                                            <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="value_edit" name="value" placeholder='{{ data|get:"price" }}' required>
-                                        </div>
-                                    </div>
-
-                                    <div id="form_btn" >
-                                        <button type="submit" class=" text-white bg-green-500 hover:bg-green-700 focus:ring-2 focus:ring-green-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5 text-center" id="edit_set_pricing_submit_btn"><i class="fa fa-save"></i></button>
-                                    </div>
-                                    
-                                </div> 
-                            </form>
-                        </div>
-
-
-                        
-
-                    </div>
-                </div>
-
                 <table id="pricing_set_table" class=" display group border-collapse border border-gray-300 dark:border-zink-50" style="width:auto; min-width: unset;">
                     <thead>
                         <tr>
