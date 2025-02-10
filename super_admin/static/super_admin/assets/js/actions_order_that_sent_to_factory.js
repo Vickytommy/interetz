@@ -130,8 +130,6 @@ $(document).ready(function(){
 
     });
 
-
-
     $(document).on('click','.change_status',function(){
         let order_id = $(this).attr('data-id');
         
@@ -197,8 +195,4 @@ $(document).ready(function(){
         });
 
     });  //end change_status here
-
-   
-    
-
 }); //end ready here
