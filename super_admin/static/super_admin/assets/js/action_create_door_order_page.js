@@ -695,7 +695,6 @@ $(document).ready(function(){
 
 
     $(document).on('change','input[type="file"]',function(event){
-
                 const selectedFile = event.target.files[0];
                 const fileName = selectedFile.name.toLowerCase();
                 let all_exts = ['.png','.jpg','jpeg','.gif']
@@ -744,7 +743,10 @@ $(document).ready(function(){
 
                         <div class="flex-1">
                             <div id="collection_table_${target_count}" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" style="display:none;">
-                                <div style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">Heading</div>
+                                <div style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">
+                                    פרטי צבע
+                                    <!-- Color description heading -->
+                                    </div>
                                 <div id="collection_table_row_${target_count}" class="py-2 px-4 border border-gray-500 border-t-0">
                                 </div>
                             </div>
@@ -752,7 +754,10 @@ $(document).ready(function(){
                     
                          <div class="flex-1">
                             <div id="collection_table_image_${target_count}" style=" height: 100%; overflow: hidden; display: none;" class="w-full text-sm ltr:text-left rtl:text-right text-gray-500">
-                                <div style="background-color: #6c6685;border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">Image Heading</div>
+                                <div style="background-color: #6c6685;border-top-left-radius: 8px; border-top-right-radius: 8px;" class="p-2 text-center text-white">
+                                    צבע
+                                    <!-- Color Image heading -->
+                                    </div>
                                 <img id="collection_table_image_el_${target_count}" class="h-full flex gap-4 py-2 px-4 bg-gray-500 border border-gray-500 border-t-0"></div>
                             </div>
                         </div>
@@ -768,7 +773,7 @@ $(document).ready(function(){
                             for="not_sure 
                             style="background-color: #6c6685; border-top-left-radius: 8px; border-top-right-radius: 8px; margin-bottom: -.25rem;" 
                             class="text-gray-700 text-center py-2 pb-3"
-                        >דו צדדי</label>
+                        >בחר צבע</label>
                     </div>
                     
 
