@@ -99,3 +99,11 @@
 .container-top-fluid .card-body {
     padding: 0 !important;
 }
+
+/* Style the Previous and Next buttons */
+.dataTables_paginate div a.rounded-r-lg {
+    border-radius: 8px 0 0 8px;
+}
+.dataTables_paginate div a.rounded-l-lg {
+    border-radius: 0 8px 8px 0;
+}
