@@ -107,3 +107,6 @@
 .dataTables_paginate div a.rounded-l-lg {
     border-radius: 0 8px 8px 0;
 }
+.dt-buttons + [id$="filter"] {
+    margin-bottom: 1rem;
+}
