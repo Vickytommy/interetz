@@ -48,15 +48,17 @@
                                             <div class="grid grid-cols-12 gap-x-5 md:gap-6">
 
 
-                                                  <div class="md:col-span-2" id="entry_type">
+                                                  
+                                                    <div class="md:col-span-3" id="entry_type">
                                                         <div>
-                                                            
-                                                            <select class="col-span-6 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
-                                                                <option selected disabled value="">{{ data|get:"choose entry type" }}</option>>Choose Entry Type</option>
-                                                                 <option value="single">{{ data|get:"single " }}</option>
-                                                                <option value="bulk">{{ data|get:"bulk" }}</option>
-                                                                <option value="bulk_image">Bulk Images</option>
-                                                            </select>
+                                                            <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                                <select class="col-span-6 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
+                                                                    <option selected disabled value="">{{ data|get:"choose entry type" }}</option>>Choose Entry Type</option>
+                                                                    <option value="single">{{ data|get:"single " }}</option>
+                                                                    <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                                    <option value="bulk_image">Bulk Images</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -85,12 +87,13 @@
 
                                                     <div class="md:col-span-1 single_entry_type" style="display:none;">
                                                         <div>
-                                                            
-                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color" name="knob_color">
+                                                            <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                                <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color" name="knob_color">
                                                                 <option value="" selected disabled>{{ data|get:"knob color" }}</option>
-                                                                <option value="1">{{ data|get:"yes" }}</option>
-                                                                <option value="0">{{ data|get:"no" }}</option>
-                                                            </select>
+                                                                    <option value="1">{{ data|get:"yes" }}</option>
+                                                                    <option value="0">{{ data|get:"no" }}</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -194,12 +197,13 @@
 
                                                     <div class="md:col-span-1" >
                                                         <div>
-                                                            
-                                                            <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color_edit" name="knob_color">
-                                                                <option value="" selected disabled>{{ data|get:"knob color" }}</option>
-                                                                <option value="1">{{ data|get:"yes" }}</option>
-                                                                <option value="0">{{ data|get:"no" }}</option>
-                                                            </select>
+                                                            <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                                <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="knob_color_edit" name="knob_color">
+                                                                    <option value="" selected disabled>{{ data|get:"knob color" }}</option>
+                                                                    <option value="1">{{ data|get:"yes" }}</option>
+                                                                    <option value="0">{{ data|get:"no" }}</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
 

@@ -43,13 +43,14 @@
 
                                                 <div class="md:col-span-3" id="entry_type">
                                                     <div>
-                                                        
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
-                                                            <option selected disabled value="">{{ data|get:"choose entry type" }}</option>
-                                                            <option value="single">{{ data|get:"single " }}</option>
-                                                            <option value="bulk">{{ data|get:"bulk" }}</option>
-                                                            <option value="bulk_image">Bulk images</option>
-                                                        </select>
+                                                        <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                            <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="entry_type_select" required>
+                                                                <option selected disabled value="">{{ data|get:"choose entry type" }}</option>
+                                                                <option value="single">{{ data|get:"single " }}</option>
+                                                                <option value="bulk">{{ data|get:"bulk" }}</option>
+                                                                <option value="bulk_image">Bulk images</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -93,25 +94,27 @@
                                                     </div>
                                                 </div>
 
-                                                    <div class=" md:col-span-3 single_entry_type" style="display:none;">
+                                                <div class=" md:col-span-3 single_entry_type" style="display:none;">
                                                     <div>
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="in_stock" name="in_stock" placeholder='{{ data|get:"in stock" }}'>
-                                                            <option selected value="" disabled>{{ data|get:"in stock" }}</option>
-                                                            <option value="1">{{ data|get:"yes" }}</option>
-                                                            <option value="0">{{ data|get:"no" }}</option>
-                                                        </select>
-
+                                                        <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                            <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="in_stock" name="in_stock" placeholder='{{ data|get:"in stock" }}'>
+                                                                <option selected value="" disabled>{{ data|get:"in stock" }}</option>
+                                                                <option value="1">{{ data|get:"yes" }}</option>
+                                                                <option value="0">{{ data|get:"no" }}</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div class=" md:col-span-3 single_entry_type" style="display:none;">
                                                     <div>
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="flow" name="flow" placeholder='{{ data|get:"flow" }}'>
-                                                            <option selected value="" disabled>{{ data|get:"flow" }}</option>
+                                                        <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                            <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="flow" name="flow" placeholder='{{ data|get:"flow" }}'>
+                                                                <option selected value="" disabled>{{ data|get:"flow" }}</option>
                                                                 <option value="1">{{ data|get:"yes" }}</option>
-                                                            <option value="0">{{ data|get:"no" }}</option>
-                                                        </select>
-
+                                                                <option value="0">{{ data|get:"no" }}</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -151,10 +154,12 @@
 
 
                                                 <div class=" md:col-span-3 single_entry_type" style="display:none;">
-                                                    <div id="get_price_group"  class="{% url 'super_admin:all_pricing' %}" >
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="price_group" name="price_group" placeholder='{{ data|get:"price group" }}'>
-                                                            <option selected value="" disabled>{{ data|get:"price group" }}</option>
-                                                        </select>
+                                                    <div class="border border-gray-400 rounded px-2">
+                                                        <div id="get_price_group" style="height: 2.3rem; overflow: hidden;" class="{% url 'super_admin:all_pricing' %}">
+                                                            <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="price_group" name="price_group" placeholder='{{ data|get:"price group" }}'>
+                                                                <option selected value="" disabled>{{ data|get:"price group" }}</option>
+                                                            </select>
+                                                        </div>
                                                         <!-- <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_group" name="price_group"  placeholder='{{ data|get:"price group" }}'> -->
                                                     </div>
                                                 </div>
@@ -255,25 +260,27 @@
                                                 </div>
                                             </div>
 
-                                                <div class="md:col-span-3">
+                                            <div class="md:col-span-3">
                                                 <div>
-                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="in_stock" name="in_stock" placeholder='{{ data|get:"in stock" }}'>
-                                                        <option selected value="" disabled>{{ data|get:"in stock" }}</option> 
-                                                        <option value="1">{{ data|get:"yes" }}</option>
-                                                        <option value="0">{{ data|get:"no" }}</option>
-                                                    </select>
-
+                                                    <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                        <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="in_stock" name="in_stock" placeholder='{{ data|get:"in stock" }}'>
+                                                            <option selected value="" disabled>{{ data|get:"in stock" }}</option> 
+                                                            <option value="1">{{ data|get:"yes" }}</option>
+                                                            <option value="0">{{ data|get:"no" }}</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-3">
                                                 <div>
-                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="flow" name="flow" placeholder='{{ data|get:"flow" }}'>
-                                                        <option selected value="" disabled>{{ data|get:"flow" }}</option>
+                                                    <div style="height: 2.3rem; overflow: hidden;" class="border border-gray-400 rounded px-2">
+                                                        <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="flow" name="flow" placeholder='{{ data|get:"flow" }}'>
+                                                            <option selected value="" disabled>{{ data|get:"flow" }}</option>
                                                             <option value="1">{{ data|get:"yes" }}</option>
-                                                        <option value="0">{{ data|get:"no" }}</option>
-                                                    </select>
-
+                                                            <option value="0">{{ data|get:"no" }}</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -312,11 +319,13 @@
                                             </div> -->
 
                                             <div class=" md:col-span-3">
-                                                <div id="get_price_group"  class="{% url 'super_admin:all_pricing' %}" >
-                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  id="price_group_edit" name="price_group" placeholder='{{ data|get:"price group" }}'>
-                                                        <option selected value="" disabled>{{ data|get:"price group" }}</option>
-                                                    </select>
-                                                    <!-- <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_group" name="price_group"  placeholder='{{ data|get:"price group" }}'> -->
+                                                <div  class="border border-gray-400 rounded px-2">
+                                                    <div style="height: 2.3rem; overflow: hidden;" class="{% url 'super_admin:all_pricing' %}">
+                                                        <select class="col-span-12 sm:col-span-10 p-2 px-0 bg-white w-full placeholder:text-sm focus:none focus:none focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" id="price_group_edit" name="price_group" placeholder='{{ data|get:"price group" }}'>
+                                                            <option selected value="" disabled>{{ data|get:"price group" }}</option>
+                                                        </select>
+                                                        <!-- <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200"  id="price_group" name="price_group"  placeholder='{{ data|get:"price group" }}'> -->
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- <div class="md:col-span-3">
