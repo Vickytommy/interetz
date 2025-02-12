@@ -603,28 +603,32 @@ def add_collection(request):
         if action == "insert":
             if 'upload_drawer' in request.FILES and request.FILES['upload_drawer']!='':
                 df = pd.read_csv(request.FILES['upload_drawer'])
+                # print('[df] ', df)
                 if len(df) > 0:
                     if set(df.columns) == set(expected_columns):
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
-                            Collection.objects.create(
-                                collection_name = row_data["collection_name"], 
-                                collection_barcode = row_data["collection_barcode"],
-                                description = row_data["description"],
-                                back = row_data["back"], 
-                                kant = row_data["kant"],
-                                min_order = row_data["min_order"],
-                                in_stock = row_data["in_stock"], 
-                                flow = row_data["flow"], 
-                                height = row_data["height"], 
-                                width = row_data["width"], 
-                                kant_code = row_data["kant_code"],
-                                formica = row_data["formica"],
-
-                                price_group = row_data["price_group"],
-                                color_type = row_data["color_type"],
-                                thick = row_data["thick"],
-                            )
-                            
+                            # print('[row_data] ', row_data)
+                            try:
+                                price_group_instance = Pricing.objects.get(pricing_id=row_data["price_group"])
+                                Collection.objects.create(
+                                    collection_name=row_data["collection_name"],
+                                    collection_barcode=row_data["collection_barcode"],
+                                    description=row_data["description"],
+                                    back=row_data["back"],
+                                    kant=row_data["kant"],
+                                    min_order=row_data["min_order"],
+                                    in_stock=row_data["in_stock"],
+                                    flow=row_data["flow"],
+                                    height=row_data["height"],
+                                    width=row_data["width"],
+                                    kant_code=row_data["kant_code"],
+                                    formica=row_data["formica"],
+                                    price_group=price_group_instance,
+                                    color_type=row_data["color_type"],
+                                    thick=row_data["thick"],
+                                )
+                            except Exception as e:
+                                return JsonResponse({'msg': f'Error in adding Collection, {e}', 'success':0})
                         return JsonResponse({'msg': translations['Collection has been added successfully'], 'success':1})
                     else:
                         return JsonResponse({'msg': f'Error in reading columns, the columns must be only twelve and with name of ({",".join(expected_columns)})', 'success':0})
