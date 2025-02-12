@@ -41,16 +41,16 @@ $(document).ready(function(){
                     { data: 'price_group' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'price_two_side' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'price_one_side' , className:'text-center border border-gray-300 dark:border-zink-50'},
-                    {
-                        data: 'image',
-                        render: function(data, type, row) {
-                            if (data) {
-                                return `<img src="${data}" alt="${row.collection_name}" class="w-full aspect-[1/1] object-cover"/>`;
-                            }
-                            return ''; // Return empty string if no image exists
-                        },
-                        className: 'text-center border border-gray-300 dark:border-zink-50',
-                    },
+                    // {
+                    //     data: 'image',
+                    //     render: function(data, type, row) {
+                    //         if (data) {
+                    //             return `<img src="${data}" alt="${row.collection_name}" class="w-full aspect-[1/1] object-cover"/>`;
+                    //         }
+                    //         return ''; // Return empty string if no image exists
+                    //     },
+                    //     className: 'text-center border border-gray-300 dark:border-zink-50',
+                    // },
                     { data: 'color_type' , className:'text-center border border-gray-300 dark:border-zink-50'},
                     { data: 'thick' , className:'text-center border border-gray-300 dark:border-zink-50'},
 
@@ -377,6 +377,7 @@ $(document).ready(function(){
                 const priceGroupSelect = $('#price_group');
                 const priceGroupSelectEdit = $('#price_group_edit');
                 const results = data.data;
+                console.log('[DAta] ', results)
                 results.forEach(item => {
                     const option = $('<option></option>').val(item.pricing_id).text(item.group);
                     priceGroupSelectEdit.append(option);

@@ -1,3 +1,2 @@
-drawer_type,drawer_code
-a,a
-b,b
+manufacturer,clap_type,clap_code,side_kant,upper_kant,default_side,default_upper,diameter,drills_amount,drill_1,drill_2,drill_3,drill_4,drill_5,drill_6,drill_7,drill_direction,price
+a,a,v,3,4,3.5,3.5,5,15,2,2,2,2,2,2,2,5,150

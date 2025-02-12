@@ -1,3 +1,2 @@
-drawer_type,drawer_code
-a,a
-b,b
+manufacturer,hinge_type,hinge_sub_type,main_drill_diameter,secondary_drill_diameter,drill_depth,lower_default,side_default,price
+a,a,cd,4.5,3.5,50,6,6,200
