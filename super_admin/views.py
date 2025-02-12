@@ -607,9 +607,10 @@ def add_collection(request):
                 if len(df) > 0:
                     if set(df.columns) == set(expected_columns):
                         for index, (row_index, row_data) in enumerate(df.iterrows(), 1):
-                            # print('[row_data] ', row_data)
+                            print('[row_data] ', row_data)
                             try:
-                                price_group_instance = Pricing.objects.get(pricing_id=row_data["price_group"])
+                                price_group_instance = Pricing.objects.get_or_create(group=row_data["price_group"])
+                                print('[price gp instance] ', price_group_instance)
                                 Collection.objects.create(
                                     collection_name=row_data["collection_name"],
                                     collection_barcode=row_data["collection_barcode"],
@@ -623,7 +624,7 @@ def add_collection(request):
                                     width=row_data["width"],
                                     kant_code=row_data["kant_code"],
                                     formica=row_data["formica"],
-                                    price_group=price_group_instance,
+                                    price_group=price_group_instance.group,
                                     color_type=row_data["color_type"],
                                     thick=row_data["thick"],
                                 )

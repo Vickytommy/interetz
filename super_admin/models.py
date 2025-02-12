@@ -204,8 +204,8 @@ class Knob(models.Model):
 class Pricing(models.Model):
     pricing_id = models.AutoField(primary_key=True)
     group = models.CharField(max_length=255)
-    price_two_side = models.CharField(max_length=255)
-    price_one_side = models.CharField(max_length=255)
+    price_two_side = models.FloatField(max_length=255, blank=True, null=True)
+    price_one_side = models.FloatField(max_length=255, blank=True, null=True)
     value = models.FloatField(default=0)
     
 
