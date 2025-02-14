@@ -96,7 +96,7 @@ $(document).ready(function(){
                     return `<form id="edit_set_pricing_form" class="{% url 'super_admin:add_pricing_value' %}" method="POST" >
                                 <input type="hidden" name="action" id="action" value="edit">
                                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                                <input type="hidden" name="price_id" id="price_id" value="${row.id}">
+                                <input type="hidden" name="pricing_id" id="pricing_id" value="${row.id}">
                                 <input type="number" class="border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" value=${row.value} id="value_edit" name="value" placeholder='0' required>
                             </form>`;
                 },
@@ -139,7 +139,7 @@ $(document).ready(function(){
         console.log(rowData);
         var data = {
             value: Number($("#value_edit").val()),
-            price_id: rowData.pricing_id,
+            pricing_id: rowData.pricing_id,
         };
         
         $.ajax({
@@ -371,7 +371,7 @@ $(document).ready(function(){
         $("#group_edit").val(rowData.group);
         $("#price_two_side_edit").val(rowData.price_two_side);
          $("#price_one_side_edit").val(rowData.price_one_side);
-         $("#price_id").val(rowData.price_id);
+         $("#pricing_id").val(rowData.pricing_id);
          
         $("#entry_type_select").val('').trigger('change');
         $("#edit_form_pricing").show();
