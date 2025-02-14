@@ -824,7 +824,7 @@ $(document).ready(function(){
                     <div id="upload_file_example_image_modal" class="upload-example-modal" style="display:none;">
                         <div class="upload-example-modal-content">
                             <span id="upload_file_example_image_modal_close"><i class="fa fa-times text-3xl text-gray-500 cursor-pointer"></i></span>
-                            <img id="upload_file_example_image" src="/static/super_admin/assets/hero.png" alt="Example Image">
+                            <img id="upload_file_example_image" src="/static/super_admin/assets/hero.jpeg" alt="Example Image">
                         </div>
                     </div>
                 `];
