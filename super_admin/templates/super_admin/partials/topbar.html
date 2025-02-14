@@ -3,7 +3,7 @@
 <header style="position: sticky; top: 0; z-index: 999;" class="bg-white" id="page-topbar">
     <div class="layout-width shadow-sm">
         <!-- TOP NAVBAR -->
-        <div class="flex items-center justify-between py-4 p-2 border-b border-gray-800">
+        <div class="flex items-center justify-between py-4 p-2 px-4 border-b border-gray-800">
             <div style="width: 200px;">
                 <a href="{% url 'super_admin:viewSuperAdminOrders' %}">
                     <p class="text-md text-gray flex items-center gap-4">צור קשר 050-3623006<i style="font-size: 20px;" class="bx bx-phone text-16 ltr:mr-2 rtl:ml-2"></i></p>
@@ -45,7 +45,7 @@
 
                 <!-- Product -->
                 <li class="py-4 {% if request.path == '/super_admin/add_collection' or request.path == '/super_admin/add_pricing' or request.path == '/super_admin/add_knobs' or request.path == '/super_admin/add_knob_color' or request.path == '/super_admin/add_drawars' or request.path == '/super_admin/add_hinges' or request.path == '/super_admin/add_claps' or request.path == '/super_admin/viewSuperAdmin' or request.path == '/super_admin/viewAllAdmins' or request.path == '/super_admin/viewClients' %}nav-active{% endif %}">
-                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">יהול מערכת</a>
+                    <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="text-gray py-4">ניהול מערכת</a>
                     <ul class="dropdown border-b border-l border-r border-gray-800">
                         <!-- <li class="border-b border-gray-600">
                             <a href="{% url 'super_admin:viewSuperAdminOrders' %}" class="block px-4 py-2">תמחור</a>
