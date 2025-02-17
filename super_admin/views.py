@@ -3464,6 +3464,9 @@ def viewOrderDetails(request):
             if order_track_response['order_decision_tracker_bool'] == False: 
                 # print( global_dict['order_item_response_list'])
                 collection_queryset = Collection.objects.filter(collection_barcode = global_dict['order_item_response_list'][0]['order_item_collection_barcode']).first()
+                if collection_queryset is None:
+                    break
+                    
                 collection_obj = model_to_dict(collection_queryset)   
                 min_order_of_collection = float(collection_obj['min_order'])
                 collection_barcode = global_dict['order_item_response_list'][0]['order_item_collection_barcode']
