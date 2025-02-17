@@ -83,6 +83,19 @@
     display: block;
 }
 
+.dropdown li:hover > .sub-dropdown::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    height: 3px;
+    width: 100%;
+    z-index: 11;
+    background-color: #ba6a24;
+    transition: all 0.2s ease-in-out;
+    transform: translateX(-50%);
+}
+
 
 .dataTables_paginate > div {
     text-align: unset;
