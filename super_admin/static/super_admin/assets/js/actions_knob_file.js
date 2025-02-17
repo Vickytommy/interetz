@@ -9,10 +9,10 @@ $(document).ready(function(){
         var drawer_table =    $('#knob_table').DataTable({
                 dom: 'Bfrtip',
                  buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: window.page.export_excel,
-                    }
+                    // {
+                    //     extend: 'excelHtml5',
+                    //     text: window.page.export_excel,
+                    // }
                 ],
                 language: {
                     search: 'Search'
