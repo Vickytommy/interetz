@@ -90,7 +90,7 @@ $(document).ready(function(){
                                 button_view = "";
                                 
                             }else{
-                                button_view = `<a href="${link}?order_id=${row.order_id}" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.order_id}" title="${window.page.view_btn}"><i class="fa fa-eye"></i></a>`;
+                                button_view = `<a href="${link}?order_id=${row.order_id}" class="text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn edit_record" data-id="${row.order_id}" title="לצפיה בהזמנה"><i class="fa fa-eye"></i></a>`;
                             }
 
 
