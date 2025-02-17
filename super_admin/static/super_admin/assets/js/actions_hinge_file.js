@@ -10,10 +10,10 @@ $(document).ready(function(){
    var hinge_table =    $('#hinge_table').DataTable({
            dom: 'Bfrtip',
             buttons: [
-               {
-                   extend: 'excelHtml5',
-                   text: window.page.export_excel,
-               }
+            //    {
+            //        extend: 'excelHtml5',
+            //        text: window.page.export_excel,
+            //    }
            ],
            ajax: {
                url: $("#link_to_view_").val(),
