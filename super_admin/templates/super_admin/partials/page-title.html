@@ -1,7 +1,7 @@
 <div class="md:flex items-center justify-between pt-6 pb-5">
-    <!-- <div class="shrink-0">
-        <ul class="mb-0 flex items-center gap-4 text-[13px] mt-2 md:mt-0 pr-4">
-            <li class="text-gray-600 dark:text-zink-200"> -->
+    <div class="shrink-0">
+        <ul class="mb-0 flex items-center gap-4 text-[13px] mt-2 md:mt-0">
+            <li class="text-gray-600 text-16 font-semibold dark:text-zink-200">
                 <!-- 1 -->
                 <!-- {% if request.path == '/super_admin/CreateDoorOrder' %}הזמנה חדשה{% endif %} -->
 
@@ -27,7 +27,8 @@
                 <!-- {% if request.path == '/super_admin/viewSuperAdmin' %}מנהל ראשי{% endif %}
                 {% if request.path == '/super_admin/viewAllAdmins' %}מנהל{% endif %}
                 {% if request.path == '/super_admin/viewClients' %}לקוח{% endif %} -->
-            <!-- </li>
+                {% if request.path == '/super_admin/track_order_delivers_to_clients' %}רשימת הזמנות{% endif %}
+            </li>
         </ul>
-    </div> -->
+    </div>
 </div>
