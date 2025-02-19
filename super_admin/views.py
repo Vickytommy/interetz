@@ -4267,7 +4267,7 @@ def exportOrderToCsv(request):
             if sum_ != 0:
                 val__ = 'empty'
                 if card['card_drawer_length'] == 1:
-                    temp_dict["PartDrawing"] = f"Type_{drawer_systems[card['card_drawer'][0]['drawar_order_type']]}{card['card_drawer'][0]['drawar_order_code']}=1 lo={card['card_drawer'][0]['drawar_order_lo']} ro={card['card_drawer'][0]['drawar_order_ro']} bo={card['card_drawer'][0]['drawar_order_bo']}"
+                    temp_dict["PartDrawing"] = f"Type_{drawer_systems[card['card_drawer'][0]['drawar_order_type']]}{card['card_drawer'][0]['drawar_order_code']}=1 lo={card['card_drawer'][0]['drawar_order_lo']} ro={card['card_drawer'][0]['drawar_order_ro']} bo=={card['card_drawer'][0]['drawar_order_bo']}+PartEdge3Corr"
                 elif card['card_hinge_length'] == 1: #hinge_order_yp
                     temp_mapping = {order_trans['dty_option1']:1, order_trans['dty_option2']:2}
 
@@ -4275,7 +4275,7 @@ def exportOrderToCsv(request):
                     values_list = [value for value in li_ if value]
                     nh_ = len(values_list)
                     
-                    str___ = ' '.join([f"xp{i}={val}" for i, val in enumerate (values_list,1)])
+                    str___ = ' '.join([f"xp{i}=={val}+PartEdge3Corr" for i, val in enumerate (values_list,1)])
                     hinge_order_door_opening_side_ = "2" if card['card_hinge'][0]['hinge_order_door_opening_side'] == "ימין" else "1"
                     temp_dict["PartDrawing"] = f"Type_{hinge_system[card['card_hinge'][0]['hinge_order_provider']]}=1 nh={nh_} yp={card['card_hinge'][0]['hinge_order_yp']} {str___} dty={temp_mapping[card['card_hinge'][0]['hinge_order_dty']]} flip={hinge_order_door_opening_side_}"
                 
@@ -4372,13 +4372,13 @@ def exportOrderToCsv(request):
             }
             if sum_ != 0:
                 if card['card_drawer_length'] == 1:
-                    temp_dict["PartDrawing"] = f"Type_{drawer_systems[card['card_drawer'][0]['drawar_order_type']]}{card['card_drawer'][0]['drawar_order_code']}=1 lo={card['card_drawer'][0]['drawar_order_lo']} ro={card['card_drawer'][0]['drawar_order_ro']} bo={card['card_drawer'][0]['drawar_order_bo']}"
+                    temp_dict["PartDrawing"] = f"Type_{drawer_systems[card['card_drawer'][0]['drawar_order_type']]}{card['card_drawer'][0]['drawar_order_code']}=1 lo={card['card_drawer'][0]['drawar_order_lo']} ro={card['card_drawer'][0]['drawar_order_ro']} bo=={card['card_drawer'][0]['drawar_order_bo']}+PartEdge3Corr"
                 elif card['card_hinge_length'] == 1: #hinge_order_yp
                     temp_mapping = {order_trans['dty_option1']:1, order_trans['dty_option2']:2}
                     li_ = [card['card_hinge'][0]['hinge_order_xp1'], card['card_hinge'][0]['hinge_order_xp2'], card['card_hinge'][0]['hinge_order_xp3'], card['card_hinge'][0]['hinge_order_xp4'], card['card_hinge'][0]['hinge_order_xp5'], card['card_hinge'][0]['hinge_order_xp6']]
                     values_list = [value for value in li_ if value]
                     nh_ = len(values_list)
-                    str___ = ' '.join([f"xp{i}={val}" for i, val in enumerate (values_list,1)])
+                    str___ = ' '.join([f"xp{i}=={val}+PartEdge3Corr" for i, val in enumerate (values_list,1)])
                     hinge_order_door_opening_side_ = "2" if card['card_hinge'][0]['hinge_order_door_opening_side'] == "ימין" else "1"
                     temp_dict["PartDrawing"] = f"Type_{hinge_system[card['card_hinge'][0]['hinge_order_provider']]}=1 nh={nh_} yp={card['card_hinge'][0]['hinge_order_yp']} {str___} dty={temp_mapping[card['card_hinge'][0]['hinge_order_dty']]} flip={hinge_order_door_opening_side_}"
                 elif card['card_clap_length'] == 1:
