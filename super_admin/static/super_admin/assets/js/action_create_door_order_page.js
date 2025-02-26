@@ -344,48 +344,39 @@ $(document).ready(function(){
 
     function notes_form_generation(row_count){
         let token = $("[name=csrfmiddlewaretoken]").val();
-        return `<div id="drills_${row_count}_notes" modal-center class="text-right fixed flex flex-col top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 w-fit hide-modal border border-dark-500 transition-all duration-300 ease-in-out">
-                    <div class="w-full bg-white shadow rounded-md dark:bg-zink-700 dark:text-zink-200 dark:shadow">
-                        <div class="hide_ flex items-center justify-between p-4 border-b border-gray-300 dark:border-zink-50"> 
-                             <button data-id="drills_${row_count}_notes" type="button" class=" close_modal btn" style="font-size: 20px;font-weight: 600;color: black;">x</button>
-                        </div>
+        return `
+        <div id="drills_${row_count}_notes" modal-center class="text-right fixed flex flex-col top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 w-fit hide-modal border border-dark-500 transition-all duration-300 ease-in-out">
+            <div class="w-full bg-white shadow rounded-md dark:bg-zink-700 dark:text-zink-200 dark:shadow">
+                <div class="hide_ flex items-center justify-between p-4 border-b border-gray-300 dark:border-zink-50"> 
+                        <button data-id="drills_${row_count}_notes" type="button" class=" close_modal btn" style="font-size: 20px;font-weight: 600;color: black;">x</button>
+                </div>
                                                                                                 
 
                 <div class="p-4" id ="drills_${row_count}_notes_body">
-
                     <form method="POST" id="notes_details_${row_count}" class="subform_temp">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
                         <h6 class="text-15 font-semibold dark:text-white mb-4">
-                                ${window.page.notes}
+                            ${window.page.notes}
                         </h6>
 
                         <div class="grid grid-cols-12" id="notes_details_${row_count}">
-                                
-                                
-                        <input type="hidden" name="subform_type" value="notes">
-                                        
-                                <div class="md:col-span-12">
-                                                
-                                                <textarea class="px-3 w-full border p-2 border-gray-400 rounded placeholder:text-13 focus:border focus:border-gray-400 placeholder:text-gray-600 focus:ring-0 focus:outline-none text-gray-700 text-13 dark:bg-transparent dark:border-zink-50 dark:text-zink-200 dark:placeholder:text-zink-200" rows="3" id="notes_${row_count}" name="notes" required></textarea>
-                                </div>
+                            <input type="hidden" name="subform_type" value="notes">
+                            <div class="md:col-span-12">
+                                <textarea class="px-3 w-full border p-2 border-gray-400 rounded placeholder:text-13 focus:border focus:border-gray-400 placeholder:text-gray-600 focus:ring-0 focus:outline-none text-gray-700 text-13 dark:bg-transparent dark:border-zink-50 dark:text-zink-200 dark:placeholder:text-zink-200" rows="3" id="notes_${row_count}" name="notes" required></textarea>
+                            </div>
 
+                            <div class="md:col-span-4 mt-7">
+                                <div>
+                                    <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
                                     
-
-                                    <div class="md:col-span-4 mt-7">
-                                        <div>
-                                                <button type="submit" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
-                                                
-                                                <button type="button" data-id="drills_${row_count}_notes" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                        </div>
-                                    </div>
-
+                                    <button type="button" data-id="drills_${row_count}_notes" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
                                 </div>
-
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                </div>`;
-
+                    </form>
+                </div>
+            </div>
+        </div>`;
     }
 
     $(document).on('change','.entry_selector', function(){
@@ -401,7 +392,7 @@ $(document).ready(function(){
 
         console.log('[Slc] - ', id_, $(`#drills_${data_id}`), $(`#drills_${data_id} .subform_temp`))
         
-        $(`#drills_${data_id} .subform_temp`).hide();
+        // $(`#drills_${data_id} .subform_temp`).hide();
         $(`#${selected_entry}`).show();
         $('.entry_selector_div').addClass('hide_');
         // $(this).prop("disabled", true); // Disable the select element
@@ -1669,7 +1660,6 @@ $(document).ready(function(){
                         </td>
 
                         <td class="text-center p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                           
                             <select data-container="drills_${tr_count}" class="col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
                                 <option value="" disabled selected>${window.page.choose_entry_type}</option>
                                 <option value="drawer_sub_details_${tr_count}">${window.page.drawer}</option>
@@ -1677,6 +1667,10 @@ $(document).ready(function(){
                                 <option value="hinge_sub_details_${tr_count}">${window.page.hinge}</option>                                
                             </select>
                             ${subform_generation(tr_count)}
+                        </td>
+
+                        <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
+                            <div class="" id="sixth_td_label_${tr_count}"></div>
                         </td>
 
                         <td class="text-center p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
@@ -2190,6 +2184,9 @@ $(document).ready(function(){
         $(`#${id_}`).removeClass('hide-modal');
         $(`#entry_selector_${extract_number(id_)}`).removeClass('hide_');
         $("#active_pop_up_id").val(extract_number(id_)); // a hidden field which will count the current opened pop up id
+
+        // If the user clicks on the plus button, then show the note's subform
+        $(`#${id_} #notes_details_${extract_number(id_)}`).show();
     });
 
     $(document).on('click','.close_modal',function(){
@@ -2365,20 +2362,30 @@ $(document).ready(function(){
         };
         cards = updateOrAppendObjectByKey(cards, key, myObject);
         let success_msg = '';
-        if (data.subform_type ==  "drawer")
-            success_msg = window.page.drawer_success_msg;
-        else if (data.subform_type ==  "claps")
-            success_msg = window.page.claps_success_msg;
-        else if (data.subform_type ==  "hinge")
-            success_msg = window.page.hinge_success_msg;
-        
+        let drilling_code = $(`sixth_td_label_${form_id}`);
         let icon_class=`bx bx-check-shield`;
+
+        if (data.subform_type ==  "drawer") {
+            // console.log('[Drawer] Form data:', data);
+            drilling_code = `${data.drawers_type} - ${data.drawers_code}`;
+            success_msg = window.page.drawer_success_msg;
+        } else if (data.subform_type ==  "claps") {
+            drilling_code = `${data.clap_pr}`;
+            success_msg = window.page.claps_success_msg;
+        } else if (data.subform_type ==  "hinge") {
+            drilling_code = `${data.hinge_provider}`;
+            success_msg = window.page.hinge_success_msg;
+        } else if (data.subform_type ==  "notes") {
+            console.log('[Notes Data] Form data:', data);
+            $(`#plus_notes_${extract_number(form_id)}`).empty().append("V");
+        }
 
         let btn_class  = `subform_temp subform_btn text-white transition-all duration-300 ease-linear bg-green-500 border-green-500 rounded-full hover:bg-green-600 hover:border-green-600 hover:text-white active:bg-green-600 active:border-green-600 active:text-white focus:bg-green-600 focus:border-green-600 focus:text-white focus:ring focus:ring-green-500/30 btn`;
         
         if (data.subform_type != "notes"){
             $(`#plus_hinge_btn_${extract_number(form_id)}`).attr('class', btn_class).css('font-size','20px');
             $(`#plus_hinge_btn_${extract_number(form_id)}`).empty().append(`<i class="${icon_class}"></i>`);
+            $(`#sixth_td_label_${extract_number(form_id)}`).html(drilling_code);
         }
 
         Swal.fire(
