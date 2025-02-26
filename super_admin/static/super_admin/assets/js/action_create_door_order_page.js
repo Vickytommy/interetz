@@ -2196,6 +2196,7 @@ $(document).ready(function(){
         let id_ = $(this).data('id');
         $(`#${id_}`).removeClass('show-modal');
         $(`#${id_}`).addClass('hide-modal');
+        $(`#${id_} .subform_temp`).hide();
         $("#active_pop_up_id").val(''); // a hidden field which will count the current opened pop up id
     });
 
