@@ -920,8 +920,10 @@ $(document).ready(function(){
     
     // Hide the 2nd step
     $(document).on('click', '#knob_div_next_btn', function() {
-        let step_2_form = $('#create_order_form');
+        let step_2_form = $('#create_order_form_2_wrapper');
+        let step_6_form = $("#create_order_form_step_6_wrapper");
         step_2_form.hide();
+        step_6_form.show();
         $(".step-circle.three").addClass("completed");
         $(".step-line.three").addClass("completed");
     })
