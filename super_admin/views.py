@@ -3001,7 +3001,6 @@ def load_draft_orders(request):
 
 @role_required(allowed_roles=['client','admin','super admin'])
 def editDraftOrder(request):
-    print('IN, EDIT DRAFT ORDER...')
     translations = get_translation('create new order')
     Reservation = get_translation('Reservation')
     
@@ -3170,7 +3169,7 @@ def editDraftOrder(request):
         #print(global_dict['cards'])
         global_dict['OrderData'] = translations
         global_dict['ReservationData'] = Reservation
-    # print(global_dict['collection_data'])
+    print('\n[Glb] \n\n', global_dict, '\n\n')
     return render (request, 'super_admin/edit_darft_order.html', context = global_dict)
 
 
