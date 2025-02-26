@@ -72,12 +72,6 @@ $(document).ready(function(){
                                 <div class="md:col-span-12 md-2 entry_selector_div" id="entry_selector_${counter}">
                                     <div>
                                         <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.choose_entry_type}</label>
-                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
-                                            <option value="" disabled selected>${window.page.choose_entry_type}</option>
-                                            <option value="drawer_sub_details_${counter}">${window.page.drawer}</option>
-                                            <option value="claps_sub_details_${counter}">${window.page.claps}</option>
-                                            <option value="hinge_sub_details_${counter}">${window.page.hinge}</option>                                
-                                        </select>
                                     </div>
                                 </div>
 
@@ -395,8 +389,17 @@ $(document).ready(function(){
     }
 
     $(document).on('change','.entry_selector', function(){
+        let id_ = $(this).data('container');
+        $(`#${id_}`).addClass('show-modal');
+        $(`#${id_}`).removeClass('hide-modal');
+        $(`#entry_selector_${extract_number(id_)}`).removeClass('hide_');
+        $("#active_pop_up_id").val(extract_number(id_)); // a hidden field which will count the current opened pop up id
+   
+
         let selected_entry = $(this).find(":selected").val();
         let data_id = $(this).attr('data-id');
+
+        console.log('[Slc] - ', id_, $(`#drills_${data_id}`), $(`#drills_${data_id} .subform_temp`))
         
         $(`#drills_${data_id} .subform_temp`).hide();
         $(`#${selected_entry}`).show();
@@ -1636,27 +1639,22 @@ $(document).ready(function(){
                             <div class="" id="zero_td_label_${tr_count}"></div>
                         </td>
 
-
-
                         <td scope="row" class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300" id="first_td_${tr_count}">
-                            
-
-
                             <input type="text" name="height[]" id="height_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             
-
                             <div class="" id="first_td_label_${tr_count}"></div>
-
-
                         </td>
+
                         <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <input type="text" name="width[]" id="width_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             <div class="" id="second_td_label_${tr_count}"></div>
                         </td>
+
                         <td class= "p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <input type="text" name="quantity[]" id="quantity_${tr_count}" class="w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             <div class="" id="third_td_label_${tr_count}"></div>
                         </td>
+
                         <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_model_td" name="knob_model[]" id="knob_model_${tr_count}" data-id="${tr_count}" required>
 
@@ -1671,8 +1669,13 @@ $(document).ready(function(){
                         </td>
 
                         <td class="text-center p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <button type="button" data-id="drills_${tr_count}" id="plus_hinge_btn_${tr_count}" class="subform_btn">
-                            <i class="fa fa-plus"></i></button>
+                           
+                            <select data-container="drills_${tr_count}" class="col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
+                                <option value="" disabled selected>${window.page.choose_entry_type}</option>
+                                <option value="drawer_sub_details_${tr_count}">${window.page.drawer}</option>
+                                <option value="claps_sub_details_${tr_count}">${window.page.claps}</option>
+                                <option value="hinge_sub_details_${tr_count}">${window.page.hinge}</option>                                
+                            </select>
                             ${subform_generation(tr_count)}
                         </td>
 
@@ -2062,48 +2065,46 @@ $(document).ready(function(){
         console.log ("decision", decision);
         if (decision === "no"){
 
-                        $("table#order_table tbody#order_table_tbody").empty().append(generate_row(1));
-                        get_knob_family(populateRowData_KnobFamily, 1);
-                        // if (knobs_tracker[0]['knob_color'] != "")
-                        specific_knob_family(1);
-                        get_knob_position(populateRowData_KnobPosition, 1);
-                        get_door_opening_sides(populateRowData_DoorSides, 1);
-                        get_hinge_provider(populateRowData_HingeProvider, 1);
-                        get_claps_pr_provider(populateRowData_clap_pr_provider, 1);
+            $("table#order_table tbody#order_table_tbody").empty().append(generate_row(1));
+            get_knob_family(populateRowData_KnobFamily, 1);
+            // if (knobs_tracker[0]['knob_color'] != "")
+            specific_knob_family(1);
+            get_knob_position(populateRowData_KnobPosition, 1);
+            get_door_opening_sides(populateRowData_DoorSides, 1);
+            get_hinge_provider(populateRowData_HingeProvider, 1);
+            get_claps_pr_provider(populateRowData_clap_pr_provider, 1);
 
-                        get_drawer_data(populateRowData_DrawarData, 1);
-                        $("#create_order_form_step_6").show();
-                        $("#send_order_btn").removeClass('hide_');
-                        $("#send_order_data_to_draft").removeClass('hide_');
-                        $("#preview_order_button").removeClass('hide_');
+            get_drawer_data(populateRowData_DrawarData, 1);
+            $("#create_order_form_step_6").show();
+            $("#send_order_btn").removeClass('hide_');
+            $("#send_order_data_to_draft").removeClass('hide_');
+            $("#preview_order_button").removeClass('hide_');
+            
+        } else {
+            if (counter >= 5 && step_click_counter >=2){
+                    // console.log("step_click_counter",step_click_counter);
 
-                        
-                
-        }else{
-                if (counter >= 5 && step_click_counter >=2){
-                        // console.log("step_click_counter",step_click_counter);
+                $("table#order_table tbody#order_table_tbody").empty().append(generate_row(1));
+                // get_collection_data(populateRowData_Collection, 1);
+                get_knob_family(populateRowData_KnobFamily, 1);
+                specific_knob_family(1);
 
-                            $("table#order_table tbody#order_table_tbody").empty().append(generate_row(1));
-                            // get_collection_data(populateRowData_Collection, 1);
-                            get_knob_family(populateRowData_KnobFamily, 1);
-                            specific_knob_family(1);
-
-                            get_knob_position(populateRowData_KnobPosition, 1);
-                            get_door_opening_sides(populateRowData_DoorSides, 1);
-                            get_hinge_provider(populateRowData_HingeProvider, 1);
-                            get_claps_pr_provider(populateRowData_clap_pr_provider, 1);
-                            get_drawer_data(populateRowData_DrawarData, 1);
-                            $('table#order_table tbody td:first-child').removeClass('hide_');
-                            $('table#order_table thead th:first-child').removeClass('hide_');
-                            $("#create_order_form_step_6").show();
-                            $("#send_order_btn").removeClass('hide_');
-                             $("#send_order_data_to_draft").removeClass('hide_');
-                            $("#preview_order_button").removeClass('hide_');
-                        // }
-                    }else{
-                        $('table#order_table tbody td:first-child').addClass('hide_');
-                        $('table#order_table thead th:first-child').addClass('hide_');
-                    } 
+                get_knob_position(populateRowData_KnobPosition, 1);
+                get_door_opening_sides(populateRowData_DoorSides, 1);
+                get_hinge_provider(populateRowData_HingeProvider, 1);
+                get_claps_pr_provider(populateRowData_clap_pr_provider, 1);
+                get_drawer_data(populateRowData_DrawarData, 1);
+                $('table#order_table tbody td:first-child').removeClass('hide_');
+                $('table#order_table thead th:first-child').removeClass('hide_');
+                $("#create_order_form_step_6").show();
+                $("#send_order_btn").removeClass('hide_');
+                    $("#send_order_data_to_draft").removeClass('hide_');
+                $("#preview_order_button").removeClass('hide_');
+                    // }
+                }else{
+                    $('table#order_table tbody td:first-child').addClass('hide_');
+                    $('table#order_table thead th:first-child').addClass('hide_');
+                } 
         }
         if (parseInt($("#add_collection_btn").attr('data-id'))==6){
             $("#add_collection_btn").hide();
@@ -2184,6 +2185,7 @@ $(document).ready(function(){
 
     $(document).on('click','.subform_btn',function(){
         let id_ = $(this).data('id');
+        console.log('id_', id_,  $(`#${id_}`));
         $(`#${id_}`).addClass('show-modal');
         $(`#${id_}`).removeClass('hide-modal');
         $(`#entry_selector_${extract_number(id_)}`).removeClass('hide_');
