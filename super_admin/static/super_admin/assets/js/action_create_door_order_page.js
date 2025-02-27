@@ -2424,15 +2424,15 @@ $(document).ready(function(){
     });
 
     // MODAL FOR THIRD STEP
-    $(window).on("beforeunload", function (event) {
-        $("#create_order_form_modal").removeClass('hide-modal');
-        event.preventDefault(); 
-        console.log('got here -- ', event.isDefaultPrevented())
-        // if (isFormDirty) {
-            event.returnValue = ''; // Required for some browsers
-            // return "Are you sure you want to leave?";
-        // }
-    });
+    // $(window).on("beforeunload", function (event) {
+    //     $("#create_order_form_modal").removeClass('hide-modal');
+    //     event.preventDefault(); 
+    //     console.log('got here -- ', event.isDefaultPrevented())
+    //     // if (isFormDirty) {
+    //         event.returnValue = ''; // Required for some browsers
+    //         // return "Are you sure you want to leave?";
+    //     // }
+    // });
 
     // Save button action
     $("#create_order_form_modal_savedraft").on("click", function () {
