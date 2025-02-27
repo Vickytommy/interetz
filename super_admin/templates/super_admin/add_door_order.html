@@ -477,77 +477,95 @@
                                     </div>
                                     
                                     <!-- <div class="relative overflow-x-auto"> -->
-                                            <table class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" id="order_table">
-                                                <thead class="text-sm text-gray-700 dark:text-zink-200">
-                                                    <tr class="border border-gray-300 dark:border-zink-50">
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300 barcode_th hide_" >
-                                                                    {{ data|get:"Collection Barcode" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"height " }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"width" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                    {{ data|get:"quantity" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"knob model" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"knob postion" }}
-                                                            </th>
-                                                            
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"drills" }}
-                                                            </th>
-                                                            
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"drilling code" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"notes" }}
-                                                            </th>
-                                                            <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
-                                                                {{ data|get:"delete" }}
-                                                            </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="order_table_tbody">
+                                    <table class="w-full text-sm ltr:text-left rtl:text-right text-gray-500" id="order_table">
+                                        <thead class="text-sm text-gray-700 dark:text-zink-200">
+                                            <tr class="border border-gray-300 dark:border-zink-50">
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300 barcode_th hide_" >
+                                                            {{ data|get:"Collection Barcode" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"height " }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"width" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                            {{ data|get:"quantity" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"knob model" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"knob postion" }}
+                                                    </th>
                                                     
-                                                </tbody>
-                                            </table>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"drills" }}
+                                                    </th>
+                                                    
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"drilling code" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"notes" }}
+                                                    </th>
+                                                    <th scope="col" class="text-center p-3 font-semibold border-l dark:border-zink-50 border-gray-300">
+                                                        {{ data|get:"delete" }}
+                                                    </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order_table_tbody">
+                                            
+                                        </tbody>
+                                    </table>
     
     
-    
-    
-                                            <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_7">
-                                                <div class="md:col-span-2">
-                                                    <div>
-                                                        <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5" id="add_row_btn"><i class="fa fa-plus"></i> {{ data|get:"add row" }}</button>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="md:col-span-4">
-                                                    <div></div>
-                                                </div>
-    
-                                                <div class="md:col-span-2">
-                                                    <div>
-                                                        <button type="button" class="text-gray-500 border border-gray-400 btn hover:bg-gray-500 hover:text-white focus:bg-gray-500 focus:text-white focus:ring focus:ring-gray-100 dark:focus:ring-gray-500/20">
-                                                            <span class="px-1 ml-1 text-ls text-white bg-dark-500 rounded" id="quatity_counter">0</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-    
+                                    <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="create_order_form_step_7">
+                                        <div class="md:col-span-2">
+                                            <div>
+                                                <button type="button" class=" text-white bg-dark-500 hover:bg-dark-700 focus:ring-2 focus:ring-dark-100 font-medium rounded text-sm w-full sm:w-auto px-5 py-2.5" id="add_row_btn"><i class="fa fa-plus"></i> {{ data|get:"add row" }}</button>
                                             </div>
-    
-    
-    
-    
+                                        </div>
+
+                                        <div class="md:col-span-4">
+                                            <div></div>
+                                        </div>
+
+                                        <div class="md:col-span-2">
+                                            <div>
+                                                <button type="button" class="text-gray-500 border border-gray-400 btn hover:bg-gray-500 hover:text-white focus:bg-gray-500 focus:text-white focus:ring focus:ring-gray-100 dark:focus:ring-gray-500/20">
+                                                    <span class="px-1 ml-1 text-ls text-white bg-dark-500 rounded" id="quatity_counter">0</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
     
                                     <!-- </div> -->
+                                    <!-- THIRD STEP MODAL EXIT -->
+                                    <div id="create_order_form_modal" modal-center class="text-right fixed flex flex-col top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 w-fit hide-modal border border-dark-500 transition-all duration-300 ease-in-out">
+                                        <div class="w-full bg-white shadow rounded-md dark:bg-zink-700 dark:text-zink-200 dark:shadow">
+                                            <div class="hide_ flex items-center justify-between p-4 border-b border-gray-300 dark:border-zink-50"> 
+                                                <button type="button" class="close_modal btn" style="font-size: 20px;font-weight: 600;color: black;">x</button>
+                                            </div>
+                                                 
+                                            <div class="p-4" id ="">
+                                                <h6 class="text-15 font-semibold dark:text-white mb-4">
+                                                    ${window.page.notes}
+                                                </h6>
+                        
+                                                <div class="grid grid-cols-12" id="">
+                                                    <div class="md:col-span-4 mt-7">
+                                                        <div>
+                                                            <button type="button" id="create_order_form_modal_savedraft" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">{{ data|get:"close" }}</button>
+                                                            
+                                                            <button type="button" id="create_order_form_modal_close" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">{{ data|get:"close" }}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 
     

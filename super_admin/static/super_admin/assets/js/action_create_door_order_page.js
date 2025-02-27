@@ -2179,7 +2179,7 @@ $(document).ready(function(){
 
     $(document).on('click','.subform_btn',function(){
         let id_ = $(this).data('id');
-        console.log('id_', id_,  $(`#${id_}`));
+        // console.log('id_', id_,  $(`#${id_}`));
         $(`#${id_}`).addClass('show-modal');
         $(`#${id_}`).removeClass('hide-modal');
         $(`#entry_selector_${extract_number(id_)}`).removeClass('hide_');
@@ -2421,6 +2421,31 @@ $(document).ready(function(){
         }
         $("#quatity_counter").html(count_quantity());
         return false;
+    });
+
+    // MODAL FOR THIRD STEP
+    $(window).on("beforeunload", function (event) {
+        $("#create_order_form_modal").removeClass('hide-modal');
+        event.preventDefault(); 
+        console.log('got here -- ', event.isDefaultPrevented())
+        // if (isFormDirty) {
+            event.returnValue = ''; // Required for some browsers
+            // return "Are you sure you want to leave?";
+        // }
+    });
+
+    // Save button action
+    $("#create_order_form_modal_savedraft").on("click", function () {
+        alert("Saving data...");
+        // isFormDirty = false; // Reset dirty state
+        $("#create_order_form_modal").addClass('hide-modal');
+    });
+
+    // Leave button action
+    $("#create_order_form_modal_close").on("click", function () {
+        // isFormDirty = false; // Prevent beforeunload from triggering again
+        $("#create_order_form_modal").removeClass('hide-modal');
+        $(window).off("beforeunload"); // Remove the event to avoid loop
     });
 
 
