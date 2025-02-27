@@ -1627,36 +1627,34 @@ $(document).ready(function(){
                             <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 collection_barcode" name="collection_barcode_td[]" id="collection_barcode_td_${tr_count}" data-id="${tr_count}">
                                     ${options}
                             </select>
-                            <div class="" id="zero_td_label_${tr_count}"></div>
                         </td>
 
                         <td scope="row" class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300" id="first_td_${tr_count}">
                             <input type="text" name="height[]" id="height_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             
-                            <div class="" id="first_td_label_${tr_count}"></div>
                         </td>
 
                         <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <input type="text" name="width[]" id="width_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
-                            <div class="" id="second_td_label_${tr_count}"></div>
+                            
                         </td>
 
                         <td class= "p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <input type="text" name="quantity[]" id="quantity_${tr_count}" class="w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
-                            <div class="" id="third_td_label_${tr_count}"></div>
+                            
                         </td>
 
                         <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_model_td" name="knob_model[]" id="knob_model_${tr_count}" data-id="${tr_count}" required>
 
                             </select>
-                            <div class="" id="fourth_td_label_${tr_count}"></div>
+                            
                         </td>
 
                         <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
                             <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 hide_" name="knob_position[]" id="knob_position_${tr_count}" data-id="${tr_count}" required>
                             </select>
-                            <div class="hide_" id="fifth_td_label_${tr_count}"></div>
+                            
                         </td>
 
                         <td class="text-center p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
