@@ -1647,14 +1647,14 @@ $(document).ready(function(){
                         </td>
 
                         <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_model_td" name="knob_model[]" id="knob_model_${tr_count}" data-id="${tr_count}" required>
+                            <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 knob_model_td" name="knob_model[]" id="knob_model_${tr_count}" data-id="${tr_count}" required>
 
                             </select>
                             <div class="" id="fourth_td_label_${tr_count}"></div>
                         </td>
 
                         <td class=" p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 hide_" name="knob_position[]" id="knob_position_${tr_count}" data-id="${tr_count}" required>
+                            <select class="question_dependency_${tr_count} col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 hide_" name="knob_position[]" id="knob_position_${tr_count}" data-id="${tr_count}" required>
                             </select>
                             <div class="hide_" id="fifth_td_label_${tr_count}"></div>
                         </td>
