@@ -2187,6 +2187,108 @@ $(document).ready(function(){
         $(`#${id_} #notes_details_${extract_number(id_)}`).show();
     });
 
+    $(document).on('click','#preview_order_button',function(){
+        let step = $("#step");
+        step.val("step_view_order");
+        // $('create_order_form_final_step').show();
+        
+        let order_id = $("#order_id").val().trim();
+        // let request_status_step1 = $("#request_status_step1").val().trim();
+        // let request_status_step1_user_id = $("#request_status_step1_user_id").val().trim();
+        // let product_type = $("#product_type").val();
+
+        $.ajax({
+            url:$("#link_to_add_").val(), // add url for posting request
+            method:'POST',
+            data:{
+                order_id:order_id,
+                step:step.val(),
+                action:$("#action").val(),
+            },
+            dataType:'JSON',
+            success:function(data){
+                if (data.success == 1){
+                    let cards = data.data.cards;
+                    var data = (cards && Array.isArray(cards.items)) ? cards.items : []; // Ensure it's an array
+
+
+                    var view_order_table =  $('#view_order_table').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [],
+                        data: data,
+                        language: {
+                            search: 'Search'
+                        },
+                        columns: [
+                            { 
+                                data: null, // This will be the index column
+                                className: 'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50',
+                                render: function(data, type, row, meta) {
+                                    return meta.row + 1; // 1-based index
+                                }
+                            },
+                            { data: 'collection_barcode', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'card_height', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'card_width', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'card_quantity', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'meter', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'knob_width', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'connected_knob_check', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'have_drills', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'},
+                            { data: 'have_notes', className:'p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50'}
+                        ],
+                        language: {
+                            "sEmptyTable":     " ",
+                            "sInfo":           "",
+                            "sInfoEmpty":      "",
+                            "sInfoFiltered":   "",
+                            "sInfoPostFix":    "",
+                            "sInfoThousands":  ",",
+                            "sLengthMenu":     "",
+                            "sLoadingRecords": "",
+                            "sProcessing":     "",
+                            "sSearch": window.page.search,
+                            "sZeroRecords":    "",
+                            oPaginate: {
+                                    "sFirst":    window.page.sFirst,
+                                    "sLast":    window.page.sLast,
+                                    "sNext":     window.page.sNext,
+                                    "sPrevious": window.page.sPrevious,
+                            }
+                            
+                        }
+                    });
+                    console.log('[data] ', data.data, '\n\n', view_order_table.columns(),'\n\n', view_order_table.table(),'\n\n', view_order_table.tables())
+
+                    $('#create_order_form_final_step').show();
+
+                    $('#view_order_id strong').text($("#order_id").val().trim());
+                    $('#view_employee_name strong').text($("#client_order_name").val().trim());
+                    $('#view_client_order_id strong').text($("#client_order_id").val().trim());
+                    
+                    $(".step-circle.four").addClass("completed");
+                    $(".step-line.four").addClass("completed");
+
+                    step.val("step_view_order");
+                    $('#preview_order_button').hide();
+                    $('#send_order_data_to_draft').hide();
+                    $('#add_row_btn').hide();
+                    send_order_data_to_draft
+                }else if(data.success == 0){
+                        Swal.fire(
+                            {
+                                title: window.page.error,
+                                text: data.msg,
+                                icon: 'warning',
+                                showConfirmButton: false,
+                                timer: 3000
+                            }
+                    );
+                }
+            }  //end success here
+        }); //end ajax call here
+    });
+
     $(document).on('click','.close_modal',function(){
         let id_ = $(this).data('id');
         $(`#${id_}`).removeClass('show-modal');

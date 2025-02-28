@@ -36,173 +36,159 @@
             <div class="container-fluid">
                <input type="hidden" value="{{cards}}">
 
-              <div id="pdf-content" class="mt-4">
-                         
-                        <div class="grid grid-cols-12 gap-5">
-                            <div class="col-span-12 lg:col-span-6">
+                <div id="pdf-content" class="mt-4">
+                    <div class="grid grid-cols-12 gap-5">
+                        <div class="col-span-12 lg:col-span-6">
 
-                                <!-- <table class="w-40 border border-collapse bg-white">
-                                    <tr>
-                                        <td class="block font-medium text-gray-700 text-15  dark:text-zink-200 ">{{ OrderData|get:"Order ID" }}</td>
-                                        <td><strong>{{order_track_response.order_id}}</strong></td>
-                                    </tr>
-                                </table> -->
-                                <input type="hidden" name="order_id_unique" id="order_id_unique" value="{{order_track_response.order_id}}">
-                                    <div class="md:col-span-2">
-                                            <div>
-                                                <label for="order_id" class="block font-medium text-gray-700 text-13  dark:text-zink-200 ">{{ OrderData|get:"Order ID" }} : <strong id="order_id">{{order_track_response.order_id}}</strong></label> 
-                                                
-                                            </div>
-                                    </div> 
-
-                                    <div class="md:col-span-2">
-                                                        <div>
-                                                            <label for="order_id" class="block font-medium text-gray-700 text-13  dark:text-zink-200 ">{{ OrderData|get:"Employ Name" }} : <strong>{{order_track_response.employee_name}} {{order_track_response.employee_last_name}}</strong></label>
-                                                          
-                                                        </div>
+                            <!-- <table class="w-40 border border-collapse bg-white">
+                                <tr>
+                                    <td class="block font-medium text-gray-700 text-15  dark:text-zink-200 ">{{ OrderData|get:"Order ID" }}</td>
+                                    <td><strong>{{order_track_response.order_id}}</strong></td>
+                                </tr>
+                            </table> -->
+                            <input type="hidden" name="order_id_unique" id="order_id_unique" value="{{order_track_response.order_id}}">
+                                <div class="md:col-span-2">
+                                    <div>
+                                        <label for="order_id" class="block font-medium text-gray-700 text-13  dark:text-zink-200 ">{{ OrderData|get:"Order ID" }} : <strong id="order_id">{{order_track_response.order_id}}</strong></label> 
+                                        
                                     </div>
+                                </div> 
 
-                                    <div class="md:col-span-2">
-                                                        <div>
-                                                             <label for="order_status" class="block font-medium text-gray-700 text-13 dark:text-zink-200">{{ OrderData|get:"Client Order ID" }} :  <strong>{{ order_track_response.client_order_id }}</strong></label>
-                                                           
-                                                        </div>
+                                <div class="md:col-span-2">
+                                    <div>
+                                        <label for="order_id" class="block font-medium text-gray-700 text-13  dark:text-zink-200 ">{{ OrderData|get:"Employ Name" }} : <strong>{{order_track_response.employee_name}} {{order_track_response.employee_last_name}}</strong></label>
+                                        
                                     </div>
-                                    <div class="md:col-span-2">
-                                                        <div> <label for="knob_family" class="block font-medium text-gray-700 text-13 dark:text-zink-200">{{ OrderData|get:"Knob Family"}} : 
-                                                            <strong>{{ knob_families }}</strong></label>
-                                                        </div>
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <div>
+                                            <label for="order_status" class="block font-medium text-gray-700 text-13 dark:text-zink-200">{{ OrderData|get:"Client Order ID" }} :  <strong>{{ order_track_response.client_order_id }}</strong></label>
+                                        
                                     </div>
-                            </div>
-
-                            <div class="col-span-12 lg:col-span-6" >
-                                
-                                    <img  class="ml-2" src="{% static 'super_admin/assets/images/detail_page_logo.jpg' %}" alt="" style="float:left; height:50px;">
-                                
-
-                            </div>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <div> <label for="knob_family" class="block font-medium text-gray-700 text-13 dark:text-zink-200">{{ OrderData|get:"Knob Family"}} : 
+                                        <strong>{{ knob_families }}</strong></label>
+                                    </div>
+                                </div>
                         </div>
 
-                         
+                        <div class="col-span-12 lg:col-span-6" >
+                            <img  class="ml-2" src="{% static 'super_admin/assets/images/detail_page_logo.jpg' %}" alt="" style="float:left; height:50px;">
+                            
+                        </div>
+                    </div>
 
-                        {% if cards %}
-                        
-                                   
-                                         <table id="example" class="display w-3/4 border border-collapse mt-4" style="width:100%">
-                                                <thead>
-                                                    <tr class="rtl:text-center bg-white">
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"row"}}</th>
-                                                        <th class="p-3 bg-white" >{{ productsData|get:"collection_barcode"}}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"height "}}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"width"}}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"quantity"}}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"meter" }}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"knob_width" }}</th>
-                                                        <th class="p-3 bg-white" >{{ OrderData|get:"connected_knob" }}</th>
-                                                        <th class="p-3 bg-white"  >{{ OrderData|get:"drills"}}</th>
-                                                        <th class="p-3 bg-white"  >{{ OrderData|get:"notes"}}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                        {% for card_key, card_data in cards.items %}
-
-                                            
-                                                    <tr class="bg-white">
-                                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
-                                                                    {{ forloop.counter }}
-                                                            </td>
-                                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                {{ card_data.collection_barcode }}
-
-                                                            </td>
-                                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                {{ card_data.card_height }}
-
-                                                            </td>
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                  {{ card_data.card_width }}
-
-                                                             </td>
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                 {{ card_data.card_quantity }}
-
-                                                             </td>
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
-                                                                  {{ card_data.meter|formater_num  }}
-
-                                                             </td>
-                                                            
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                 {{ card_data.knob_width|formater_num }}
-                                                             </td>
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                {{ card_data.connected_knob_check|safe }}
-                                                             </td>
-                                                               <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                   {{ card_data.have_drills|safe }}
-                                                               </td>
-                                                             <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
-                                                                     {{ card_data.have_notes|safe }}
-
-                                                             </td>
-
-                                                        </tr>
-                                                
-                                         {% endfor %}
-
-                                         
-                                        </tbody>
-
-                                        <tfoot class="bg-white">
-                                            <tr> 
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
-                                                    <strong>{{ total_quantity }} </strong>
-
-                                                </td>
-                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
-                                                        
-                                                        <strong>{{ total_meter|formater_num }}</strong>
-
-                                                </td>
-                                               
-                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
-                                                        
-                                                    <strong>
-                                                        {{ total_knob_width|formater_num }} </strong>
-
-
-                                                </td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
-                                                
-
-                                            </tr>
-
-                                        </tfoot>
-
-                                    </table>
-                                    
-                                        
-
-
+                    {% if cards %}
                     
-            </div>
-                {% endif %}
-                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="form_btn">
-                                                <div class="md:col-span-2 text-center bg-white">
-                                                    <div>
-                                                            <button type="button" id="pdfmake" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 block w-full btn text-16 py-2">{{ viewOrderDetailsData|get:"Generate PDF" }} </button>
-                                                    </div>
-                                                </div>
-                                        </div>
-            
-             
+                                
+                    <table id="example" class="display w-3/4 border border-collapse mt-4" style="width:100%">
+                                <thead>
+                                    <tr class="rtl:text-center bg-white">
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"row"}}</th>
+                                        <th class="p-3 bg-white" >{{ productsData|get:"collection_barcode"}}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"height "}}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"width"}}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"quantity"}}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"meter" }}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"knob_width" }}</th>
+                                        <th class="p-3 bg-white" >{{ OrderData|get:"connected_knob" }}</th>
+                                        <th class="p-3 bg-white"  >{{ OrderData|get:"drills"}}</th>
+                                        <th class="p-3 bg-white"  >{{ OrderData|get:"notes"}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for card_key, card_data in cards.items %}
 
+                            
+                                    <tr class="bg-white">
+                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
+                                                    {{ forloop.counter }}
+                                            </td>
+                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                {{ card_data.collection_barcode }}
+
+                                            </td>
+                                            <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                {{ card_data.card_height }}
+
+                                            </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                    {{ card_data.card_width }}
+
+                                                </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                    {{ card_data.card_quantity }}
+
+                                                </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
+                                                    {{ card_data.meter|formater_num  }}
+
+                                                </td>
+                                            
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                    {{ card_data.knob_width|formater_num }}
+                                                </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                {{ card_data.connected_knob_check|safe }}
+                                                </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                    {{ card_data.have_drills|safe }}
+                                                </td>
+                                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200  border border-gray-300 dark:border-zink-50">
+                                                        {{ card_data.have_notes|safe }}
+
+                                                </td>
+
+                                    </tr>
+                                
+                                    {% endfor %}
+                                </tbody>
+
+                        <tfoot class="bg-white">
+                            <tr> 
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
+                                    <strong>{{ total_quantity }} </strong>
+
+                                </td>
+                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
+                                        
+                                        <strong>{{ total_meter|formater_num }}</strong>
+
+                                </td>
+                                
+                                <td class="p-3 text-center text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50">
+                                        
+                                    <strong>
+                                        {{ total_knob_width|formater_num }} </strong>
+
+
+                                </td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border border-gray-300 dark:border-zink-50"></td>
+                                
+
+                            </tr>
+
+                        </tfoot>
+
+                    </table>
+                    {% endif %}
+                </div>
+
+                <div class="grid grid-cols-12 gap-x-6 md:gap-6 mt-4" id="form_btn">
+                    <div class="md:col-span-2 text-center bg-white">
+                        <div>
+                                <button type="button" id="pdfmake" class="text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 block w-full btn text-16 py-2">{{ viewOrderDetailsData|get:"Generate PDF" }} </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- container-fluid -->
         </div>
