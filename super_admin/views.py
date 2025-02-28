@@ -2285,6 +2285,11 @@ def CreateDoorOrder(request):
                     order_track_instance.client_order_name = client_order_name
                 order_track_instance.save()
                 return JsonResponse ({'success':1,'msg':'All inserted', 'track':final_response})
+            elif step == "step_view_order": # its fine
+                id = request.POST.get('order_id')
+                data = viewOrderDetails(id)
+                print('\n\n[SO FAR] - \n\n', data, '\n\n')
+                return JsonResponse ({'success':1,'msg':'All inserted', 'data':data})
             elif step == "step_draft": # this will used for tracking the order without telling the user
                 order_item_ids = [] # to save them to html
                 translations = get_translation('create new order')
@@ -2929,6 +2934,7 @@ def CreateDoorOrder(request):
                 order_track_instance.order_status = translations['sent']
                 order_track_instance.save()
                 return JsonResponse ({'success':1,'msg':'All inserted', 'track':final_response})
+            
     else:
         time_zone = settings.TIME_ZONE
         datetime_now=datetime.now(pytz.timezone(time_zone))
@@ -3356,9 +3362,9 @@ def formater_num(number):
         # print("tagss",len(number))
         return ""
 
-@role_required(allowed_roles=['super admin','admin','client'])
-def viewOrderDetails(request):
-    order_id = int(request.GET.get('order_id'))
+# @role_required(allowed_roles=['super admin','admin','client'])
+def viewOrderDetails(order_id):
+    # order_id = int(request.GET.get('order_id'))
     
     order_track_obj = OrderTrack.objects.filter(order_id = order_id).first()
     #order_item_response_list = []
@@ -3531,7 +3537,7 @@ def viewOrderDetails(request):
         global_dict['login_data']=get_translation('log in')
         global_dict['data_products']=get_translation('products') 
         global_dict['admin_data']=get_translation('admin')
-        global_dict['order_id'] = int(request.GET.get('order_id'))
+        global_dict['order_id'] = order_id
     # print(global_dict)
     #print(knob_families)
     # html_content = render_to_string('super_admin/view_client_order_details.html', context=global_dict)
@@ -3552,8 +3558,8 @@ def viewOrderDetails(request):
     #     global_dict['OrderData'].get("notes")
     # ]
     # generate_pdf_file(cols, long_list, order_id)
-    return render (request, 'super_admin/view_client_order_details.html', context = global_dict)
-
+    # return render (request, 'super_admin/view_client_order_details.html', context = global_dict)
+    return global_dict
 
 # from fpdf import FPDF
 # def generate_pdf_file(columns, data, order_id):
@@ -3829,7 +3835,8 @@ def orderPageAjaxCalls(request):
         
         elif data_requirement == "knob_image":
             print('the desc - ', request.POST.get('desc'))
-            knob = ColorKnob.objects.get(colorknob_description=request.POST.get('desc'))
+            desc = request.POST.get('desc')
+            knob = ColorKnob.objects.get(colorknob_description=desc)
             data = knob.colorknob_image.url if knob and knob.colorknob_image else ""
             print('THE SCRIPT - ', data)
             return JsonResponse({'data': data}, safe=False)
