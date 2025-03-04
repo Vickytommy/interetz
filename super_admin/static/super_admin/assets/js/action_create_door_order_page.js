@@ -61,7 +61,7 @@ $(document).ready(function(){
     function subform_generation(counter){
         let token = $("[name=csrfmiddlewaretoken]").val();
 
-        return `<div id="drills_${counter}" modal-center class="text-right fixed flex flex-col top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 w-fit border border-dark-500 hide-modal transition-all duration-300 ease-in-out">
+        return `<div style="z-index: 99999;" id="drills_${counter}" modal-center class="text-right fixed flex flex-col top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 w-fit border border-dark-500 hide-modal transition-all duration-300 ease-in-out">
                     <div class="w-full bg-white shadow rounded-md dark:bg-zink-700 dark:text-zink-200 dark:shadow">
                         <div class="flex items-center justify-between p-4 border-b border-gray-300 dark:border-zink-50"> 
                             
@@ -80,67 +80,70 @@ $(document).ready(function(){
 
                             <form style="display:none;" method="POST" class="subform_temp" id="drawer_sub_details_${counter}">
 
-                                    <input type="hidden" name="subform_type" value="drawer">
+                                <input type="hidden" name="subform_type" value="drawer">
 
-                                    <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
 
-                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.DrawerDetails}</h6>
-
-                                <div class="grid grid-cols-12 gap-x-4 md:gap-4" id="drawer_details_${counter}">
-                                        
-                                            <div class="md:col-span-2">
-                                                    <div>
-                                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DrawerType}</label>
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_type" id="drawers_type_${counter}">
-                                                            
-                                                        </select>
-                                                    </div>
-                                            </div>
+                                <div class="flex gap-4">
                                 
-
-                                
-                                            <div class="md:col-span-2">
-                                                    <div>
-                                                        <label class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" for="grid-first-name">
-                                                            ${window.page.DrawerCode}
-                                                        </label>
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_code" id="drawers_code_${counter}">
-                                                        </select>
-                                                    </div>
-                                            </div>
-                                
-
-                                            <div class="md:col-span-2">
+                                    <div class="gap-x-4 md:gap-4" id="drawer_details_${counter}">
+                                        <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.DrawerDetails}</h6>
+                                    
+                                        <div class="md:col-span-2">
                                                 <div>
-                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DrawerType}</label>
+                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_type" id="drawers_type_${counter}">
+                                                        
+                                                    </select>
                                                 </div>
-                                            </div>
+                                        </div>
+                            
 
-                                            <div class="md:col-span-2">
+                            
+                                        <div class="md:col-span-2">
                                                 <div>
-                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                    <label class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" for="grid-first-name">
+                                                        ${window.page.DrawerCode}
+                                                    </label>
+                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="drawers_code" id="drawers_code_${counter}">
+                                                    </select>
                                                 </div>
+                                        </div>
+                            
+
+                                        <div class="md:col-span-2">
+                                            <div>
+                                                <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
                                             </div>
+                                        </div>
 
-
-                                            <div class="md:col-span-2">
-                                                <div>
-                                                    <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
-                                                </div>
+                                        <div class="md:col-span-2">
+                                            <div>
+                                                <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
                                             </div>
+                                        </div>
 
-                                            <div class="md:col-span-2  mt-7">
-                                                <div>
-                                                    <button type="submit" id="drawer_submit_${counter}" name="drawer_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
 
-                                                        <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                    
-                                                </div>
+                                        <div class="md:col-span-2">
+                                            <div>
+                                                <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
+                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
                                             </div>
+                                        </div>
 
+                                        <div class="md:col-span-2  mt-7">
+                                            <div>
+                                                <button type="submit" id="drawer_submit_${counter}" name="drawer_submit_${counter}" class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+
+                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <canvas id="drawerCanvas" width="550" height="500"></canvas>
                                 </div>
 
                             </form>
@@ -149,8 +152,10 @@ $(document).ready(function(){
                             <form style="display:none;" method="POST" class="subform_temp" id="claps_sub_details_${counter}">
                                 <input type="hidden" name="subform_type" value="claps">
                                 <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
-                                <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.ClapsDetails}</h6>
-                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4 mt-4" id="claps_${counter}_details">
+
+                                <div class="flex gap-4">
+                                    <div class="gap-x-4 md:gap-4 mb-4 mt-4" id="claps_${counter}_details">
+                                        <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.ClapsDetails}</h6>
                                         
                                             <div class="md:col-span-2">
                                                     <div>
@@ -191,25 +196,30 @@ $(document).ready(function(){
                                                 </div>
                                             </div>
                                     </div>
+                                    
+                                    <canvas id="clapCanvas" width="400" height="500"></canvas>
+                                </div>
                             </form>
 
 
                             <form style="display:none;" method="POST" class="subform_temp" id="hinge_sub_details_${counter}">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="${token}">
                                 <input type="hidden" name="subform_type" value="hinge">
+                                
+                                <div class="flex gap-4">
+                                        <div class="gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}">
+                                                
+                                            <h6 class="text-15 font-semibold dark:text-white mb-4">${window.page.HingeDetails}</h6>
+                                
+                                            <div class="md:col-span-4">
+                                                    <div>
+                                                        <label for="hinge_provider" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.HingeProvider}</label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="hinge_provider" id="hinge_provider_${counter}">
+                                                        </select>
+                                                    </div>
+                                            </div>
 
-                                <h6 class="text-15 font-semibold dark:text-white mb-4">${window.page.HingeDetails}</h6>
-                                <div class="grid grid-cols-12 gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}">
-                                            
-                                        <div class="md:col-span-4">
-                                                <div>
-                                                    <label for="hinge_provider" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.HingeProvider}</label>
-                                                    <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="hinge_provider" id="hinge_provider_${counter}">
-                                                    </select>
-                                                </div>
-                                        </div>
-
-                                        <div class="md:col-span-4">
+                                            <div class="md:col-span-4">
                                                 <div>
                                                     <label for="door_operning_side" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DoorOpeningSide}</label>
                                                     <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="door_operning_side" id="door_operning_side_${counter}">
@@ -218,91 +228,84 @@ $(document).ready(function(){
                                                         
                                                     </select>
                                                 </div>
-                                        </div>
-
-
-                                        <div class="md:col-span-4">
-                                            <div>
-                                                <label for="dty" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.dty}</label>
-                                                <select class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="dty" id="dty_${counter}">
-                                                    <option value="${window.page.dty_option1}">${window.page.dty_option1}</option>
-                                                    <option value="${window.page.dty_option2}">${window.page.dty_option2}</option>
-                                                </select>
-
-
-
                                             </div>
-                                        </div>
-
-                                        <div class="md:col-span-4 mt-4">
-                                            <div>
-                                                <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
-                                            </div>
-                                        </div>
-
-                                        <div class="md:col-span-4 mt-4">
-                                            <div>
-                                                <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}">
-                                            </div>
-                                        </div>
 
 
-                                        <div class="md:col-span-4 xp1_div_${counter} mt-4" style="display:none;">
+                                            <div class="md:col-span-4">
                                                 <div>
-                                                    <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
+                                                    <label for="dty" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.dty}</label>
+                                                    <select class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="dty" id="dty_${counter}">
+                                                        <option value="${window.page.dty_option1}">${window.page.dty_option1}</option>
+                                                        <option value="${window.page.dty_option2}">${window.page.dty_option2}</option>
+                                                    </select>
                                                 </div>
-                                        </div>
+                                            </div>
 
-                                        <div class="md:col-span-4 xp2_div_${counter} mt-4" style="display:none;">
-                                            <div>
-                                                <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
+                                            <div class="md:col-span-4 mt-4">
+                                                <div>
+                                                    <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
-                                            <div>
-                                                <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
+                                            <div class="md:col-span-4 mt-4">
+                                                <div>
+                                                    <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}">
+                                                </div>
                                             </div>
-                                        </div>
-                                            <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
-                                            <div>
-                                                <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
-                                            </div>
-                                        </div>
-                                        <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
-                                            <div>
-                                                <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
-                                            </div>
-                                        </div>
-                                            
-                                        <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
-                                            <div>
-                                                <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
-                                            </div>
-                                        </div>
 
 
-                                        <div class="md:col-span-2 mt-10">
-                                            <div>
-                                                <button type="submit" id="hinge_submit_${counter}" name="hinge_submit_${counter}"  class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+                                            <div class="md:col-span-4 xp1_div_${counter} mt-4" style="display:none;">
+                                                    <div>
+                                                        <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
+                                                        <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
+                                                    </div>
+                                            </div>
 
-                                                    <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
-                                                    
+                                            <div class="md:col-span-4 xp2_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
+                                                </div>
+                                            </div>
+
+                                            <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
+                                                </div>
+                                            </div>
+                                                <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
+                                                </div>
+                                            </div>
+                                            <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
+                                                </div>
+                                            </div>
                                                 
+                                            <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
+                                                <div>
+                                                    <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
+                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
+                                                </div>
                                             </div>
 
-
-
                                         </div>
+                                    
+                                        <canvas id="hingeCanvas" width="350" height="500"></canvas>
+                                    </div>
 
+                                <div class="md:col-span-2">
+                                    <div>
+                                        <button type="submit" id="hinge_submit_${counter}" name="hinge_submit_${counter}"  class="text-white transition-all duration-300 ease-linear bg-blue-500 border-blue-500 hover:bg-blue-600 hover:border-blue-600 hover:text-white active:bg-blue-600 active:border-blue-600 active:text-white focus:bg-blue-600 focus:border-blue-600 focus:text-white focus:ring focus:ring-blue-500/30 btn">${window.page.submit}</button>
+                                        <button type="button" data-id="drills_${counter}" class="close_modal mr-2 text-white transition-all duration-300 ease-linear bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 hover:text-white active:bg-red-600 active:border-red-600 active:text-white focus:bg-red-600 focus:border-red-600 focus:text-white focus:ring focus:ring-red-500/30 btn">${window.page.close}</button>
+                                    </div>
                                 </div>
                             </form>
 
@@ -390,7 +393,15 @@ $(document).ready(function(){
         let selected_entry = $(this).find(":selected").val();
         let data_id = $(this).attr('data-id');
 
-        console.log('[Slc] - ', id_, $(`#drills_${data_id}`), $(`#drills_${data_id} .subform_temp`))
+        console.log('[Slc] - ', id_, data_id, selected_entry);
+        
+        if (selected_entry.startsWith('drawer')) {
+            drawDrawerSketch();
+        } else if (selected_entry.startsWith('claps')) {
+            drawClapSketch();
+        } else if (selected_entry.startsWith('hinge')) {
+            drawHingeSketch();
+        }
         
         // $(`#drills_${data_id} .subform_temp`).hide();
         $(`#${selected_entry}`).show();
@@ -2727,6 +2738,427 @@ $(document).ready(function(){
         fileInput.style.setProperty("--file-placeholder-text", `"${placeholderText}"`);
       });
       
+
+
+    function drawHingeSketch() {
+        const canvas = $("#hingeCanvas")[0];
+        const ctx = canvas.getContext("2d");
+
+        // Get values from inputs
+        // let width = parseInt($("#width").val());
+        // let height = parseInt($("#height").val());
+        // let hole1 = parseInt($("#hole1").val());
+        // let drillDistance = parseInt($("#drillDistance").val());
+        // let sideBarWidth = parseInt($("#sideBarWidth").val());
+        
+        let width = 300;
+        let height = 700;
+        let hole1 = 80;
+        let drillDistance = 20;
+        let sideBarWidth = 40;
+
+        // Scale factor to fit within canvas
+        let scaleFactor = 0.5;
+        let marginTop = 50;
+        let marginLeft = 100;
+        let edgePadding = 5;
+
+        width *= scaleFactor;
+        height *= scaleFactor;
+        drillDistance *= scaleFactor;
+        sideBarWidth *= scaleFactor;
+
+        let drill1X = marginLeft + width - drillDistance;
+        let drill1Y = marginTop + hole1 * scaleFactor;
+        let drill2Y = marginTop + height - (hole1 * scaleFactor);
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "14px Arial";
+        ctx.textAlign = "center";
+
+        // Draw Main Rectangle
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(marginLeft, marginTop, width, height);
+
+        // Draw Side Bar with border
+        ctx.fillStyle = "#ddd";
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+        ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+
+        // Draw Drill Holes
+        ctx.fillStyle = "#666";
+        ctx.beginPath();
+        ctx.arc(drill1X, drill1Y, 5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drill1Y - 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drill1Y + 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drill2Y - 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drill2Y + 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Drill Line Indicators
+
+        // RED BOTTOM LINE & LABEL
+        ctx.strokeStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(marginLeft, (edgePadding + marginTop) + height);
+        ctx.lineTo(marginLeft + width, (edgePadding + marginTop) + height);
+        ctx.stroke();
+        ctx.fillStyle = "red"; // For the label
+        ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop + height + 20);
+
+        // BLUE LEFT LINE & LABEL
+        ctx.strokeStyle = "blue";
+        ctx.fillStyle = "blue"; // For the label
+        ctx.beginPath();
+        ctx.moveTo((marginLeft - edgePadding), marginTop);
+        ctx.lineTo((marginLeft - edgePadding), marginTop + height);
+        ctx.stroke();
+        ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
+
+        // ORANGE LINES
+        // DRILL 1 DASHED LINE & LABEL
+        ctx.strokeStyle = "orange";
+        ctx.fillStyle = "orange"; // For the label
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill1Y);
+        ctx.lineTo(drill1X + 20, drill1Y);
+        ctx.stroke();
+        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drill1Y + 5);
+
+        // DRILL 2 DASHED LINE & LABEL
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill2Y);
+        ctx.lineTo(drill1X + 20, drill2Y);
+        ctx.stroke();
+        ctx.fillText(`${height/scaleFactor - hole1} cm`, width + (marginLeft + 40), drill2Y + 5);
+
+        // ORANGE RIGHT DASHED LINE
+        ctx.beginPath();
+        ctx.moveTo(marginLeft + (width + edgePadding), drill1Y);
+        ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+        ctx.stroke();
+
+        // GREEN LINES
+        ctx.strokeStyle = "green";
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill1Y);
+        ctx.lineTo(drill1X, (marginTop - edgePadding));
+        ctx.stroke();
+        ctx.fillStyle = "green"; // For the label
+        ctx.fillText(`${drillDistance/scaleFactor} cm`, drill1X, marginTop - 10);
+
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill1Y - (marginTop - edgePadding));
+        ctx.lineTo((marginLeft) + width, drill1Y - (marginTop - edgePadding));
+        ctx.stroke();
+
+        // Reset next updates
+        ctx.strokeStyle = "#666";
+        ctx.setLineDash([]);
+    }
+
+    function drawDrawerSketch() {
+        const canvas = $("#drawerCanvas")[0];
+        const ctx = canvas.getContext("2d");
+
+        // Get values from inputs
+        // let width = parseInt($("#widthd").val());
+        // let height = parseInt($("#heightd").val());
+        // let hole1 = parseInt($("#hole1d").val());
+        // let hole2 = parseInt($("#hole2d").val());
+        // let drillDistance = parseInt($("#drillDistanced").val());
+        // let sideBarHeight = parseInt($("#sideBarHeight").val());
+        
+        let width = 700;
+        let height = 300;
+        let hole1 = 220;
+        let hole2 = 260;
+        let x = 10;
+        let drillDistance = 620;
+        let sideBarHeight = 30;
+
+        // Scale factor to fit within canvas
+        let scaleFactor = 0.5;
+        let marginTop = 50;
+        let marginLeft = 100;
+        let edgePadding = 5;
+
+        width *= scaleFactor;
+        height *= scaleFactor;
+        drillDistance *= scaleFactor;
+        sideBarHeight *= scaleFactor;
+
+        let drill1X = marginLeft - x + width;
+        let drill2X = marginLeft + x;
+        let drillY = marginTop + hole1 * scaleFactor;
+        let drill2Y = marginTop + hole2 * scaleFactor;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "14px Arial";
+        ctx.textAlign = "center";
+
+        // Draw Main Rectangle
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(marginLeft, marginTop, width, height);
+
+        // Draw Side Bar with border
+        ctx.fillStyle = "#ddd";
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.fillRect(marginLeft, marginTop, width, sideBarHeight);
+        ctx.strokeRect(marginLeft, marginTop, width, sideBarHeight);
+
+        // Draw Drill Holes
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(drill2X, drillY, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill2X, drill2Y, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Drill Line Indicators
+
+        // RED BOTTOM LINE & LABEL
+        ctx.strokeStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(marginLeft, (marginTop - edgePadding));
+        ctx.lineTo(marginLeft + width, (marginTop - edgePadding));
+        ctx.stroke();
+        ctx.fillStyle = "red"; // For the label
+        ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop - 10);
+
+        // BLUE LEFT LINE & LABEL
+        ctx.strokeStyle = "blue";
+        ctx.fillStyle = "blue"; // For the label
+        ctx.beginPath();
+        ctx.moveTo((marginLeft - edgePadding), marginTop);
+        ctx.lineTo((marginLeft - edgePadding), marginTop + height);
+        ctx.stroke();
+        ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
+
+        // ORANGE LINES
+        // DRILL 1 DASHED LINE & LABEL
+        ctx.strokeStyle = "orange";
+        ctx.fillStyle = "orange"; // For the label
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drillY);
+        ctx.lineTo(marginLeft + width + edgePadding, drillY);
+        ctx.stroke();
+        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drillY + 5);
+
+        // DRILL 2 DASHED LINE & LABEL
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill2Y);
+        ctx.lineTo(marginLeft + width + edgePadding, drill2Y);
+        ctx.stroke();
+        ctx.fillText(`${hole2} cm`,  width + (marginLeft + 40), drill2Y + 5);
+        
+        // ORANGE RIGHT DASHED LINE
+        ctx.beginPath();
+        ctx.moveTo(marginLeft + (width + edgePadding), drillY);
+        ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+        ctx.stroke();
+
+        // GREEN LINES
+        ctx.strokeStyle = "green";
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drillY);
+        ctx.lineTo(drill1X, (marginTop + height + edgePadding));
+        ctx.stroke();
+        ctx.fillStyle = "green"; // For the label
+        ctx.fillText(`${x} cm`, drill1X, (marginTop + height + edgePadding + 15));
+
+        ctx.beginPath();
+        ctx.moveTo(drill1X, (marginTop + height + edgePadding));
+        ctx.lineTo((marginLeft) + width, (marginTop + height + edgePadding));
+        ctx.stroke();
+
+        // Reset next updates
+        ctx.strokeStyle = "#666";
+        ctx.setLineDash([]);
+    }
+
+    function drawClapSketch() {
+        const canvas = $("#clapCanvas")[0];
+        const ctx = canvas.getContext("2d");
+
+        // Get values from inputs
+        // let width = parseInt($("#width").val());
+        // let height = parseInt($("#height").val());
+        // let hole1 = parseInt($("#hole1").val());
+        // let hole2 = parseInt($("#hole2").val());
+        // let x = parseInt($("#x").val());
+        // let drillDistance = parseInt($("#drillDistance").val());
+        // let sideBarWidth = parseInt($("#sideBarWidth").val());
+        
+        let width = 400;
+        let height = 700;
+        let hole1 = 80;
+        let hole2 = 80;
+        let x = 10;
+        let drillDistance = 620;
+        let sideBarWidth = 30;
+
+        // Scale factor to fit within canvas
+        let scaleFactor = 0.5;
+        let marginTop = 50;
+        let marginLeft = 100;
+        let edgePadding = 5;
+
+        width *= scaleFactor;
+        height *= scaleFactor;
+        drillDistance *= scaleFactor;
+        sideBarWidth *= scaleFactor;
+
+        let drill1X = marginLeft - x + width;
+        let drill2X = marginLeft + x + sideBarWidth;
+        let drill1Y = marginTop + hole1 * scaleFactor;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = "14px Arial";
+        ctx.textAlign = "center";
+
+        // Draw Main Rectangle
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(marginLeft, marginTop, width, height);
+
+        // Draw Side Bar with border
+        ctx.fillStyle = "#ddd";
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+        ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+        ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+
+        // Draw Drill Holes
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(drill1X, drill1Y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill1X, drill1Y + 15, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill1X, drill1Y + 30, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill1X, drill1Y + 45, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(drill2X, drill1Y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill2X, drill1Y + 15, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill2X, drill1Y + 30, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(drill2X, drill1Y + 45, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Drill Line Indicators
+
+        // RED BOTTOM LINE & LABEL
+        ctx.strokeStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(marginLeft, (edgePadding + marginTop) + height);
+        ctx.lineTo(marginLeft + width, (edgePadding + marginTop) + height);
+        ctx.stroke();
+        ctx.fillStyle = "red"; // For the label
+        ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop + height + 20);
+
+        // BLUE LEFT LINE & LABEL
+        ctx.strokeStyle = "blue";
+        ctx.fillStyle = "blue"; // For the label
+        ctx.beginPath();
+        ctx.moveTo((marginLeft - edgePadding), marginTop);
+        ctx.lineTo((marginLeft - edgePadding), marginTop + height);
+        ctx.stroke();
+        ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
+
+        // ORANGE LINES
+        // DRILL 1 DASHED LINE & LABEL
+        ctx.strokeStyle = "orange";
+        ctx.fillStyle = "orange"; // For the label
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill1Y);
+        ctx.lineTo(drill1X + 40, drill1Y);
+        ctx.stroke();
+        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drill1Y + 5);
+        
+        // ORANGE RIGHT DASHED LINE
+        ctx.beginPath();
+        ctx.setLineDash([]);
+        ctx.moveTo(marginLeft + (width + edgePadding), drill1Y);
+        ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+        ctx.stroke();
+
+        // GREEN LINES
+        ctx.strokeStyle = "green";
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, marginTop);
+        ctx.lineTo(drill1X, (marginTop - edgePadding));
+        ctx.stroke();
+        ctx.fillStyle = "green"; // For the label
+        ctx.fillText(`${x} cm`, drill1X, marginTop - 10);
+
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drill1Y - (marginTop - edgePadding));
+        ctx.lineTo((marginLeft) + width, drill1Y - (marginTop - edgePadding));
+        ctx.stroke();
+
+        // Reset next updates 
+        ctx.strokeStyle = "#666";
+        ctx.setLineDash([]);
+    }
+
+    // $(document).ready(function () {
+    //     $("#updateHingeCanvas").click(drawHingeSketch);
+    // });
+
+
 
 
 // $("input[name=nh]").on("focus", function() {
