@@ -114,14 +114,14 @@ $(document).ready(function(){
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
                                             </div>
                                         </div>
 
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
                                             </div>
                                         </div>
 
@@ -143,7 +143,7 @@ $(document).ready(function(){
                                         </div>
 
                                     </div>
-                                    <canvas id="drawerCanvas" width="550" height="500"></canvas>
+                                    <canvas data-count="${counter}" id="drawerCanvas" width="550" height="500"></canvas>
                                 </div>
 
                             </form>
@@ -168,14 +168,14 @@ $(document).ready(function(){
                                             <div class="md:col-span-2">
                                                 <div>
                                                     <label for="lo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                    <input class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-2">
                                                 <div>
                                                     <label for="ro" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                    <input class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
                                                 </div>
                                             </div>
 
@@ -197,7 +197,7 @@ $(document).ready(function(){
                                             </div>
                                     </div>
                                     
-                                    <canvas id="clapCanvas" width="400" height="500"></canvas>
+                                    <canvas data-count="${counter}" id="clapCanvas" width="400" height="500"></canvas>
                                 </div>
                             </form>
 
@@ -244,7 +244,7 @@ $(document).ready(function(){
                                             <div class="md:col-span-4 mt-4">
                                                 <div>
                                                     <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
                                                 </div>
                                             </div>
 
@@ -256,17 +256,17 @@ $(document).ready(function(){
                                             </div>
 
 
-                                            <div class="md:col-span-4 xp1_div_${counter} mt-4" style="display:none;">
+                                            <div class="md:col-span-4 xp1_div_${counter} mt-4">
                                                     <div>
                                                         <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
-                                                        <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
+                                                        <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
                                                     </div>
                                             </div>
 
-                                            <div class="md:col-span-4 xp2_div_${counter} mt-4" style="display:none;">
+                                            <div class="md:col-span-4 xp2_div_${counter} mt-4"">
                                                 <div>
                                                     <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
                                                 </div>
                                             </div>
 
@@ -298,7 +298,7 @@ $(document).ready(function(){
 
                                         </div>
                                     
-                                        <canvas id="hingeCanvas" width="350" height="500"></canvas>
+                                        <canvas data-count="${counter}" id="hingeCanvas" width="350" height="700"></canvas>
                                     </div>
 
                                 <div class="md:col-span-2">
@@ -692,10 +692,6 @@ $(document).ready(function(){
                 console.log("Error at handleKnobFamilyData func");
             }
     } //end handleKnobFamilyData here
-
-
-
-
 
 
 
@@ -2742,19 +2738,25 @@ $(document).ready(function(){
 
     function drawHingeSketch() {
         const canvas = $("#hingeCanvas")[0];
+        let counter = canvas.getAttribute('data-count');
+
         const ctx = canvas.getContext("2d");
 
+        console.log('[lg] - ', counter, );
         // Get values from inputs
-        // let width = parseInt($("#width").val());
-        // let height = parseInt($("#height").val());
+        let width = parseInt($(`#width_${counter}`).val()) || 300;
+        let height = parseInt($(`#height_${counter}`).val()) || 700;
         // let hole1 = parseInt($("#hole1").val());
         // let drillDistance = parseInt($("#drillDistance").val());
         // let sideBarWidth = parseInt($("#sideBarWidth").val());
+        let hole1 = parseInt($(`#xp1_${counter}.hinge-input`).val()) || 80;
+        let hole2 = parseInt($(`#xp2_${counter}.hinge-input`).val()) || 620;
+        let drillDistance = parseInt($(`#yp_${counter}.hinge-input`).val()) || 10;
         
-        let width = 300;
-        let height = 700;
-        let hole1 = 80;
-        let drillDistance = 20;
+        // let width = 300;
+        // let height = 700;
+        // let hole1 = 80;
+        // let drillDistance = 20;
         let sideBarWidth = 40;
 
         // Scale factor to fit within canvas
@@ -2769,8 +2771,8 @@ $(document).ready(function(){
         sideBarWidth *= scaleFactor;
 
         let drill1X = marginLeft + width - drillDistance;
-        let drill1Y = marginTop + hole1 * scaleFactor;
-        let drill2Y = marginTop + height - (hole1 * scaleFactor);
+        let drill1Y = marginTop + height - (hole1 * scaleFactor);
+        let drill2Y = marginTop + height - (hole2 * scaleFactor);
 
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -2848,7 +2850,7 @@ $(document).ready(function(){
         ctx.moveTo(drill1X, drill2Y);
         ctx.lineTo(drill1X + 20, drill2Y);
         ctx.stroke();
-        ctx.fillText(`${height/scaleFactor - hole1} cm`, width + (marginLeft + 40), drill2Y + 5);
+        ctx.fillText(`${hole2} cm`, width + (marginLeft + 40), drill2Y + 5);
 
         // ORANGE RIGHT DASHED LINE
         ctx.beginPath();
@@ -2860,15 +2862,15 @@ $(document).ready(function(){
         ctx.strokeStyle = "green";
         ctx.setLineDash([5, 3]);
         ctx.beginPath();
-        ctx.moveTo(drill1X, drill1Y);
+        ctx.moveTo(drill1X, drill2Y);
         ctx.lineTo(drill1X, (marginTop - edgePadding));
         ctx.stroke();
         ctx.fillStyle = "green"; // For the label
         ctx.fillText(`${drillDistance/scaleFactor} cm`, drill1X, marginTop - 10);
 
         ctx.beginPath();
-        ctx.moveTo(drill1X, drill1Y - (marginTop - edgePadding));
-        ctx.lineTo((marginLeft) + width, drill1Y - (marginTop - edgePadding));
+        ctx.moveTo(drill1X, (marginTop - edgePadding));
+        ctx.lineTo((marginLeft) + width, (marginTop - edgePadding));
         ctx.stroke();
 
         // Reset next updates
@@ -2878,21 +2880,28 @@ $(document).ready(function(){
 
     function drawDrawerSketch() {
         const canvas = $("#drawerCanvas")[0];
+        let counter = canvas.getAttribute('data-count');
+
         const ctx = canvas.getContext("2d");
 
         // Get values from inputs
-        // let width = parseInt($("#widthd").val());
-        // let height = parseInt($("#heightd").val());
+        let width = parseInt($(`#width_${counter}`).val()) || 700;
+        let height = parseInt($(`#height_${counter}`).val()) || 300;
+        let x1 = parseInt($(`#lo_${counter}.drawer-input`).val()) || 10;
+        let x2 = parseInt($(`#ro_${counter}.drawer-input`).val()) || 10;
         // let hole1 = parseInt($("#hole1d").val());
         // let hole2 = parseInt($("#hole2d").val());
         // let drillDistance = parseInt($("#drillDistanced").val());
         // let sideBarHeight = parseInt($("#sideBarHeight").val());
+
+        console.log('[lg] - ', counter, x1, x2);
         
-        let width = 700;
-        let height = 300;
+        // let width = 700;
+        // let height = 300;
         let hole1 = 220;
         let hole2 = 260;
-        let x = 10;
+        // let x1 = 10;
+        // let x2 = 10;
         let drillDistance = 620;
         let sideBarHeight = 30;
 
@@ -2907,8 +2916,8 @@ $(document).ready(function(){
         drillDistance *= scaleFactor;
         sideBarHeight *= scaleFactor;
 
-        let drill1X = marginLeft - x + width;
-        let drill2X = marginLeft + x;
+        let drill1X = marginLeft - x1 + width;
+        let drill2X = marginLeft + x2;
         let drillY = marginTop + hole1 * scaleFactor;
         let drill2Y = marginTop + hole2 * scaleFactor;
 
@@ -3002,7 +3011,7 @@ $(document).ready(function(){
         ctx.lineTo(drill1X, (marginTop + height + edgePadding));
         ctx.stroke();
         ctx.fillStyle = "green"; // For the label
-        ctx.fillText(`${x} cm`, drill1X, (marginTop + height + edgePadding + 15));
+        ctx.fillText(`${x1} cm`, drill1X, (marginTop + height + edgePadding + 15));
 
         ctx.beginPath();
         ctx.moveTo(drill1X, (marginTop + height + edgePadding));
@@ -3016,22 +3025,26 @@ $(document).ready(function(){
 
     function drawClapSketch() {
         const canvas = $("#clapCanvas")[0];
+        let counter = canvas.getAttribute('data-count');
+
         const ctx = canvas.getContext("2d");
 
         // Get values from inputs
-        // let width = parseInt($("#width").val());
-        // let height = parseInt($("#height").val());
+        let width = parseInt($(`#width_${counter}`).val()) || 400;
+        let height = parseInt($(`#height_${counter}`).val()) || 700;
         // let hole1 = parseInt($("#hole1").val());
-        // let hole2 = parseInt($("#hole2").val());
+        let hole1 = parseInt( $(`#lo_${counter}.clap-input`).val()) || 80;
+        let x = parseInt($(`#ro_${counter}.clap-input`).val()) || 10;
         // let x = parseInt($("#x").val());
         // let drillDistance = parseInt($("#drillDistance").val());
         // let sideBarWidth = parseInt($("#sideBarWidth").val());
         
-        let width = 400;
-        let height = 700;
-        let hole1 = 80;
-        let hole2 = 80;
-        let x = 10;
+        console.log('[lg] - ', counter,  $(`#lo_${counter}.clap-input`).val());
+        
+        // let width = 400;
+        // let height = 700;
+        // let hole1 = 80;
+        // let x = 10;
         let drillDistance = 620;
         let sideBarWidth = 30;
 
@@ -3154,6 +3167,18 @@ $(document).ready(function(){
         ctx.setLineDash([]);
     }
 
+    $(document).on('input','.hinge-input',function(){
+        drawHingeSketch();
+    });
+
+    $(document).on('input','.drawer-input',function(){
+        drawDrawerSketch();
+    });
+
+    $(document).on('input','.clap-input',function(){
+        drawClapSketch();
+    });
+    
     // $(document).ready(function () {
     //     $("#updateHingeCanvas").click(drawHingeSketch);
     // });
