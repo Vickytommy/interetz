@@ -3437,13 +3437,6 @@ def viewOrderDetails(order_id):
                 helper_queryset = helperTables.objects.filter(helper_table_id = card_item_response['knob_position_id']).first()
                 helper_dict = model_to_dict(helper_queryset)
                 dic['helper_value_english'] = helper_dict['helper_value_english']
-                # if helper_dict['helper_value_english'] in ["upper","lower"]:
-                #     dic['helper_value_english_final'] = round(card_item_response['card_width'],2)
-                # elif helper_dict['helper_value_english'] in ["width right","width left"]:
-                #     dic['helper_value_english_final'] = round(card_item_response['card_height'],2)
-                # elif helper_dict['helper_value_english'] in ["connected knob"]:
-                #     dic['helper_value_english_final'] = helper_dict['helper_value_hebrew']
-                #     dic['connected_knob_check'] = plus_btn
 
                 if helper_dict['helper_value_english'] in ["upper","lower"]:
                     dic['helper_value_english_final'] = round((card_item_response['card_width']/10 ) * card_item_response['card_quantity'],2)
@@ -3484,8 +3477,6 @@ def viewOrderDetails(order_id):
                     value =  float(min_order_of_collection) * float(card_item_response['card_quantity'])
                     dic['meter'] = value
             else:
-                # dic['collection_barcode']= ''
-                # print(index, card_item_response['collection_barcode_id'])
                 if card_item_response['collection_barcode_id']!='':
                     collection_queryset = Collection.objects.filter(collection_id = card_item_response['collection_barcode_id']).first()
                     collection_obj = model_to_dict(collection_queryset)
@@ -3501,19 +3492,10 @@ def viewOrderDetails(order_id):
                         dic['meter'] = value
 
             dic['collection_barcode'] = collection_barcode
-            # print(dic['meter'])
-            #print(min_order_of_collection)
-            # dic['meter'] = round(value,2) if value!='' else value
-            # print(card_item_response['collection_barcode_id'], dic['meter'])
+            
             total_quantity += int(card_item_response['card_quantity'])
             total_meter += 0 if 'meter' not in dic else dic['meter']
             
-            #create new order
-            # print(card_item_response['knob'])
-            # if card_item_response['knob']!='': 
-            # # if len(card_item_response['knob_position_id']) > 0:
-            #     dic['knob_width'] = float(card_item_response['card_width'])
-            #     total_knob_width += dic['knob_width']
             dic['have_drills'] = plus_btn if have_drills==1 else ""
             dic['have_notes'] = plus_btn if len(card_item_response['card_notes']) > 0 else ""
             card_item_response['card_height'] = format_number(card_item_response['card_height'])
@@ -3538,186 +3520,11 @@ def viewOrderDetails(order_id):
         global_dict['data_products']=get_translation('products') 
         global_dict['admin_data']=get_translation('admin')
         global_dict['order_id'] = order_id
-    # print(global_dict)
-    #print(knob_families)
-    # html_content = render_to_string('super_admin/view_client_order_details.html', context=global_dict)
-    # pdf = pdfkit.from_string(html_content, False)  # Pass False to get PDF as binary data instead of saving to file
-    # response = HttpResponse(pdf, content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment; filename="order_details.pdf"'
-    # return response
-    # cols = [
-    #     global_dict['OrderData'].get("row"),
-    #     global_dict['productsData'].get("collection_barcode"),
-    #     global_dict['OrderData'].get("height "),
-    #     global_dict['OrderData'].get("width"),
-    #     global_dict['OrderData'].get("quantity"),
-    #     global_dict['OrderData'].get("meter"),
-    #     global_dict['OrderData'].get("knob_width"),
-    #     global_dict['OrderData'].get("connected_knob"),
-    #     global_dict['OrderData'].get("drills"),
-    #     global_dict['OrderData'].get("notes")
-    # ]
-    # generate_pdf_file(cols, long_list, order_id)
-    # return render (request, 'super_admin/view_client_order_details.html', context = global_dict)
-    return global_dict
-
-# from fpdf import FPDF
-# def generate_pdf_file(columns, data, order_id):
-#     # Combine headers and data into the TABLE_DATA structure
-#     TABLE_DATA = tuple([tuple(columns)] + [tuple(row) for row in data])
-#     pdf = FPDF()
-#     pdf.add_page()
-#     pdf.set_font("Arial", size=10)
-
-#     # Calculate column width based on page width
-#     page_width = pdf.w - 2 * pdf.l_margin
-#     col_width = page_width / len(columns)
-
-#     # Add table header
-#     pdf.set_font("Arial", style="B", size=10)
-#     for header in columns:
-#         pdf.cell(col_width, 10, header, border=1, align='C')
-#     pdf.ln()
-
-#     # Add table rows
-#     pdf.set_font("Arial", size=10)
-#     for row in data:
-#         for item in row:
-#             pdf.cell(col_width, 10, str(item), border=1, align='C')
-#         pdf.ln()
-#     fn = f"media/uploaded_images/{order_id}_data.pdf"
-#     print(f"file created {fn}")
-#     pdf.output(fn)
-# """ Commenting it for future use """
-# @role_required(allowed_roles=['super admin','admin','client'])
-# def viewOrderDetails(request):
-#     order_id = int(request.GET.get('order_id'))
-    
-#     order_track_obj = OrderTrack.objects.filter(order_id = order_id).first()
-#     order_item_response_list = []
-#     order_track_response = {}
-#     card_item_response_list = []
-#     global_dict = {}
-#     global_dict['OrderData'] = get_translation('create new order')
-#     if order_track_obj:
-#         order_track_response = model_to_dict(order_track_obj)
-#         # print(order_track_response)
-#         order_track_response['created_at'] = order_track_obj.created_at
-#         #print(order_track_response)
-#         user_info_queryset = EliteNovaUser.objects.filter(id = order_track_response['user']).first()
-#         user_info_obj = model_to_dict(user_info_queryset)
-#         order_item_object = OrderItems.objects.filter(order_track_id = order_track_response['order_track_id'])
-#         order_track_response['company_name'] = user_info_obj['company_name'] 
-#         order_track_response['employee_name'] = user_info_obj['employee_name']
-#         order_track_response['employee_last_name'] = user_info_obj['employee_last_name']
-#         order_track_response['order_decision_tracker_bool'] = True if order_track_response['order_decision_tracker'] == 'yes' else False
-#         order_track_response['order_decision_tracker'] = global_dict['OrderData'][order_track_response['order_decision_tracker']]
-#         global_dict['order_track_response'] = order_track_response
-#         print("order_track_response",global_dict['order_track_response'])
-#         global_dict['order_item_response_list'] =  [model_to_dict(item) for item in order_item_object] # collections data
-#         for item in global_dict['order_item_response_list']:
-#             if item['order_item_keepflow']!='':
-#                 item['order_item_keepflow'] = global_dict['OrderData'][item['order_item_keepflow']]
-
-#         print("order_item_response_list",global_dict['order_item_response_list'])
-#         global_dict['order_item_response_list_length'] = len(global_dict['order_item_response_list'])
-
-#         card_item_object = Cards.objects.filter(order_track_id = order_track_response['order_track_id'])
-#         card_item_response_list = [model_to_dict(item) for item in card_item_object]
-#         card = {}
         
-#         # print("card_item_response_list_length",len(card_item_response_list))
-#         for index, card_item_response in enumerate (card_item_response_list, 1):
-            
-#             dic = dict()
-#             drawer_item_response_list = []
-#             clap_item_response_list = []
-#             hinge_item_response_list = []
-            
-#             if card_item_response['have_drawer'] == True:
-#                 # print(index, card_item_response['have_drawer'])
-#                 drawer_items_queryset = DrawarOrder.objects.filter(
-#                     order_track_id=order_track_response['order_track_id'],
-#                     unique_identifier=card_item_response['unique_identifier']
-#                 ).values_list('drawar_order_id', flat=True)
-#                 # print(drawer_items_queryset)
-#                 list_ =  [drawar_order_id for drawar_order_id in drawer_items_queryset]
-#                 #len
-#                 #print(index, len(list_))
-#                 # if get_value_by_index(list_, index - 1)!="":
-#                 query = DrawarOrder.objects.filter(
-#                     drawar_order_id = list_[0]
-#                 )
-#                 drawer_item_response_list = [model_to_dict(k) for k in query]
-                
+        return global_dict
+
 
             
-            
-#             if card_item_response['have_clap'] == True:
-#                 clap_item_queryset = ClapOrder.objects.filter(
-#                     order_track_id=order_track_response['order_track_id'],
-#                     unique_identifier=card_item_response['unique_identifier']
-#                 ).values_list('clap_order_id', flat=True)
-#                 list_ =  [clap_order_id for clap_order_id in clap_item_queryset]
-#                 # if get_value_by_index(list_, index - 1)!="":
-#                 query = ClapOrder.objects.filter(
-#                     clap_order_id = list_[0]
-#                 )
-#                 clap_item_response_list = [model_to_dict(k) for k in query]
-
-#             if card_item_response['have_hinge'] == True:
-#                 hinge_item_queryset = HingeOrder.objects.filter(
-#                     order_track_id=order_track_response['order_track_id'],
-#                     unique_identifier=card_item_response['unique_identifier']
-#                 ).values_list('hinge_order_id', flat=True)
-#                 list_ =  [hinge_order_id for hinge_order_id in hinge_item_queryset]
-#                 # if get_value_by_index(list_, index - 1) !="" :
-#                 query = HingeOrder.objects.filter(
-#                     hinge_order_id = list_[0]
-#                 )
-#                 hinge_item_response_list = [model_to_dict(k) for k in query]
-           
-#             dic[f'card_drawer'], dic[f'card_drawer_length'] =  drawer_item_response_list,len(drawer_item_response_list)
-#             dic[f'card_clap'], dic[f'card_clap_length'] = clap_item_response_list, len(clap_item_response_list)
-#             dic[f'card_hinge'], dic[f'card_hinge_length'] = hinge_item_response_list, len(hinge_item_response_list)
-#             dic['knob_model'] = card_item_response['knob']
-#             dic['knob_family_bool'] = False
-#             dic['knob_family'] = ''
-#             if card_item_response['knob'] != global_dict['OrderData']['without knob']:
-#                 # print(card_item_response['knob'])
-#                 knob_queryset = Knob.objects.filter(knob_model = card_item_response['knob']).first()
-#                 if knob_queryset is not None:
-#                     knob_dict = model_to_dict(knob_queryset)
-#                     # print(knob_dict)
-#                     dic['knob_family'] = knob_dict['knob_family']
-#                     dic['knob_family_bool'] = True
-                
-#             dic['helper_value_english'] = ''
-#             dic['helper_value_hebrew'] = ''
-
-#             if len(card_item_response['knob_position_id']) > 0:
-#                 helper_queryset = helperTables.objects.filter(helper_table_id = card_item_response['knob_position_id']).first()
-#                 helper_dict = model_to_dict(helper_queryset)
-#                 dic['helper_value_english'] = helper_dict['helper_value_english']
-#                 dic['helper_value_hebrew'] = helper_dict['helper_value_hebrew']
-            
-
-    
-#             card_item_response['collection_barcode'] = ''
-#             if card_item_response['collection_barcode_id']!='':
-#                 collection_queryset = Collection.objects.filter(collection_id = card_item_response['collection_barcode_id']).first()
-#                 collection_obj = model_to_dict(collection_queryset)
-#                 card_item_response['collection_barcode'] =  collection_obj['collection_barcode']
-#             card[f'card_{index}'] = {**dic, **card_item_response}
-            
-#         global_dict['cards'] = card
-        
-#         global_dict['ReservationData'] = get_translation('Reservation')
-        
-#         global_dict['viewOrderDetailsData'] = get_translation('View Order Details')
-#         # print( global_dict['cards'])
-#     return render (request, 'super_admin/view_client_order_details.html', context = global_dict)
-    
 
 @role_required(allowed_roles=['super admin','admin','client'])
 def orderPageAjaxCalls(request):
