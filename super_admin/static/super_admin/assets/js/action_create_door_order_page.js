@@ -244,14 +244,14 @@ $(document).ready(function(){
                                             <div class="md:col-span-4 mt-4">
                                                 <div>
                                                     <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}" val="21.5">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-4 mt-4">
                                                 <div>
                                                     <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}" val="2">
                                                 </div>
                                             </div>
 
@@ -259,40 +259,40 @@ $(document).ready(function(){
                                             <div class="md:col-span-4 xp1_div_${counter} mt-4">
                                                     <div>
                                                         <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
-                                                        <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}">
+                                                        <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}" val="80">
                                                     </div>
                                             </div>
 
                                             <div class="md:col-span-4 xp2_div_${counter} mt-4"">
                                                 <div>
                                                     <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}" val="80">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
                                                 </div>
                                             </div>
                                                 <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
                                                 </div>
                                             </div>
                                             <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
                                                 </div>
                                             </div>
                                                 
                                             <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
+                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
                                                 </div>
                                             </div>
 
@@ -384,6 +384,7 @@ $(document).ready(function(){
 
     $(document).on('change','.entry_selector', function(){
         let id_ = $(this).data('container');
+        let count_ = $(this).data('count');
         $(`#${id_}`).addClass('show-modal');
         $(`#${id_}`).removeClass('hide-modal');
         $(`#entry_selector_${extract_number(id_)}`).removeClass('hide_');
@@ -400,6 +401,10 @@ $(document).ready(function(){
         } else if (selected_entry.startsWith('claps')) {
             drawClapSketch();
         } else if (selected_entry.startsWith('hinge')) {
+            let hole1 = parseFloat($(`#xp1_${count_}.hinge-input`).val(80));
+            let hole2 = parseFloat($(`#xp2_${count_}.hinge-input`).val(620));
+            let drillDistance = parseFloat($(`#yp_${count_}.hinge-input`).val(21.5));
+            let nh = parseFloat($(`#nh_${count_}.hinge-input`).val(2));
             drawHingeSketch();
         }
         
@@ -1665,7 +1670,7 @@ $(document).ready(function(){
                         </td>
 
                         <td class="text-center p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <select data-container="drills_${tr_count}" class="col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
+                            <select data-count="${tr_count}" data-container="drills_${tr_count}" class="col-span-12 sm:col-span-10 px-3 bg-white border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200 entry_selector" name="entry_selector_${counter}" data-id="${counter}">
                                 <option value="" disabled selected>${window.page.choose_entry_type}</option>
                                 <option value="drawer_sub_details_${tr_count}">${window.page.drawer}</option>
                                 <option value="claps_sub_details_${tr_count}">${window.page.claps}</option>
@@ -2739,25 +2744,29 @@ $(document).ready(function(){
     function drawHingeSketch() {
         const canvas = $("#hingeCanvas")[0];
         let counter = canvas.getAttribute('data-count');
-
         const ctx = canvas.getContext("2d");
+        let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
 
-        console.log('[lg] - ', counter, );
+        console.log('[lg] - ', counter, sideBarPosition);
+
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 300;
         let height = parseInt($(`#height_${counter}`).val()) || 700;
-        // let hole1 = parseInt($("#hole1").val());
-        // let drillDistance = parseInt($("#drillDistance").val());
-        // let sideBarWidth = parseInt($("#sideBarWidth").val());
-        let hole1 = parseInt($(`#xp1_${counter}.hinge-input`).val()) || 80;
-        let hole2 = parseInt($(`#xp2_${counter}.hinge-input`).val()) || 620;
-        let drillDistance = parseInt($(`#yp_${counter}.hinge-input`).val()) || 10;
-        
-        // let width = 300;
-        // let height = 700;
-        // let hole1 = 80;
-        // let drillDistance = 20;
+        let hole1 = parseInt($(`#xp1_${counter}.hinge-input`).val());
+        let hole2 = parseInt($(`#xp2_${counter}.hinge-input`).val());
+        let nh = parseInt($(`#nh_${counter}.hinge-input`).val());
+        let drillDistance = parseInt($(`#yp_${counter}.hinge-input`).val());
         let sideBarWidth = 40;
+        
+        if (!hole1) {
+            hole1 = 0;
+        }
+        if (!hole2) {
+            hole2 = 0;
+        }
+        if (!drillDistance) {
+            hole1 = 0;
+        }
 
         // Scale factor to fit within canvas
         let scaleFactor = 0.5;
@@ -2786,11 +2795,12 @@ $(document).ready(function(){
         ctx.strokeRect(marginLeft, marginTop, width, height);
 
         // Draw Side Bar with border
-        ctx.fillStyle = "#ddd";
-        ctx.strokeStyle = "#666";
-        ctx.lineWidth = 1;
-        ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
-        ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        // ctx.fillStyle = "#ddd";
+        // ctx.strokeStyle = "#666";
+        // ctx.lineWidth = 1;
+        // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+        // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
 
         // Draw Drill Holes
         ctx.fillStyle = "#666";
@@ -2884,6 +2894,8 @@ $(document).ready(function(){
 
         const ctx = canvas.getContext("2d");
 
+        let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
+        
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 700;
         let height = parseInt($(`#height_${counter}`).val()) || 300;
@@ -2933,11 +2945,12 @@ $(document).ready(function(){
         ctx.strokeRect(marginLeft, marginTop, width, height);
 
         // Draw Side Bar with border
-        ctx.fillStyle = "#ddd";
-        ctx.strokeStyle = "#666";
-        ctx.lineWidth = 1;
-        ctx.fillRect(marginLeft, marginTop, width, sideBarHeight);
-        ctx.strokeRect(marginLeft, marginTop, width, sideBarHeight);
+        // ctx.fillStyle = "#ddd";
+        // ctx.strokeStyle = "#666";
+        // ctx.lineWidth = 1;
+        // ctx.fillRect(marginLeft, marginTop, width, sideBarHeight);
+        // ctx.strokeRect(marginLeft, marginTop, width, sideBarHeight);
+        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
 
         // Draw Drill Holes
         ctx.fillStyle = "#000";
@@ -3028,6 +3041,8 @@ $(document).ready(function(){
         let counter = canvas.getAttribute('data-count');
 
         const ctx = canvas.getContext("2d");
+        let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
+        
 
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 400;
@@ -3075,11 +3090,12 @@ $(document).ready(function(){
         ctx.strokeRect(marginLeft, marginTop, width, height);
 
         // Draw Side Bar with border
-        ctx.fillStyle = "#ddd";
-        ctx.strokeStyle = "#666";
-        ctx.lineWidth = 1;
-        ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
-        ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        // ctx.fillStyle = "#ddd";
+        // ctx.strokeStyle = "#666";
+        // ctx.lineWidth = 1;
+        // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+        // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
 
         // Draw Drill Holes
         ctx.fillStyle = "black";
@@ -3165,6 +3181,63 @@ $(document).ready(function(){
         // Reset next updates 
         ctx.strokeStyle = "#666";
         ctx.setLineDash([]);
+    }
+
+
+    function addHingeDrills(marginLeft, drill1X, holen, scaleFactor) {
+        let drillY = marginTop + height - (holen * scaleFactor);
+
+        ctx.fillStyle = "#666";
+        ctx.beginPath();
+        ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drillY - 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(drill1X - 4, drillY + 8, 1, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        ctx.strokeStyle = "orange";
+        ctx.fillStyle = "orange"; // For the label
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill1X, drillY);
+        ctx.lineTo(drill1X + 20, drillY);
+        ctx.stroke();
+        ctx.fillText(`${holen} cm`, width + (marginLeft + 40), drillY + 5);
+    }
+
+
+    function drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, position) {
+        // Draw Side Bar with border
+        ctx.fillStyle = "#ddd";
+        ctx.strokeStyle = "#666";
+        ctx.lineWidth = 1;
+
+        if (position === 6) {
+            // Top
+            ctx.fillRect(marginLeft, marginTop, width, sideBarWidth);
+            ctx.strokeRect(marginLeft, marginTop, width, sideBarWidth);
+        } else if (position === 7) {
+            // Bottom
+            ctx.fillRect(marginLeft, marginTop + height - sideBarWidth, width, sideBarWidth);
+            ctx.strokeRect(marginLeft, marginTop + height - sideBarWidth, width, sideBarWidth);
+        } 
+        // else if (position === 8) {
+        //     // Notebook
+        //     // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+        //     // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        // } 
+        else if (position === 4) {
+            // Right
+            ctx.fillRect(marginLeft + width - sideBarWidth, marginTop, sideBarWidth, height);
+            ctx.strokeRect(marginLeft + width - sideBarWidth, marginTop, sideBarWidth, height);
+        } else {
+            // Left
+            ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+            ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        }
     }
 
     $(document).on('input','.hinge-input',function(){
