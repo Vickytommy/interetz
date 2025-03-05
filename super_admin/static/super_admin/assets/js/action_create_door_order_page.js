@@ -1637,17 +1637,17 @@ $(document).ready(function(){
                         </td>
 
                         <td scope="row" class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300" id="first_td_${tr_count}">
-                            <input type="text" name="height[]" id="height_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
+                            <input style="width: 100px" type="text" name="height[]" id="height_${tr_count}" class="border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             
                         </td>
 
                         <td class="p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <input type="text" name="width[]" id="width_${tr_count}" class=" w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
+                            <input style="width: 100px" type="text" name="width[]" id="width_${tr_count}" class="border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             
                         </td>
 
                         <td class= "p-3 text-gray-700 font-normal whitespace-nowrap dark:text-zink-200 border-l dark:border-zink-50 border-gray-300">
-                            <input type="text" name="quantity[]" id="quantity_${tr_count}" class="w-full border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
+                            <input style="width: 100px" type="text" name="quantity[]" id="quantity_${tr_count}" class="border py-1 p-2 placeholder:text-gray-600 rounded border-gray-400 placeholder:text-[11px] focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent dark:border-zink-50 dark:placeholder:text-zink-200" data-id="${tr_count}" required>
                             
                         </td>
 
@@ -2590,14 +2590,14 @@ $(document).ready(function(){
         save_to_draft();
         console.log("Order data has been stored to Draft");
         Swal.fire(
-                                        {
-                                            title: window.page.good_job_title, 
-                                            text: $("#draft_text").val(),
-                                            icon: 'success',
-                                            showConfirmButton: false,
-                                            timer: 5000
-                                        }
-                                );
+            {
+                title: window.page.good_job_title, 
+                text: $("#draft_text").val(),
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 5000
+            }
+        );
     });
 
 
