@@ -3651,7 +3651,20 @@ def orderPageAjaxCalls(request):
         elif data_requirement == "get_specific_drawer_codes":
             drawer_type = request.POST.get('drawer_type')
             all_drawers = Drawer.objects.filter(drawer_type =drawer_type )
-            data = [{'drawer_id': drawer.drawer_id, 'drawer_code': drawer.drawer_code} for drawer in all_drawers]
+            data = [{
+                'drawer_id': drawer.drawer_id, 
+                'drawer_code': drawer.drawer_code, 
+                'drills_amount': drawer.drills_amount,
+                'default_side': drawer.default_side,
+                'default_low': drawer.default_low,
+                'drill_1': drawer.drill_1,
+                'drill_2': drawer.drill_2,
+                'drill_3': drawer.drill_3,
+                'drill_4': drawer.drill_4,
+                'drill_5': drawer.drill_5,
+                'drill_6': drawer.drill_6,
+                'drill_7': drawer.drill_7,
+            } for drawer in all_drawers]
             return JsonResponse({'data': data}, safe=False)
         # elif data_requirement == "get_knob_colors_with_knob_family":
 
