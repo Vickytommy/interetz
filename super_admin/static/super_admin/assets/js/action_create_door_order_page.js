@@ -129,7 +129,7 @@ $(document).ready(function(){
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
+                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
                                             </div>
                                         </div>
 
@@ -397,6 +397,9 @@ $(document).ready(function(){
         console.log('[Slc] - ', id_, data_id, selected_entry);
         
         if (selected_entry.startsWith('drawer')) {
+            let side1 = parseFloat($(`#ro_${count_}.drawer-input`).val(20));
+            let side2 = parseFloat($(`#lo_${count_}.drawer-input`).val(20));
+            let drillDistance = parseFloat($(`#bo_${count_}.drawer-input`).val(21.5));
             drawDrawerSketch();
         } else if (selected_entry.startsWith('claps')) {
             drawClapSketch();
@@ -405,7 +408,7 @@ $(document).ready(function(){
             let hole2 = parseFloat($(`#xp2_${count_}.hinge-input`).val(620));
             let drillDistance = parseFloat($(`#yp_${count_}.hinge-input`).val(21.5));
             let nh = parseFloat($(`#nh_${count_}.hinge-input`).val(2));
-            drawHingeSketch();
+            drawHingeSketch(id_);
         }
         
         // $(`#drills_${data_id} .subform_temp`).hide();
@@ -2741,22 +2744,35 @@ $(document).ready(function(){
       
 
 
-    function drawHingeSketch() {
+    function drawHingeSketch(type) {
         const canvas = $("#hingeCanvas")[0];
         let counter = canvas.getAttribute('data-count');
         const ctx = canvas.getContext("2d");
         let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
 
-        console.log('[lg] - ', counter, sideBarPosition);
+        console.log('[lg] - ', counter, sideBarPosition, type);
 
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 300;
         let height = parseInt($(`#height_${counter}`).val()) || 700;
         let hole1 = parseInt($(`#xp1_${counter}.hinge-input`).val());
         let hole2 = parseInt($(`#xp2_${counter}.hinge-input`).val());
+        let hole3 = parseInt($(`#xp3_${counter}.hinge-input`).val());
+        let hole4 = parseInt($(`#xp4_${counter}.hinge-input`).val());
+        let hole5 = parseInt($(`#xp5_${counter}.hinge-input`).val());
+        let hole6 = parseInt($(`#xp6_${counter}.hinge-input`).val());
         let nh = parseInt($(`#nh_${counter}.hinge-input`).val());
         let drillDistance = parseInt($(`#yp_${counter}.hinge-input`).val());
         let sideBarWidth = 40;
+
+        // Scale factor to fit within canvas
+        let scaleFactor = 0.5;
+        let marginTop = 50;
+        let marginLeft = 100;
+        let edgePadding = 5;
+        
+        canvas.width = marginLeft + width;
+        canvas.height = marginTop + height;
         
         if (!hole1) {
             hole1 = 0;
@@ -2767,12 +2783,6 @@ $(document).ready(function(){
         if (!drillDistance) {
             hole1 = 0;
         }
-
-        // Scale factor to fit within canvas
-        let scaleFactor = 0.5;
-        let marginTop = 50;
-        let marginLeft = 100;
-        let edgePadding = 5;
 
         width *= scaleFactor;
         height *= scaleFactor;
@@ -2793,13 +2803,7 @@ $(document).ready(function(){
         ctx.strokeStyle = "#666";
         ctx.lineWidth = 1;
         ctx.strokeRect(marginLeft, marginTop, width, height);
-
-        // Draw Side Bar with border
-        // ctx.fillStyle = "#ddd";
-        // ctx.strokeStyle = "#666";
-        // ctx.lineWidth = 1;
-        // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
-        // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+        
         drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
 
         // Draw Drill Holes
@@ -2814,15 +2818,17 @@ $(document).ready(function(){
         ctx.arc(drill1X - 4, drill1Y + 8, 1, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.beginPath();
-        ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(drill1X - 4, drill2Y - 8, 1, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(drill1X - 4, drill2Y + 8, 1, 0, Math.PI * 2);
-        ctx.stroke();
+        if (nh !== 1) {
+            ctx.beginPath();
+            ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(drill1X - 4, drill2Y - 8, 1, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(drill1X - 4, drill2Y + 8, 1, 0, Math.PI * 2);
+            ctx.stroke();
+        }
 
         // Drill Line Indicators
 
@@ -2853,20 +2859,42 @@ $(document).ready(function(){
         ctx.moveTo(drill1X, drill1Y);
         ctx.lineTo(drill1X + 20, drill1Y);
         ctx.stroke();
-        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drill1Y + 5);
+        ctx.fillText(`${hole1} mm`, width + (marginLeft + 40), drill1Y + 5);
 
         // DRILL 2 DASHED LINE & LABEL
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drill2Y);
-        ctx.lineTo(drill1X + 20, drill2Y);
-        ctx.stroke();
-        ctx.fillText(`${hole2} cm`, width + (marginLeft + 40), drill2Y + 5);
+        if (nh !== 1) {
+            ctx.beginPath();
+            ctx.moveTo(drill1X, drill2Y);
+            ctx.lineTo(drill1X + 20, drill2Y);
+            ctx.stroke();
+            ctx.fillText(`${hole2} mm`, width + (marginLeft + 40), drill2Y + 5);
+        }
 
         // ORANGE RIGHT DASHED LINE
         ctx.beginPath();
         ctx.moveTo(marginLeft + (width + edgePadding), drill1Y);
         ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
         ctx.stroke();
+
+
+        if (type.startsWith('nh')) {
+            // If the nh is the input that is changed
+            if (nh > 6) { nh = 6; $(`#nh${i}_${counter}.hinge-input`).val(6); }
+            if (nh >=3) {
+                for (let i = 3; i <= nh; i++) {
+                    let val = Math.ceil((((height/scaleFactor - 160) / (nh - 1)) * (i - 2) + 80) * 100) / 100 ;
+                    addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, val, scaleFactor);
+                    $(`#xp${i}_${counter}.hinge-input`).val(val);
+                }
+            }
+        } else {
+            if (nh >=3 && nh <=6) {
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole3, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole4, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole5, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole6, scaleFactor);
+            }
+        }
 
         // GREEN LINES
         ctx.strokeStyle = "green";
@@ -2899,8 +2927,9 @@ $(document).ready(function(){
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 700;
         let height = parseInt($(`#height_${counter}`).val()) || 300;
-        let x1 = parseInt($(`#lo_${counter}.drawer-input`).val()) || 10;
-        let x2 = parseInt($(`#ro_${counter}.drawer-input`).val()) || 10;
+        let x1 = parseInt($(`#lo_${counter}.drawer-input`).val());
+        let x2 = parseInt($(`#ro_${counter}.drawer-input`).val());
+        let drillDistance = parseInt($(`#bo_${counter}.drawer-input`).val());
         // let hole1 = parseInt($("#hole1d").val());
         // let hole2 = parseInt($("#hole2d").val());
         // let drillDistance = parseInt($("#drillDistanced").val());
@@ -2911,10 +2940,10 @@ $(document).ready(function(){
         // let width = 700;
         // let height = 300;
         let hole1 = 220;
-        let hole2 = 260;
+        let hole2 = 120;
         // let x1 = 10;
         // let x2 = 10;
-        let drillDistance = 620;
+        // let drillDistance = 620;
         let sideBarHeight = 30;
 
         // Scale factor to fit within canvas
@@ -2927,10 +2956,12 @@ $(document).ready(function(){
         height *= scaleFactor;
         drillDistance *= scaleFactor;
         sideBarHeight *= scaleFactor;
+        x1 *= scaleFactor;
+        x2 *= scaleFactor;
 
         let drill1X = marginLeft - x1 + width;
         let drill2X = marginLeft + x2;
-        let drillY = marginTop + hole1 * scaleFactor;
+        let drillY = marginTop + height - drillDistance;
         let drill2Y = marginTop + hole2 * scaleFactor;
 
         // Clear canvas
@@ -2943,14 +2974,8 @@ $(document).ready(function(){
         ctx.strokeStyle = "#666";
         ctx.lineWidth = 1;
         ctx.strokeRect(marginLeft, marginTop, width, height);
-
-        // Draw Side Bar with border
-        // ctx.fillStyle = "#ddd";
-        // ctx.strokeStyle = "#666";
-        // ctx.lineWidth = 1;
-        // ctx.fillRect(marginLeft, marginTop, width, sideBarHeight);
-        // ctx.strokeRect(marginLeft, marginTop, width, sideBarHeight);
-        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
+        
+        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarHeight, sideBarPosition);
 
         // Draw Drill Holes
         ctx.fillStyle = "#000";
@@ -2994,6 +3019,7 @@ $(document).ready(function(){
 
         // ORANGE LINES
         // DRILL 1 DASHED LINE & LABEL
+        // let val = (height - drillDistance) / scaleFactor;
         ctx.strokeStyle = "orange";
         ctx.fillStyle = "orange"; // For the label
         ctx.setLineDash([5, 3]);
@@ -3001,14 +3027,14 @@ $(document).ready(function(){
         ctx.moveTo(drill1X, drillY);
         ctx.lineTo(marginLeft + width + edgePadding, drillY);
         ctx.stroke();
-        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drillY + 5);
+        ctx.fillText(`${Math.ceil((drillDistance / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
 
         // DRILL 2 DASHED LINE & LABEL
         ctx.beginPath();
         ctx.moveTo(drill1X, drill2Y);
         ctx.lineTo(marginLeft + width + edgePadding, drill2Y);
         ctx.stroke();
-        ctx.fillText(`${hole2} cm`,  width + (marginLeft + 40), drill2Y + 5);
+        ctx.fillText(`${hole2} mm`,  width + (marginLeft + 40), drill2Y + 5);
         
         // ORANGE RIGHT DASHED LINE
         ctx.beginPath();
@@ -3024,11 +3050,25 @@ $(document).ready(function(){
         ctx.lineTo(drill1X, (marginTop + height + edgePadding));
         ctx.stroke();
         ctx.fillStyle = "green"; // For the label
-        ctx.fillText(`${x1} cm`, drill1X, (marginTop + height + edgePadding + 15));
+        ctx.fillText(`${x1 / scaleFactor} mm`, drill1X, (marginTop + height + edgePadding + 15));
 
         ctx.beginPath();
         ctx.moveTo(drill1X, (marginTop + height + edgePadding));
         ctx.lineTo((marginLeft) + width, (marginTop + height + edgePadding));
+        ctx.stroke();
+        
+        // 2nd GREEN LINE
+        ctx.setLineDash([5, 3]);
+        ctx.beginPath();
+        ctx.moveTo(drill2X, drillY);
+        ctx.lineTo(drill2X, (marginTop + height + edgePadding));
+        ctx.stroke();
+        ctx.fillStyle = "green"; // For the label
+        ctx.fillText(`${x2 / scaleFactor} mm`, drill2X, (marginTop + height + edgePadding + 15));
+
+        ctx.beginPath();
+        ctx.moveTo(drill2X, (marginTop + height + edgePadding));
+        ctx.lineTo(marginLeft, (marginTop + height + edgePadding));
         ctx.stroke();
 
         // Reset next updates
@@ -3184,12 +3224,14 @@ $(document).ready(function(){
     }
 
 
-    function addHingeDrills(marginLeft, drill1X, holen, scaleFactor) {
+    function addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, holen=0, scaleFactor) {
         let drillY = marginTop + height - (holen * scaleFactor);
-
-        ctx.fillStyle = "#666";
+        
+        // ctx.fillStyle = "#666";
+        ctx.fill();
         ctx.beginPath();
         ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
+        ctx.strokeStyle = "#666"; // Set the border color to #666
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(drill1X - 4, drillY - 8, 1, 0, Math.PI * 2);
@@ -3205,7 +3247,7 @@ $(document).ready(function(){
         ctx.moveTo(drill1X, drillY);
         ctx.lineTo(drill1X + 20, drillY);
         ctx.stroke();
-        ctx.fillText(`${holen} cm`, width + (marginLeft + 40), drillY + 5);
+        ctx.fillText(`${holen} mm`, width + (marginLeft + 40), drillY + 5);
     }
 
 
@@ -3241,10 +3283,12 @@ $(document).ready(function(){
     }
 
     $(document).on('input','.hinge-input',function(){
-        drawHingeSketch();
+        let type = $(this).attr('id');
+        drawHingeSketch(type);
     });
 
     $(document).on('input','.drawer-input',function(){
+        let type = $(this).attr('id');
         drawDrawerSketch();
     });
 
