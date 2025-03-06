@@ -11,6 +11,8 @@ $(document).ready(function(){
                 }
             }
     });
+    var drawerSketchData = [];
+    var no_of_drawer_drills = 1;
 
     ///////// To add scroll down function /////////
     $(document).on('click','#add_row_btn', function() {
@@ -400,7 +402,7 @@ $(document).ready(function(){
             let side1 = parseFloat($(`#ro_${count_}.drawer-input`).val(20));
             let side2 = parseFloat($(`#lo_${count_}.drawer-input`).val(20));
             let drillDistance = parseFloat($(`#bo_${count_}.drawer-input`).val(21.5));
-            drawDrawerSketch();
+            drawDrawerSketch(no_of_drawer_drills);
         } else if (selected_entry.startsWith('claps')) {
             drawClapSketch();
         } else if (selected_entry.startsWith('hinge')) {
@@ -2039,6 +2041,7 @@ $(document).ready(function(){
                 },
                 dataType:'JSON',
                 success:function(data){
+                    drawerSketchData = data.data;
 
                     $(`select#${element_id}`).empty().append($('<option>', {
                             text: window.page.select_a_value,
@@ -2051,14 +2054,38 @@ $(document).ready(function(){
                     $.each(data.data, function (index, item) {
                         $(`select#${element_id}`).append($('<option>', {
                             text: item.drawer_code,
-                            value: item.drawer_code,   
-                               
-                         }));
+                            value: item.drawer_code,
+                         }).attr('data-id', data.data[index].drawer_id));
 
                    });
                 }//end success here
         }); //end ajax call here
     }); //end select[name="drawers_type"] event here
+
+    
+    $('#order_table_tbody').on('change','select[name="drawers_code"]',function(){
+        let drawer_code = $(this).find(":selected").val();
+        let id_ = $(this).attr("id").split('drawers_code_')[1];
+        let draw_id = $(this).find(":selected").attr('data-id');
+        // console.log('[Fetched] - ', drawer_code, id_, draw_id, drawerSketchData);
+
+        for (const el of drawerSketchData) {
+            if (el.drawer_id === parseInt(draw_id)) {
+                $(`#lo_${id_}.drawer-input`).val(el.default_side);
+                $(`#ro_${id_}.drawer-input`).val(el.default_side);
+                $(`#bo_${id_}.drawer-input`).val(el.default_low);
+
+                no_of_drawer_drills = parseInt(el.drills_amount);
+                drawDrawerSketch(no_of_drawer_drills);
+                break;
+            }
+        }
+
+        // $(`#lo_${element_id}.drawer-input`).value(data.default_side);
+        // $(`#ro_${element_id}.drawer-input`).value(data.default_side);
+        // $(`#bo_${element_id}.drawer-input`).value(data.default_low);
+        
+    });
     
 
 
@@ -2916,7 +2943,7 @@ $(document).ready(function(){
         ctx.setLineDash([]);
     }
 
-    function drawDrawerSketch() {
+    function drawDrawerSketch(num_of_drills=1) {
         const canvas = $("#drawerCanvas")[0];
         let counter = canvas.getAttribute('data-count');
 
@@ -2983,19 +3010,19 @@ $(document).ready(function(){
         ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
+        // ctx.beginPath();
+        // ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
+        // ctx.fill();
+        // ctx.stroke();
 
         ctx.beginPath();
         ctx.arc(drill2X, drillY, 5, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(drill2X, drill2Y, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
+        // ctx.beginPath();
+        // ctx.arc(drill2X, drill2Y, 5, 0, Math.PI * 2);
+        // ctx.fill();
+        // ctx.stroke();
 
         // Drill Line Indicators
 
@@ -3030,11 +3057,18 @@ $(document).ready(function(){
         ctx.fillText(`${Math.ceil((drillDistance / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
 
         // DRILL 2 DASHED LINE & LABEL
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drill2Y);
-        ctx.lineTo(marginLeft + width + edgePadding, drill2Y);
-        ctx.stroke();
-        ctx.fillText(`${hole2} mm`,  width + (marginLeft + 40), drill2Y + 5);
+        // ctx.beginPath();
+        // ctx.moveTo(drill1X, drill2Y);
+        // ctx.lineTo(marginLeft + width + edgePadding, drill2Y);
+        // ctx.stroke();
+        // ctx.fillText(`${hole2} mm`,  width + (marginLeft + 40), drill2Y + 5);
+        
+
+        if (num_of_drills >= 2) {
+            for (let i = 1; i <= num_of_drills; i++) {
+                addDrawerDrills(ctx, marginTop, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, 20 * (i));
+            }
+        }
         
         // ORANGE RIGHT DASHED LINE
         ctx.beginPath();
@@ -3074,6 +3108,31 @@ $(document).ready(function(){
         // Reset next updates
         ctx.strokeStyle = "#666";
         ctx.setLineDash([]);
+        
+        function addDrawerDrills(ctx, marginLeft, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, addition) {
+            let drillY = marginTop + height - (drillDistance + addition);
+            // Draw Drill Holes
+            ctx.fillStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(drill2X, drillY, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // ORANGE LINES
+            ctx.strokeStyle = "orange";
+            ctx.fillStyle = "orange"; // For the label
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(drill1X, drillY);
+            ctx.lineTo(marginLeft + width + edgePadding, drillY);
+            ctx.stroke();
+            ctx.fillText(`${Math.ceil(((drillDistance + addition) / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
+        }
     }
 
     function drawClapSketch() {
@@ -3289,7 +3348,7 @@ $(document).ready(function(){
 
     $(document).on('input','.drawer-input',function(){
         let type = $(this).attr('id');
-        drawDrawerSketch();
+        drawDrawerSketch(no_of_drawer_drills);
     });
 
     $(document).on('input','.clap-input',function(){
