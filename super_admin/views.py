@@ -1519,7 +1519,7 @@ def add_claps(request):
                                 clap_type=row_data['clap_type'],
                                 clap_code=row_data['clap_code'],
                                 side_kant=row_data['side_kant'],
-                                upper=row_data['upper_kant'],
+                                upper_kant=row_data['upper_kant'],
                                 default_side=row_data['default_side'],
                                 default_upper=row_data['default_upper'],
                                 diameter=row_data['diameter'],
@@ -3601,6 +3601,24 @@ def orderPageAjaxCalls(request):
             # data = list(all_drawer_types)
             return JsonResponse({'data': data}, safe=False)
 
+        elif data_requirement == "claps":
+            all_claps = Clap.objects.all()
+            unique_clap_types = set()
+            data = []
+
+            for clap in all_claps:
+                if clap.clap_type not in unique_clap_types:
+                    data.append({
+                        'clap_id': clap.clap_id,
+                        'clap_type': clap.clap_type,
+                        'clap_code': clap.clap_code
+                    })
+                    unique_clap_types.add(clap.clap_type)
+            #data = [{'clap_id': clap.clap_id, 'clap_type': clap.clap_type, 'clap_code': clap.clap_code} for clap in all_claps]
+            # all_clap_types = Clap.objects.values_list('clap_type', flat=True).distinct()
+            # data = list(all_clap_types)
+            return JsonResponse({'data': data}, safe=False)
+
         elif data_requirement == "specific_drawer":
             drawer_type = request.POST.get('drawer_type')
             all_drawers = Drawer.objects.filter(drawer_type=drawer_type)
@@ -3665,6 +3683,26 @@ def orderPageAjaxCalls(request):
                 'drill_6': drawer.drill_6,
                 'drill_7': drawer.drill_7,
             } for drawer in all_drawers]
+            return JsonResponse({'data': data}, safe=False)
+        # elif data_requirement == "get_knob_colors_with_knob_family":
+
+        elif data_requirement == "get_specific_clap_codes":
+            clap_type = request.POST.get('clap_type')
+            all_claps = Clap.objects.filter(clap_type =clap_type )
+            data = [{
+                'clap_id': clap.clap_id, 
+                'clap_code': clap.clap_code, 
+                'drills_amount': clap.drills_amount,
+                'default_side': clap.default_side,
+                'default_upper': clap.default_upper,
+                'drill_1': clap.drill_1,
+                'drill_2': clap.drill_2,
+                'drill_3': clap.drill_3,
+                'drill_4': clap.drill_4,
+                'drill_5': clap.drill_5,
+                'drill_6': clap.drill_6,
+                'drill_7': clap.drill_7,
+            } for clap in all_claps]
             return JsonResponse({'data': data}, safe=False)
         # elif data_requirement == "get_knob_colors_with_knob_family":
 
