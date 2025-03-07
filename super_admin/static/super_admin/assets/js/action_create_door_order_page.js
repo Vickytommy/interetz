@@ -12,7 +12,12 @@ $(document).ready(function(){
             }
     });
     var drawerSketchData = [];
+    var currentDrawerObj = {};
     var no_of_drawer_drills = 1;
+    
+    var clapSketchData = [];
+    var currentClapObj = {};
+    var no_of_clap_drills = 1;
 
     ///////// To add scroll down function /////////
     $(document).on('click','#add_row_btn', function() {
@@ -99,7 +104,6 @@ $(document).ready(function(){
                                                     </select>
                                                 </div>
                                         </div>
-                            
 
                             
                                         <div class="md:col-span-2">
@@ -116,14 +120,14 @@ $(document).ready(function(){
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                <input type="number" class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
                                             </div>
                                         </div>
 
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                <input type="number" class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
                                             </div>
                                         </div>
 
@@ -131,7 +135,7 @@ $(document).ready(function(){
                                         <div class="md:col-span-2">
                                             <div>
                                                 <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                <input class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
+                                                <input type="number" class="drawer-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
                                             </div>
                                         </div>
 
@@ -158,26 +162,39 @@ $(document).ready(function(){
                                 <div class="flex gap-4">
                                     <div class="gap-x-4 md:gap-4 mb-4 mt-4" id="claps_${counter}_details">
                                         <h6 class="text-15 font-semibold dark:text-white mb-4 mt-4">${window.page.ClapsDetails}</h6>
-                                        
+                                            
                                             <div class="md:col-span-2">
                                                     <div>
-                                                        <label for="clap_pr" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ClapsPr}</label>
-                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="clap_pr" id="clap_pr_${counter}">
+                                                        <label for="" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ClapType}</label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="claps_type" id="claps_type_${counter}">
+                                                            
                                                         </select>
                                                     </div>
                                             </div>
 
+                                
+                                            <div class="md:col-span-2">
+                                                    <div>
+                                                        <label class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200" for="grid-first-name">
+                                                            ${window.page.ClapCode}
+                                                        </label>
+                                                        <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200" required name="claps_code" id="claps_code_${counter}">
+                                                        </select>
+                                                    </div>
+                                            </div>
+                                                
+
                                             <div class="md:col-span-2">
                                                 <div>
                                                     <label for="lo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.lo}</label>
-                                                    <input class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
+                                                    <input type="number" class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="lo" id="lo_${counter}">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-2">
                                                 <div>
                                                     <label for="ro" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.ro}</label>
-                                                    <input class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
+                                                    <input type="number" class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="ro" id="ro_${counter}">
                                                 </div>
                                             </div>
 
@@ -185,7 +202,7 @@ $(document).ready(function(){
                                             <div class="md:col-span-2">
                                                 <div>
                                                     <label for="bo" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.bo}</label>
-                                                    <input class="w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
+                                                    <input type="number" class="clap-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="bo" id="bo_${counter}">
                                                 </div>
                                             </div>
 
@@ -209,7 +226,7 @@ $(document).ready(function(){
                                 <input type="hidden" name="subform_type" value="hinge">
                                 
                                 <div class="flex gap-4">
-                                        <div class="gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}">
+                                        <div class="gap-x-4 md:gap-4 mb-4" id="hinge_details_${counter}" style="max-height: 500px; overflow-y: scroll; scrollbar-width: none">
                                                 
                                             <h6 class="text-15 font-semibold dark:text-white mb-4">${window.page.HingeDetails}</h6>
                                 
@@ -225,9 +242,7 @@ $(document).ready(function(){
                                                 <div>
                                                     <label for="door_operning_side" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.DoorOpeningSide}</label>
                                                     <select class="col-span-12 sm:col-span-10 px-3 bg-white w-full border p-2 border-gray-400 rounded placeholder:text-sm focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700  dark:bg-zink-700 dark:border-zink-50 dark:text-zink-200"  required name="door_operning_side" id="door_operning_side_${counter}">
-                                                        
-                                                        
-                                                        
+                                                  
                                                     </select>
                                                 </div>
                                             </div>
@@ -246,14 +261,14 @@ $(document).ready(function(){
                                             <div class="md:col-span-4 mt-4">
                                                 <div>
                                                     <label for="yp" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.yp}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}" val="21.5">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" required name="yp" id="yp_${counter}" val="21.5">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-4 mt-4">
                                                 <div>
                                                     <label for="nh" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.nh}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}" val="2">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200 nh_counter_field" data-id="${counter}" required name="nh" type="text" id="nh_${counter}" val="2">
                                                 </div>
                                             </div>
 
@@ -261,40 +276,40 @@ $(document).ready(function(){
                                             <div class="md:col-span-4 xp1_div_${counter} mt-4">
                                                     <div>
                                                         <label for="xp1" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp1}</label>
-                                                        <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}" val="80">
+                                                        <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp1" id="xp1_${counter}" val="80">
                                                     </div>
                                             </div>
 
                                             <div class="md:col-span-4 xp2_div_${counter} mt-4"">
                                                 <div>
                                                     <label for="xp2" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp2}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}" val="80">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp2" id="xp2_${counter}" val="80">
                                                 </div>
                                             </div>
 
                                             <div class="md:col-span-4 xp3_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp3" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp3}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp3" id="xp3_${counter}">
                                                 </div>
                                             </div>
                                                 <div class="md:col-span-4 xp4_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp4" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp4}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp4" id="xp4_${counter}">
                                                 </div>
                                             </div>
                                             <div class="md:col-span-4 xp5_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp5" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp5}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp5" id="xp5_${counter}">
                                                 </div>
                                             </div>
                                                 
                                             <div class="md:col-span-4 xp6_div_${counter} mt-4" style="display:none;">
                                                 <div>
                                                     <label for="xp6" class="block font-medium text-gray-700 text-13 mb-2 dark:text-zink-200">${window.page.xp6}</label>
-                                                    <input class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
+                                                    <input type="number" class="hinge-input w-full border py-2 px-3 text-13 rounded border-gray-400 placeholder:text-13 focus:border focus:border-gray-400 focus:ring-0 focus:outline-none text-gray-700 dark:bg-transparent placeholder:text-gray-600 dark:border-zink-50 dark:placeholder:text-zink-200" name="xp6" id="xp6_${counter}">
                                                 </div>
                                             </div>
 
@@ -404,10 +419,15 @@ $(document).ready(function(){
             let drillDistance = parseFloat($(`#bo_${count_}.drawer-input`).val(21.5));
             drawDrawerSketch(no_of_drawer_drills);
         } else if (selected_entry.startsWith('claps')) {
-            drawClapSketch();
+            let side1 = parseFloat($(`#ro_${count_}.clap-input`).val(20));
+            let side2 = parseFloat($(`#lo_${count_}.clap-input`).val(20));
+            let drillDistance = parseFloat($(`#bo_${count_}.clap-input`).val(21.5));
+            drawClapSketch(no_of_clap_drills);
         } else if (selected_entry.startsWith('hinge')) {
+            let height = parseInt($(`#height_${count_}`).val()) || 700;
+
             let hole1 = parseFloat($(`#xp1_${count_}.hinge-input`).val(80));
-            let hole2 = parseFloat($(`#xp2_${count_}.hinge-input`).val(620));
+            let hole2 = parseFloat($(`#xp2_${count_}.hinge-input`).val(height - 80));
             let drillDistance = parseFloat($(`#yp_${count_}.hinge-input`).val(21.5));
             let nh = parseFloat($(`#nh_${count_}.hinge-input`).val(2));
             drawHingeSketch(id_);
@@ -1765,7 +1785,7 @@ $(document).ready(function(){
                 url:$("#link_to_grab_order_page_data_").val(), // add url for posting request
                 method:'POST',
                 data:{
-                    data_requirement:'claps_pr_order', 
+                    data_requirement:'claps', 
                 },
                 dataType:'JSON',
                 success:function(data){
@@ -1972,16 +1992,54 @@ $(document).ready(function(){
 
      function populateRowData_clap_pr_provider(ClapPrOrderData, row_count){
         
-        var target_elems = [`clap_pr_${row_count}`];
+        // var target_elems = [`clap_pr_${row_count}`];
 
+        // $.each(ClapPrOrderData.data, function (index, item) {
+                                
+        //         $(`#${target_elems[0]}`).append($('<option>', {
+        //                 text: item.helper_value_english,
+        //                 value: item.helper_value_english
+        //             }
+        //         ));
+        // }); //end second each
+
+
+        var target_elems = [`claps_type_${row_count}`,`claps_code_${row_count}`];
+            
+        $(`#${target_elems[0]}`).append($('<option>', {
+            text: window.page.select_a_value,
+            value: '', // Set value to empty if not needed
+            disabled: true, // Make it disabled if needed
+            selected: true // Make it selected by default
+        }));
+
+        $(`#${target_elems[1]}`).append($('<option>', {
+            text: window.page.select_a_value,
+            value: '', // Set value to empty if not needed
+            disabled: true, // Make it disabled if needed
+            selected: true // Make it selected by default
+        }));
         $.each(ClapPrOrderData.data, function (index, item) {
                                 
                 $(`#${target_elems[0]}`).append($('<option>', {
-                        text: item.helper_value_english,
-                        value: item.helper_value_english
+                        text: item.clap_type,
+                        value: item.clap_type,
+                        // 'data-drawercode':item.drawer_code,
                     }
                 ));
+
+
+
+                $(`#${target_elems[1]}`).append($('<option>', {
+                        text: item.clap_code,
+                        value: item.clap_code,
+                        // 'data-drawertype':item.drawer_type,
+                    }
+                ));
+
         }); //end second each
+
+
     } //ends populateRowData_HingeProvider here
 
     function populateRowData_DrawarData(Data, row_count){
@@ -2067,7 +2125,6 @@ $(document).ready(function(){
         let drawer_code = $(this).find(":selected").val();
         let id_ = $(this).attr("id").split('drawers_code_')[1];
         let draw_id = $(this).find(":selected").attr('data-id');
-        // console.log('[Fetched] - ', drawer_code, id_, draw_id, drawerSketchData);
 
         for (const el of drawerSketchData) {
             if (el.drawer_id === parseInt(draw_id)) {
@@ -2076,15 +2133,68 @@ $(document).ready(function(){
                 $(`#bo_${id_}.drawer-input`).val(el.default_low);
 
                 no_of_drawer_drills = parseInt(el.drills_amount);
+                currentDrawerObj = el;
+                // console.log('[No of drills] - ', no_of_drawer_drills, el)
                 drawDrawerSketch(no_of_drawer_drills);
                 break;
             }
         }
+    });
+    
+    
+    // new mapping based on claps_type
+    $('#order_table_tbody').on('change','select[name="claps_type"]',function(){
+        let clap_type = $(this).find(":selected").val();
+        let element_id = $(this).attr('id').replace('type','code');
+        $.ajax({
+                url:$("#link_to_grab_order_page_data_").val(), // add url for posting request
+                method:'POST',
+                data:{
+                    data_requirement:'get_specific_clap_codes', 
+                    clap_type:clap_type
+                },
+                dataType:'JSON',
+                success:function(data){
+                    clapSketchData = data.data;
 
-        // $(`#lo_${element_id}.drawer-input`).value(data.default_side);
-        // $(`#ro_${element_id}.drawer-input`).value(data.default_side);
-        // $(`#bo_${element_id}.drawer-input`).value(data.default_low);
-        
+                    $(`select#${element_id}`).empty().append($('<option>', {
+                            text: window.page.select_a_value,
+                            value: '', // Set value to empty if not needed
+                            disabled: true, // Make it disabled if needed
+                            selected: true // Make it selected by default
+                        }));
+                    
+
+                    $.each(data.data, function (index, item) {
+                        $(`select#${element_id}`).append($('<option>', {
+                            text: item.clap_code,
+                            value: item.clap_code,
+                         }).attr('data-id', data.data[index].clap_id));
+
+                   });
+                }//end success here
+        }); //end ajax call here
+    }); //end select[name="claps_type"] event here
+
+    
+    $('#order_table_tbody').on('change','select[name="claps_code"]',function(){
+        let clap_code = $(this).find(":selected").val();
+        let id_ = $(this).attr("id").split('claps_code_')[1];
+        let clap_id = $(this).find(":selected").attr('data-id');
+
+        for (const el of clapSketchData) {
+            if (el.clap_id === parseInt(clap_id)) {
+                $(`#lo_${id_}.clap-input`).val(el.default_side);
+                $(`#ro_${id_}.clap-input`).val(el.default_side);
+                $(`#bo_${id_}.clap-input`).val(el.default_upper);
+
+                no_of_clap_drills = parseInt(el.drills_amount);
+                currentClapObj = el;
+                console.log('[No of clap drills] - ', no_of_clap_drills, el)
+                drawClapSketch(no_of_clap_drills);
+                break;
+            }
+        }
     });
     
 
@@ -2498,6 +2608,7 @@ $(document).ready(function(){
         e.preventDefault();
         let form_id = $(this).attr('id');
         let data =  deserializeFormData($(this).serialize());
+        // console.log('\n\n[Form Data] - ', data, '\n\n');
         let key = `row_${extract_number(form_id)}_${data.subform_type}`;
         var myObject = {
             [key]: data
@@ -2512,7 +2623,7 @@ $(document).ready(function(){
             drilling_code = `${data.drawers_type} - ${data.drawers_code}`;
             success_msg = window.page.drawer_success_msg;
         } else if (data.subform_type ==  "claps") {
-            drilling_code = `${data.clap_pr}`;
+            drilling_code = `${data.claps_type} - ${data.claps_code}`;
             success_msg = window.page.claps_success_msg;
         } else if (data.subform_type ==  "hinge") {
             drilling_code = `${data.hinge_provider}`;
@@ -2906,20 +3017,20 @@ $(document).ready(function(){
 
         if (type.startsWith('nh')) {
             // If the nh is the input that is changed
-            if (nh > 6) { nh = 6; $(`#nh${i}_${counter}.hinge-input`).val(6); }
+            if (nh > 6) { nh = 6; }
             if (nh >=3) {
                 for (let i = 3; i <= nh; i++) {
                     let val = Math.ceil((((height/scaleFactor - 160) / (nh - 1)) * (i - 2) + 80) * 100) / 100 ;
-                    addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, val, scaleFactor);
+                    addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, val, scaleFactor);
                     $(`#xp${i}_${counter}.hinge-input`).val(val);
                 }
             }
         } else {
             if (nh >=3 && nh <=6) {
-                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole3, scaleFactor);
-                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole4, scaleFactor);
-                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole5, scaleFactor);
-                addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, hole6, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, hole3, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, hole4, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, hole5, scaleFactor);
+                addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, hole6, scaleFactor);
             }
         }
 
@@ -2946,9 +3057,7 @@ $(document).ready(function(){
     function drawDrawerSketch(num_of_drills=1) {
         const canvas = $("#drawerCanvas")[0];
         let counter = canvas.getAttribute('data-count');
-
         const ctx = canvas.getContext("2d");
-
         let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
         
         // Get values from inputs
@@ -2957,20 +3066,6 @@ $(document).ready(function(){
         let x1 = parseInt($(`#lo_${counter}.drawer-input`).val());
         let x2 = parseInt($(`#ro_${counter}.drawer-input`).val());
         let drillDistance = parseInt($(`#bo_${counter}.drawer-input`).val());
-        // let hole1 = parseInt($("#hole1d").val());
-        // let hole2 = parseInt($("#hole2d").val());
-        // let drillDistance = parseInt($("#drillDistanced").val());
-        // let sideBarHeight = parseInt($("#sideBarHeight").val());
-
-        console.log('[lg] - ', counter, x1, x2);
-        
-        // let width = 700;
-        // let height = 300;
-        let hole1 = 220;
-        let hole2 = 120;
-        // let x1 = 10;
-        // let x2 = 10;
-        // let drillDistance = 620;
         let sideBarHeight = 30;
 
         // Scale factor to fit within canvas
@@ -2989,7 +3084,6 @@ $(document).ready(function(){
         let drill1X = marginLeft - x1 + width;
         let drill2X = marginLeft + x2;
         let drillY = marginTop + height - drillDistance;
-        let drill2Y = marginTop + hole2 * scaleFactor;
 
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -3004,28 +3098,7 @@ $(document).ready(function(){
         
         drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarHeight, sideBarPosition);
 
-        // Draw Drill Holes
-        ctx.fillStyle = "#000";
-        ctx.beginPath();
-        ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        // ctx.beginPath();
-        // ctx.arc(drill1X, drill2Y, 5, 0, Math.PI * 2);
-        // ctx.fill();
-        // ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(drill2X, drillY, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        // ctx.beginPath();
-        // ctx.arc(drill2X, drill2Y, 5, 0, Math.PI * 2);
-        // ctx.fill();
-        // ctx.stroke();
-
         // Drill Line Indicators
-
         // RED BOTTOM LINE & LABEL
         ctx.strokeStyle = "red";
         ctx.beginPath();
@@ -3043,67 +3116,57 @@ $(document).ready(function(){
         ctx.lineTo((marginLeft - edgePadding), marginTop + height);
         ctx.stroke();
         ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
-
-        // ORANGE LINES
-        // DRILL 1 DASHED LINE & LABEL
-        // let val = (height - drillDistance) / scaleFactor;
-        ctx.strokeStyle = "orange";
-        ctx.fillStyle = "orange"; // For the label
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drillY);
-        ctx.lineTo(marginLeft + width + edgePadding, drillY);
-        ctx.stroke();
-        ctx.fillText(`${Math.ceil((drillDistance / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
-
-        // DRILL 2 DASHED LINE & LABEL
-        // ctx.beginPath();
-        // ctx.moveTo(drill1X, drill2Y);
-        // ctx.lineTo(marginLeft + width + edgePadding, drill2Y);
-        // ctx.stroke();
-        // ctx.fillText(`${hole2} mm`,  width + (marginLeft + 40), drill2Y + 5);
         
-
-        if (num_of_drills >= 2) {
+        if (num_of_drills > 0) {
+            let drill_padding = 0;
             for (let i = 1; i <= num_of_drills; i++) {
-                addDrawerDrills(ctx, marginTop, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, 20 * (i));
+                if (i > 1) {
+                    add = parseInt(currentDrawerObj[`drill_${i}`], 10) || 20;
+                    drill_padding += add * scaleFactor;
+                }
+                
+                addDrawerDrills(ctx, marginLeft, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, drill_padding);
+                
+
+                if (i == 1) {
+                    // ORANGE RIGHT DASHED LINE
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 3]);
+                    ctx.moveTo(marginLeft + (width + edgePadding), drillY);
+                    ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+                    ctx.stroke();
+
+                    // GREEN LINES
+                    ctx.strokeStyle = "green";
+                    ctx.beginPath();
+                    ctx.moveTo(drill1X, drillY);
+                    ctx.lineTo(drill1X, (marginTop + height + edgePadding));
+                    ctx.stroke();
+                    ctx.fillStyle = "green"; // For the label
+                    ctx.fillText(`${x1 / scaleFactor} mm`, drill1X, (marginTop + height + edgePadding + 15));
+            
+                    ctx.beginPath();
+                    ctx.moveTo(drill1X, (marginTop + height + edgePadding));
+                    ctx.lineTo((marginLeft) + width, (marginTop + height + edgePadding));
+                    ctx.stroke();
+                    
+                    // 2nd GREEN LINE
+                    ctx.setLineDash([5, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(drill2X, drillY);
+                    ctx.lineTo(drill2X, (marginTop + height + edgePadding));
+                    ctx.stroke();
+                    ctx.fillStyle = "green"; // For the label
+                    ctx.fillText(`${x2 / scaleFactor} mm`, drill2X, (marginTop + height + edgePadding + 15));
+            
+                    ctx.beginPath();
+                    ctx.moveTo(drill2X, (marginTop + height + edgePadding));
+                    ctx.lineTo(marginLeft, (marginTop + height + edgePadding));
+                    ctx.stroke();
+                }
             }
         }
-        
-        // ORANGE RIGHT DASHED LINE
-        ctx.beginPath();
-        ctx.moveTo(marginLeft + (width + edgePadding), drillY);
-        ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
-        ctx.stroke();
 
-        // GREEN LINES
-        ctx.strokeStyle = "green";
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drillY);
-        ctx.lineTo(drill1X, (marginTop + height + edgePadding));
-        ctx.stroke();
-        ctx.fillStyle = "green"; // For the label
-        ctx.fillText(`${x1 / scaleFactor} mm`, drill1X, (marginTop + height + edgePadding + 15));
-
-        ctx.beginPath();
-        ctx.moveTo(drill1X, (marginTop + height + edgePadding));
-        ctx.lineTo((marginLeft) + width, (marginTop + height + edgePadding));
-        ctx.stroke();
-        
-        // 2nd GREEN LINE
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(drill2X, drillY);
-        ctx.lineTo(drill2X, (marginTop + height + edgePadding));
-        ctx.stroke();
-        ctx.fillStyle = "green"; // For the label
-        ctx.fillText(`${x2 / scaleFactor} mm`, drill2X, (marginTop + height + edgePadding + 15));
-
-        ctx.beginPath();
-        ctx.moveTo(drill2X, (marginTop + height + edgePadding));
-        ctx.lineTo(marginLeft, (marginTop + height + edgePadding));
-        ctx.stroke();
 
         // Reset next updates
         ctx.strokeStyle = "#666";
@@ -3113,6 +3176,7 @@ $(document).ready(function(){
             let drillY = marginTop + height - (drillDistance + addition);
             // Draw Drill Holes
             ctx.fillStyle = "#000";
+            ctx.strokeStyle = "#000";
             ctx.beginPath();
             ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
             ctx.fill();
@@ -3132,35 +3196,26 @@ $(document).ready(function(){
             ctx.lineTo(marginLeft + width + edgePadding, drillY);
             ctx.stroke();
             ctx.fillText(`${Math.ceil(((drillDistance + addition) / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
+
+            // Reset dash for future lines
+            ctx.setLineDash([]);
         }
     }
 
-    function drawClapSketch() {
+
+    function drawClapSketch(num_of_drills=1) {
         const canvas = $("#clapCanvas")[0];
         let counter = canvas.getAttribute('data-count');
-
         const ctx = canvas.getContext("2d");
         let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
         
-
         // Get values from inputs
         let width = parseInt($(`#width_${counter}`).val()) || 400;
         let height = parseInt($(`#height_${counter}`).val()) || 700;
-        // let hole1 = parseInt($("#hole1").val());
-        let hole1 = parseInt( $(`#lo_${counter}.clap-input`).val()) || 80;
-        let x = parseInt($(`#ro_${counter}.clap-input`).val()) || 10;
-        // let x = parseInt($("#x").val());
-        // let drillDistance = parseInt($("#drillDistance").val());
-        // let sideBarWidth = parseInt($("#sideBarWidth").val());
-        
-        console.log('[lg] - ', counter,  $(`#lo_${counter}.clap-input`).val());
-        
-        // let width = 400;
-        // let height = 700;
-        // let hole1 = 80;
-        // let x = 10;
-        let drillDistance = 620;
-        let sideBarWidth = 30;
+        let x2 = parseInt($(`#lo_${counter}.clap-input`).val());
+        let x1 = parseInt($(`#ro_${counter}.clap-input`).val());
+        let drillDistance = parseInt($(`#bo_${counter}.clap-input`).val());
+        let sideBarHeight = 30;
 
         // Scale factor to fit within canvas
         let scaleFactor = 0.5;
@@ -3171,11 +3226,13 @@ $(document).ready(function(){
         width *= scaleFactor;
         height *= scaleFactor;
         drillDistance *= scaleFactor;
-        sideBarWidth *= scaleFactor;
+        sideBarHeight *= scaleFactor;
+        x1 *= scaleFactor;
+        x2 *= scaleFactor;
 
-        let drill1X = marginLeft - x + width;
-        let drill2X = marginLeft + x + sideBarWidth;
-        let drill1Y = marginTop + hole1 * scaleFactor;
+        let drill1X = marginLeft - x1 + width;
+        let drill2X = marginLeft + x2;
+        let drillY = marginTop + drillDistance;
 
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -3187,53 +3244,18 @@ $(document).ready(function(){
         ctx.strokeStyle = "#666";
         ctx.lineWidth = 1;
         ctx.strokeRect(marginLeft, marginTop, width, height);
-
-        // Draw Side Bar with border
-        // ctx.fillStyle = "#ddd";
-        // ctx.strokeStyle = "#666";
-        // ctx.lineWidth = 1;
-        // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
-        // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
-        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
-
-        // Draw Drill Holes
-        ctx.fillStyle = "black";
-        ctx.beginPath();
-        ctx.arc(drill1X, drill1Y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill1X, drill1Y + 15, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill1X, drill1Y + 30, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill1X, drill1Y + 45, 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(drill2X, drill1Y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill2X, drill1Y + 15, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill2X, drill1Y + 30, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(drill2X, drill1Y + 45, 4, 0, Math.PI * 2);
-        ctx.fill();
+        
+        drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarHeight, sideBarPosition);
 
         // Drill Line Indicators
-
         // RED BOTTOM LINE & LABEL
         ctx.strokeStyle = "red";
         ctx.beginPath();
-        ctx.moveTo(marginLeft, (edgePadding + marginTop) + height);
-        ctx.lineTo(marginLeft + width, (edgePadding + marginTop) + height);
+        ctx.moveTo(marginLeft, (marginTop + height + edgePadding));
+        ctx.lineTo(marginLeft + width, (marginTop + height + edgePadding));
         ctx.stroke();
         ctx.fillStyle = "red"; // For the label
-        ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop + height + 20);
+        ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop + height + edgePadding + 10);
 
         // BLUE LEFT LINE & LABEL
         ctx.strokeStyle = "blue";
@@ -3243,50 +3265,239 @@ $(document).ready(function(){
         ctx.lineTo((marginLeft - edgePadding), marginTop + height);
         ctx.stroke();
         ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
-
-        // ORANGE LINES
-        // DRILL 1 DASHED LINE & LABEL
-        ctx.strokeStyle = "orange";
-        ctx.fillStyle = "orange"; // For the label
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drill1Y);
-        ctx.lineTo(drill1X + 40, drill1Y);
-        ctx.stroke();
-        ctx.fillText(`${hole1} cm`, width + (marginLeft + 40), drill1Y + 5);
         
-        // ORANGE RIGHT DASHED LINE
-        ctx.beginPath();
-        ctx.setLineDash([]);
-        ctx.moveTo(marginLeft + (width + edgePadding), drill1Y);
-        ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
-        ctx.stroke();
+        if (num_of_drills > 0) {
+            let drill_padding = 0;
+            for (let i = 1; i <= num_of_drills; i++) {
+                if (i > 1) {
+                    add = parseInt(currentClapObj[`drill_${i}`], 10) || 20;
+                    drill_padding += add * scaleFactor;
+                }
+                
+                addClapDrills(ctx, marginLeft, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, drill_padding);
+                
 
-        // GREEN LINES
-        ctx.strokeStyle = "green";
-        ctx.setLineDash([5, 3]);
-        ctx.beginPath();
-        ctx.moveTo(drill1X, marginTop);
-        ctx.lineTo(drill1X, (marginTop - edgePadding));
-        ctx.stroke();
-        ctx.fillStyle = "green"; // For the label
-        ctx.fillText(`${x} cm`, drill1X, marginTop - 10);
+                if (i == 1) {
+                    // ORANGE RIGHT DASHED LINE
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 3]);
+                    ctx.moveTo(marginLeft + (width + edgePadding), drillY);
+                    ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+                    ctx.stroke();
 
-        ctx.beginPath();
-        ctx.moveTo(drill1X, drill1Y - (marginTop - edgePadding));
-        ctx.lineTo((marginLeft) + width, drill1Y - (marginTop - edgePadding));
-        ctx.stroke();
+                    // GREEN LINES
+                    ctx.strokeStyle = "green";
+                    ctx.beginPath();
+                    ctx.moveTo(drill1X, drillY);
+                    ctx.lineTo(drill1X, (marginTop - edgePadding));
+                    ctx.stroke();
+                    ctx.fillStyle = "green"; // For the label
+                    ctx.fillText(`${x1 / scaleFactor} mm`, drill1X, (marginTop - edgePadding - 10));
+            
+                    ctx.beginPath();
+                    ctx.moveTo(drill1X, (marginTop - edgePadding));
+                    ctx.lineTo((marginLeft) + width, (marginTop - edgePadding));
+                    ctx.stroke();
+                    
+                    // 2nd GREEN LINE
+                    ctx.setLineDash([5, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(drill2X, drillY);
+                    ctx.lineTo(drill2X, (marginTop - edgePadding));
+                    ctx.stroke();
+                    ctx.fillStyle = "green"; // For the label
+                    ctx.fillText(`${x2 / scaleFactor} mm`, drill2X, (marginTop - edgePadding - 10));
+            
+                    ctx.beginPath();
+                    ctx.moveTo(drill2X, (marginTop - edgePadding));
+                    ctx.lineTo(marginLeft, (marginTop - edgePadding));
+                    ctx.stroke();
+                }
+            }
+        }
 
-        // Reset next updates 
+
+        // Reset next updates
         ctx.strokeStyle = "#666";
         ctx.setLineDash([]);
+        
+        function addClapDrills(ctx, marginLeft, marginTop, width, height, scaleFactor, edgePadding, drill1X, drill2X, drillDistance, addition) {
+            let drillY = marginTop + drillDistance + addition;
+            // Draw Drill Holes
+            ctx.fillStyle = "#000";
+            ctx.strokeStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(drill2X, drillY, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            
+            // ORANGE LINES
+            ctx.strokeStyle = "orange";
+            ctx.fillStyle = "orange"; // For the label
+            ctx.setLineDash([5, 3]);
+            ctx.beginPath();
+            ctx.moveTo(drill1X, drillY);
+            ctx.lineTo(marginLeft + width + edgePadding, drillY);
+            ctx.stroke();
+            ctx.fillText(`${Math.ceil(((drillDistance + addition) / scaleFactor) * 100) / 100} mm`, width + (marginLeft + 40), drillY + 5);
+
+            // Reset dash for future lines
+            ctx.setLineDash([]);
+        }
     }
 
+    // function drawClapSketch(num_of_drills=1) {
+    //     const canvas = $("#clapCanvas")[0];
+    //     let counter = canvas.getAttribute('data-count');
+    //     const ctx = canvas.getContext("2d");
+    //     let sideBarPosition = parseInt($(`#knob_position_${counter}`).val()) || 5;
+        
 
-    function addHingeDrills(ctx, width, height, marginTop, marginLeft, drill1X, holen=0, scaleFactor) {
+    //     // Get values from inputs
+    //     let width = parseInt($(`#width_${counter}`).val()) || 400;
+    //     let height = parseInt($(`#height_${counter}`).val()) || 700;
+        
+    //     let x1 = parseInt($(`#lo_${counter}.clap-input`).val());
+    //     let x2 = parseInt($(`#ro_${counter}.clap-input`).val());
+    //     let drillDistance = parseInt($(`#bo_${counter}.clap-input`).val());
+    //     let sideBarWidth = 30;
+        
+    //     console.log('[lg] - ', counter,  $(`#lo_${counter}.clap-input`).val());
+        
+
+    //     // Scale factor to fit within canvas
+    //     let scaleFactor = 0.5;
+    //     let marginTop = 50;
+    //     let marginLeft = 100;
+    //     let edgePadding = 5;
+
+    //     width *= scaleFactor;
+    //     height *= scaleFactor;
+    //     x1 *= scaleFactor;
+    //     x2 *= scaleFactor;
+    //     drillDistance *= scaleFactor;
+    //     sideBarWidth *= scaleFactor;
+
+    //     let drill1X = marginLeft - x1 + width;
+    //     let drill2X = marginLeft + x2;
+    //     let drill1Y = marginTop + drillDistance;
+
+    //     // Clear canvas
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //     ctx.font = "14px Arial";
+    //     ctx.textAlign = "center";
+
+    //     // Draw Main Rectangle
+    //     ctx.strokeStyle = "#666";
+    //     ctx.lineWidth = 1;
+    //     ctx.strokeRect(marginLeft, marginTop, width, height);
+
+    //     // Draw Side Bar with border
+    //     // ctx.fillStyle = "#ddd";
+    //     // ctx.strokeStyle = "#666";
+    //     // ctx.lineWidth = 1;
+    //     // ctx.fillRect(marginLeft, marginTop, sideBarWidth, height);
+    //     // ctx.strokeRect(marginLeft, marginTop, sideBarWidth, height);
+    //     drawSideBar(ctx, marginLeft, marginTop, width, height, sideBarWidth, sideBarPosition);
+
+    //     // Draw Drill Holes
+    //     ctx.fillStyle = "black";
+    //     ctx.beginPath();
+    //     ctx.arc(drill1X, drill1Y, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill1X, drill1Y + 15, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill1X, drill1Y + 30, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill1X, drill1Y + 45, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+
+    //     ctx.beginPath();
+    //     ctx.arc(drill2X, drill1Y, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill2X, drill1Y + 15, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill2X, drill1Y + 30, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+    //     ctx.beginPath();
+    //     ctx.arc(drill2X, drill1Y + 45, 4, 0, Math.PI * 2);
+    //     ctx.fill();
+
+    //     // Drill Line Indicators
+
+    //     // RED BOTTOM LINE & LABEL
+    //     ctx.strokeStyle = "red";
+    //     ctx.beginPath();
+    //     ctx.moveTo(marginLeft, (edgePadding + marginTop) + height);
+    //     ctx.lineTo(marginLeft + width, (edgePadding + marginTop) + height);
+    //     ctx.stroke();
+    //     ctx.fillStyle = "red"; // For the label
+    //     ctx.fillText(`מ”מ ${width / scaleFactor} רוחב`, marginLeft + width / 2, marginTop + height + 20);
+
+    //     // BLUE LEFT LINE & LABEL
+    //     ctx.strokeStyle = "blue";
+    //     ctx.fillStyle = "blue"; // For the label
+    //     ctx.beginPath();
+    //     ctx.moveTo((marginLeft - edgePadding), marginTop);
+    //     ctx.lineTo((marginLeft - edgePadding), marginTop + height);
+    //     ctx.stroke();
+    //     ctx.fillText(`מ”מ ${height / scaleFactor} גובה`, marginLeft / 2, marginTop + height / 2);
+
+    //     // ORANGE LINES
+    //     // DRILL 1 DASHED LINE & LABEL
+    //     ctx.strokeStyle = "orange";
+    //     ctx.fillStyle = "orange"; // For the label
+    //     ctx.setLineDash([5, 3]);
+    //     ctx.beginPath();
+    //     ctx.moveTo(drill1X, drill1Y);
+    //     ctx.lineTo(drill1X + 40, drill1Y);
+    //     ctx.stroke();
+    //     ctx.fillText(`${hole1 / scaleFactor} mm`, width + (marginLeft + 40), drill1Y + 5);
+        
+    //     // ORANGE RIGHT DASHED LINE
+    //     ctx.beginPath();
+    //     ctx.setLineDash([]);
+    //     ctx.moveTo(marginLeft + (width + edgePadding), drill1Y);
+    //     ctx.lineTo(marginLeft + (width + edgePadding), height + marginTop);
+    //     ctx.stroke();
+
+    //     // GREEN LINES
+    //     ctx.strokeStyle = "green";
+    //     ctx.setLineDash([5, 3]);
+    //     ctx.beginPath();
+    //     ctx.moveTo(drill1X, marginTop);
+    //     ctx.lineTo(drill1X, (marginTop - edgePadding));
+    //     ctx.stroke();
+    //     ctx.fillStyle = "green"; // For the label
+    //     ctx.fillText(`${x / scaleFactor} mm`, drill1X, marginTop - 10);
+
+    //     ctx.beginPath();
+    //     ctx.moveTo(drill1X, drill1Y - (marginTop - edgePadding));
+    //     ctx.lineTo((marginLeft) + width, drill1Y - (marginTop - edgePadding));
+    //     ctx.stroke();
+
+    //     // Reset next updates 
+    //     ctx.strokeStyle = "#666";
+    //     ctx.setLineDash([]);
+    // }
+
+
+    function addHingeDrills(ctx, width, height, marginTop, marginLeft, edgePadding, drill1X, holen=0, scaleFactor) {
         let drillY = marginTop + height - (holen * scaleFactor);
         
         // ctx.fillStyle = "#666";
+        ctx.setLineDash([]);
         ctx.fill();
         ctx.beginPath();
         ctx.arc(drill1X, drillY, 5, 0, Math.PI * 2);
@@ -3304,7 +3515,7 @@ $(document).ready(function(){
         ctx.setLineDash([5, 3]);
         ctx.beginPath();
         ctx.moveTo(drill1X, drillY);
-        ctx.lineTo(drill1X + 20, drillY);
+        ctx.lineTo(marginLeft + width + edgePadding, drillY);
         ctx.stroke();
         ctx.fillText(`${holen} mm`, width + (marginLeft + 40), drillY + 5);
     }
@@ -3347,12 +3558,12 @@ $(document).ready(function(){
     });
 
     $(document).on('input','.drawer-input',function(){
-        let type = $(this).attr('id');
+        // let type = $(this).attr('id');
         drawDrawerSketch(no_of_drawer_drills);
     });
 
     $(document).on('input','.clap-input',function(){
-        drawClapSketch();
+        drawClapSketch(no_of_clap_drills);
     });
     
     // $(document).ready(function () {
